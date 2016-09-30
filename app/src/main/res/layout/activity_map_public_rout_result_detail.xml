@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <tndn.app.nyam.widget.TDActionBar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:id="@+id/map_public_rout_result_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_start_black" />
+
+                <TextView
+                    android:id="@+id/map_public_rout_result_detail_start"
+                    style="@style/map_public_rout_result_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="동문로터리" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/map_public_rout_result_detail_busno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:text="720번"
+                android:textColor="@color/blue_bus"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_end_black" />
+
+                <TextView
+                    android:id="@+id/map_public_rout_result_detail_end"
+                    style="@style/map_public_rout_result_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="광양" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/map_public_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距离 约 " />
+
+            <TextView
+                android:id="@+id/map_public_rout_result_detail_dist"
+                style="@style/map_public_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.2km"
+                android:textColor="@color/tndn_pink" />
+
+            <TextView
+                style="@style/map_public_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="时间 约 " />
+
+            <TextView
+                android:id="@+id/map_public_rout_result_detail_time"
+                style="@style/map_public_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.2km"
+                android:textColor="@color/tndn_pink" />
+
+            <TextView
+                android:id="@+id/map_public_rout_result_detail_transit"
+                style="@style/map_public_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="(환승 1회)" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/map_public_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车费 约 " />
+
+            <TextView
+                android:id="@+id/map_public_rout_result_detail_cost"
+                style="@style/map_public_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.2km"
+                android:textColor="@color/tndn_yellow" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/item_map_public_rout_result_detail_layout_start"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/item_map_rout_result_detail_icon_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_start_mark" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/item_map_rout_result_detail_text_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_start"
+                    android:text="@string/map_start"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/item_map_public_rout_result_detail_dist_time_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_map_rout_result_detail_text_start"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_start"
+                    android:text="간세라운지"
+                    android:textColor="@color/tndn_black"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/item_map_public_rout_result_detail_layout_first_stop"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/item_map_rout_result_detail_icon_first_stop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_rout_walk" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/item_map_rout_result_detail_text_first_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_first_stop"
+                    android:text="@string/walk"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/item_map_public_rout_result_detail_dist_time_first_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_map_rout_result_detail_text_first_stop"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_first_stop"
+                    android:text="250m이동 (7분)"
+                    android:textColor="@color/gray_9b"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/item_map_public_rout_result_detail_layout_mid_stop"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/item_map_rout_result_detail_icon_mid_stop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_rout_bus" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/item_map_rout_result_detail_text_mid_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_mid_stop"
+                    android:text="동문로터리"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/item_map_public_rout_result_detail_dist_time_mid_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_map_rout_result_detail_text_mid_stop"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_mid_stop"
+                    android:text="720(심야)(제주중앙고)"
+                    android:textColor="@color/blue_bus"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/item_map_public_rout_result_detail_dist_time_mid_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_map_public_rout_result_detail_dist_time_mid_stop"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_mid_stop"
+                    android:text="250m이동 (7분)"
+                    android:textColor="@color/gray_9b"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/item_map_public_rout_result_detail_layout_last_stop"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/item_map_rout_result_detail_icon_last_stop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_rout_bus" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/item_map_rout_result_detail_text_last_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_last_stop"
+                    android:text="광양"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/item_map_public_rout_result_detail_dist_time_last_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_map_rout_result_detail_text_last_stop"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_last_stop"
+                    android:text="250m이동 (7분)"
+                    android:textColor="@color/gray_9b"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/item_map_public_rout_result_detail_layout_end"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/item_map_rout_result_detail_icon_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_end_mark" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/item_map_rout_result_detail_text_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_end"
+                    android:text="@string/map_end"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/item_map_public_rout_result_detail_dist_time_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/item_map_rout_result_detail_text_end"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/item_map_public_rout_result_detail_layout_end"
+                    android:text="제주벤처마루"
+                    android:textColor="@color/gray_9b"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

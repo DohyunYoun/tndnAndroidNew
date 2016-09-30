@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--start etc menu layout-->
+    <RelativeLayout
+        android:id="@+id/item_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/item_res_menu_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@mipmap/noimg_food"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/item_res_menu_imageview"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_res_menu_name_chn"
+                    style="@style/item_menu_name_chn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="함박스테이크" />
+
+                <TextView
+                    android:id="@+id/item_res_menu_name_kor"
+                    style="@style/item_menu_name_kor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="함박스테이크" />
+
+                <TextView
+                    android:id="@+id/item_res_menu_price_kor"
+                    style="@style/item_menu_price_kor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="0" />
+
+                <TextView
+                    android:id="@+id/item_res_menu_price_chn"
+                    style="@style/item_menu_price_chn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/item_res_menu_minus_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/clicked_menu_minus"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/item_res_menu_count"
+                style="@style/item_menu_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="0"
+                android:textColor="@color/gray_9b" />
+
+            <ImageButton
+                android:id="@+id/item_res_menu_plus_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/clicked_menu_plus"
+                android:padding="10dp" />
+        </LinearLayout>
+    </RelativeLayout>
+    <!--end etc menu laytou-->
+
+    <!--start cafe layout-->
+    <RelativeLayout
+        android:id="@+id/item_cafe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/item_res_menu_cafe_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@mipmap/noimg_food"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/item_res_menu_cafe_imageview"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_res_menu_cafe_name_chn"
+                    style="@style/item_menu_name_chn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="함박스테이크" />
+
+                <TextView
+                    android:id="@+id/item_res_menu_cafe_name_kor"
+                    style="@style/item_menu_name_kor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="함박스테이크" />
+
+                <TextView
+                    style="@style/item_menu_price_kor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="0"
+                    android:visibility="invisible" />
+
+                <TextView
+                    style="@style/item_menu_price_chn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:visibility="invisible" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+            <ImageView
+                android:id="@+id/menu_cafe_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/clicked_food_menu_cafe" />
+
+            <TextView
+                android:id="@+id/menu_cafe_order_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@mipmap/img_cafe_menu_icehot"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:text="H1/I3"
+                android:textColor="@color/tndn_pink"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <!--end cafe layout-->
+</RelativeLayout>

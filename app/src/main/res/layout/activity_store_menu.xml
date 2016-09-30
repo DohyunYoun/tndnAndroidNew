@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/food_menu_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <tndn.app.nyam.widget.TDActionBar
+                android:id="@+id/actionbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/white"
+                android:gravity="center|bottom"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/food_menu_information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:adjustViewBounds="true"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/btn_information" />
+
+                <ImageView
+                    android:id="@+id/food_menu_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:adjustViewBounds="true"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/btn_menu_clicked" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/tndn_line" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/food_menu_top"
+            android:orientation="horizontal">
+            <!--category-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/tndn_line"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/food_menu_main"
+                    style="@style/menu_category_textview"
+                    android:text="@string/food_menu_main" />
+
+                <TextView
+                    android:id="@+id/food_menu_sub"
+                    style="@style/menu_category_textview"
+                    android:text="@string/food_menu_sub" />
+
+                <TextView
+                    android:id="@+id/food_menu_extra"
+                    style="@style/menu_category_textview"
+                    android:text="@string/food_menu_extra" />
+
+                <TextView
+                    android:id="@+id/food_menu_drink"
+                    style="@style/menu_category_textview"
+                    android:text="@string/food_menu_drink" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/food_menu_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
+                android:background="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/tndn_black"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="0.6"
+                android:orientation="horizontal"
+                android:paddingLeft="60dp">
+
+                <TextView
+                    android:id="@+id/food_menu_total_kor"
+                    style="@style/menu_total_kor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="₩ 0" />
+
+                <TextView
+                    android:id="@+id/food_menu_total_chn"
+                    style="@style/menu_total_chn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="¥ 0" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/food_menu_pay_button"
+                style="@style/menu_pay_button"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="0.4"
+                android:background="@color/tndn_pink"
+                android:orientation="horizontal"
+                android:text="@string/goto_order">
+
+            </Button>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/food_menu_total_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shape_menu_cart_circle"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <!--검정박스-->
+    <LinearLayout
+        android:id="@+id/menu_popup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#cc000000"
+        android:gravity="center"
+        android:padding="40dp"
+        android:visibility="gone">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/img_popup"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp">
+                <!--name-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/menu_popup_name_chn"
+                        style="@style/item_menu_name_chn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="함박스테이크" />
+
+                    <TextView
+                        android:id="@+id/menu_popup_name_kor"
+                        style="@style/item_menu_name_kor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="함박스테이크" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/menu_popup_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:adjustViewBounds="true"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/clicked_selector_check" />
+
+            </RelativeLayout>
+            <!--이름이랑 체크박스 끝-->
+            <!--아이스 시작-->
+            <RelativeLayout
+                android:id="@+id/menu_popup_ice_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_ice" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingRight="30dp">
+
+                    <TextView
+                        android:id="@+id/menu_popup_ice_price_kor"
+                        style="@style/item_menu_price_kor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="0" />
+
+                    <TextView
+                        android:id="@+id/menu_popup_ice_price_chn"
+                        style="@style/item_menu_price_chn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0" />
+                </LinearLayout>
+                <!--가격 끝-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/menu_popup_ice_minus_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/clicked_menu_minus"
+                        android:padding="10dp" />
+
+                    <TextView
+                        android:id="@+id/menu_popup_ice_count"
+                        style="@style/item_menu_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="0"
+                        android:textColor="@color/gray_9b" />
+
+                    <ImageButton
+                        android:id="@+id/menu_popup_ice_plus_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/clicked_menu_plus"
+                        android:padding="10dp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!--아이스 끝-->
+            <View
+                android:id="@+id/menu_popup_icehot_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/tndn_line" />
+            <!--핫 시작-->
+            <RelativeLayout
+                android:id="@+id/menu_popup_hot_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_hot" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingRight="30dp">
+
+                    <TextView
+                        android:id="@+id/menu_popup_hot_price_kor"
+                        style="@style/item_menu_price_kor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="0" />
+
+                    <TextView
+                        android:id="@+id/menu_popup_hot_price_chn"
+                        style="@style/item_menu_price_chn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0" />
+                </LinearLayout>
+                <!--가격 끝-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/menu_popup_hot_minus_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/clicked_menu_minus"
+                        android:padding="10dp" />
+
+                    <TextView
+                        android:id="@+id/menu_popup_hot_count"
+                        style="@style/item_menu_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="0"
+                        android:textColor="@color/gray_9b" />
+
+                    <ImageButton
+                        android:id="@+id/menu_popup_hot_plus_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/clicked_menu_plus"
+                        android:padding="10dp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!--핫 끝-->
+        </LinearLayout>
+        <!--흰색팝업 꿑-->
+    </LinearLayout>
+    <!--검정박스 끝-->
+</FrameLayout>

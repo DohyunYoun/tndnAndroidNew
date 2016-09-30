@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "tndn.app.nyam"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    support library
+    compile 'com.android.support:appcompat-v7:22.2.0'
+//    compile library
+    compile files('libs/alipaySDK.jar')
+    compile files('libs/tpmap_sdk_v1.0.jar')
+    compile files('libs/weiboSDKCore_3.1.4.jar')
+    compile files('libs/weibosdkcore.jar')
+    compile files('libs/zxing-core.jar')
+
+//    compile gradle
+//viewpager
+    compile 'com.viewpagerindicator:library:2.4.1@aar'
+    compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
+        exclude module: 'support-v4'
+    }
+
+//    volley
+    compile 'com.mcxiaoke.volley:library:1.0.+'
+
+//    INTENT OBJECT USING GSON
+    compile 'com.google.code.gson:gson:2.2.+'
+
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/white"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_map_search_result_name"
+            style="@style/item_map_search_result_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="구좌상회" />
+
+        <TextView
+            android:id="@+id/item_map_search_result_address_kor"
+            style="@style/item_map_search_result_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제주특별자치도 제주시 구좌읍 월정리 415" />
+        <TextView
+            android:id="@+id/item_map_search_result_address_chn"
+            style="@style/item_map_search_result_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제주특별자치도 제주시 구좌읍 월정리 415" />
+
+    </LinearLayout>
+
+</LinearLayout>

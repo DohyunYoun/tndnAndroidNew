@@ -1,0 +1,135 @@
+<resources>
+
+    <string name="app_name">甜点旅游</string>
+
+    <!--base-->
+    <string name="jeju">济州岛</string>
+    <string name="suwonsi">水原市</string>
+    <string name="seoulsi">首尔市</string>
+    <string name="busansi">釜山市</string>
+    <string name="btn_ok">确认</string>
+    <string name="btn_cancel">取消</string>
+    <string name="error">敬请期待</string>
+    <string name="food">饮食</string>
+    <string name="order">请帮我下单</string>
+
+
+
+    <!--zxing-->
+    <string name="qr_notice">将二维码/条码放入框内，即可自动扫描。</string>
+
+    <!--TDHomeActivity-->
+    <string name="main_title_alipay">可以使用支付宝的餐厅</string>
+    <string name="main_title_jejuweekly">济州周刊</string>
+    <string name="jejuweekly_title_01">春天,一场色彩的盛宴</string>
+    <string name="jejuweekly_content_01">早春时节,依然春寒料峭的济州,迎面吹来的风中带着一丝久违的暖意,不时送来阵阵清新的花草气息,厚厚的外套变得有些碍手碍脚了。</string>
+    <string name="jejuweekly_title_02">Play Kpop博物馆——圆你追星梦</string>
+    <string name="jejuweekly_content_02">早就听说西归浦中文旅游区新开了一家非常有意思的韩流博物馆,百闻不如一见,在一个阳光灿烂的周末,我带...</string>
+    <string name="voice">中-韩语音</string>
+    <string name="plz_wait">请稍等。。。 正在努力搜索</string>
+
+    <!--TDAssistantActivity-->
+    <string name="cs">旅游秘书</string>
+
+
+    <!--BackPressCloseHandler-->
+    <string name="backclose">再次按“返回”会退出甜点</string>
+
+    <!--SaveImagetoStorage-->
+    <string name="download_qr_image">保存二维码</string>
+
+    <!--TDLoginActivity-->
+    <string name="login_join"><u>加入会员</u></string>
+    <string name="skip"><u>跳过</u></string>
+    <string name="login_email">邮箱</string>
+    <string name="login_email_hint">输入邮箱    </string>
+    <string name="login_password">密码</string>
+    <string name="login_password_hint">输入密码    </string>
+    <string name="join_password_hint">输入密码 (最少6位数)    </string>
+    <string name="login_login">登录</string>
+    <string name="login_start">开始</string>
+    <string name="login_complete">完成</string>
+    <string name="login_nickname">账号</string>
+    <string name="login_gender">性别</string>
+    <string name="login_age">年龄</string>
+
+
+    <!--TDJoinActivity-->
+    <string name="join_year">出生年</string>
+    <string name="join_month">月</string>
+    <string name="join_date">日</string>
+    <!--
+   for webo
+   -->
+    <string name="weibosdk_demo_token_to_string_format_1">Token：%1$s \n有效期：%2$s</string>
+    <string name="weibosdk_demo_toast_auth_canceled">取消授权</string>
+    <string name="weibosdk_demo_logout_success">已注销</string>
+    <string name="weibosdk_demo_logout_failed">注销失败</string>
+    <string name="com_sina_weibo_sdk_logout">注销</string>
+    <string name="com_sina_weibo_sdk_login_with_weibo_account">用微博登录</string>
+    <string name="title_activity_buy_coupon">BuyCouponActivity</string>
+
+
+    <!--TDMypageActivity-->
+    <string name="mypage">我的主页</string>
+    <string name="logout">退出</string>
+    <string name="plz_login">登录或成为会员后所提供的服务</string>
+
+    <!--StoreListActivity-->
+    <string name="category">餐厅</string>
+    <!--//찾을수 없음-->
+    <string name="no_distance">无法搜索</string>
+    <!--filter-->
+    <!--초기화-->
+    <string name="reset">初始化</string>
+    <!--세부지역(중복선텍불가능)-->
+    <string name="filter_location">具体地区（可多项选择）</string>
+    <!--3. 음식분류 (중복선택 가능) -->
+    <string name="filter_food">美食分类（可多项选择）</string>
+    <!--4. 적용하기 -->
+    <string name="filter_ok">适用</string>
+    <!--5. 거리순 -->
+    <string name="order_distance">按距离排序</string>
+    <!--6. 인기순 -->
+    <string name="order_popular">按人气排序</string>
+    <!--7. 세부지역/음식분류 -->
+    <string name="filter">具体地区/美食分类</string>
+
+    <!--?? 해당 경로로 길찾기 하시겠습니까?-->
+    <string name="getMapFrom">连接到搜索路线。</string>
+
+    <!--GpsInfo-->
+    <string name="plz_gps">同意使用GPS定位</string>
+
+
+    <!--map-->
+    <string name="map">地图</string>
+    <string name="map_noresult">没有搜索结果</string>
+    <string name="car">驾车</string>
+    <string name="bus">公交</string>
+    <string name="walk">步行</string>
+    <string name="map_start">输入起点</string>
+    <string name="map_end">输入终点</string>
+    <string name="map_route_noregion">导航范围限济州地区内</string>
+    <string name="current_location">我的位置</string>
+    <string name="map_nostart">请输入出发点</string>
+    <string name="map_noend">请输入到达点</string>
+
+    <!--currency-->
+    <string name="curr_kor">₩</string>
+    <string name="curr_chn">¥</string>
+
+    <!--StoreInfoActivity-->
+    <string name="road_card_plz"><u>请出示给司机</u></string>
+
+    <!--StoreMenuACtivity-->
+    <string name="food_menu_main">主食</string>
+    <string name="food_menu_sub">小吃</string>
+    <string name="food_menu_extra">配餐</string>
+    <string name="food_menu_drink">饮料</string>
+    <string name="goto_order">点菜 </string>
+    <string name="menu_error">请选择菜</string>
+
+    <!--FoodOrderActivity-->
+    <string name="alipay">用支付宝支付</string>
+</resources>

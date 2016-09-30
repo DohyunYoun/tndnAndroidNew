@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/map_public_rout_result"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_start_black" />
+
+            <TextView
+                android:id="@+id/item_map_public_rout_result_start"
+                style="@style/map_public_rout_result_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="구좌상회" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_map_public_rout_result_busno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:text="720번"
+            android:textColor="@color/blue_bus"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_end_black" />
+
+            <TextView
+                android:id="@+id/item_map_public_rout_result_end"
+                style="@style/map_public_rout_result_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="구좌상회" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/map_public_rout_result_etc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="距离 约 " />
+
+        <TextView
+            android:id="@+id/item_map_public_rout_result_dist"
+            style="@style/map_public_rout_result_etc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.2km"
+            android:textColor="@color/tndn_pink" />
+
+        <TextView
+            style="@style/map_public_rout_result_etc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="时间 约 " />
+
+        <TextView
+            android:id="@+id/item_map_public_rout_result_time"
+            style="@style/map_public_rout_result_etc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.2km"
+            android:textColor="@color/tndn_pink" />
+
+        <TextView
+            android:id="@+id/item_map_public_rout_result_transit"
+            style="@style/map_public_rout_result_etc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="(환승 1회)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/map_public_rout_result_etc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车费 约 " />
+
+        <TextView
+            android:id="@+id/item_map_public_rout_result_cost"
+            style="@style/map_public_rout_result_etc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.2km"
+            android:textColor="@color/tndn_yellow" />
+    </LinearLayout>
+</LinearLayout>

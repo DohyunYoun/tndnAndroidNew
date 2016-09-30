@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <tndn.app.nyam.widget.TDActionBar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--data start-->
+
+            <!--제주국제공항입구[동](월성)-->
+            <TextView
+                style="@style/bus_airport_title"
+                android:text="제주국제공항입구[동] - 월성 마을 방향" />
+
+
+            <ListView
+                android:id="@+id/map_bus_airport_listview01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/map_bus_airport_listview_empty01"
+                style="@style/bus_airport_18sp_pink"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="도착예정정보가 없습니다." />
+            <!--제주국제공항[북](월성)-->
+            <TextView
+                style="@style/bus_airport_title"
+                android:text="제주국제공항[북] - 월성 마을 방향" />
+
+            <ListView
+                android:id="@+id/map_bus_airport_listview02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+            <TextView
+                android:id="@+id/map_bus_airport_listview_empty02"
+                style="@style/bus_airport_18sp_pink"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="도착예정정보가 없습니다." />
+            <!--제주국제공항(다호)-->
+            <TextView
+                style="@style/bus_airport_title"
+                android:text="제주국제공항입구 - 다호 마을 방향" />
+
+            <ListView
+                android:id="@+id/map_bus_airport_listview03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+            <TextView
+                android:id="@+id/map_bus_airport_listview_empty03"
+                style="@style/bus_airport_18sp_pink"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="도착예정정보가 없습니다." />
+            <!--제주국제공항(썬호텔)-->
+            <TextView
+                style="@style/bus_airport_title"
+                android:text="제주국제공항 - 제주 썬호텔[북] 방향" />
+
+            <ListView
+                android:id="@+id/map_bus_airport_listview04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+            <TextView
+                android:id="@+id/map_bus_airport_listview_empty04"
+                style="@style/bus_airport_18sp_pink"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="도착예정정보가 없습니다." />
+            <!--제주국제공항(시외버스터미널)-->
+            <TextView
+                style="@style/bus_airport_title"
+                android:text="제주국제공항 - 제주시외버스터미널 방향" />
+
+            <ListView
+                android:id="@+id/map_bus_airport_listview05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+            <TextView
+                android:id="@+id/map_bus_airport_listview_empty05"
+                style="@style/bus_airport_18sp_pink"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="도착예정정보가 없습니다." />
+
+            <!--DATA END-->
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <!--actionbar-->
+    <tndn.app.nyam.widget.TDActionBar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/main_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/actionbar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <tndn.app.nyam.widget.HeightWrappingViewPager
+                    android:id="@+id/main_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:background="@mipmap/banner_coupon" />
+
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/main_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/main_category_button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/main_restaurant_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_food" />
+
+                    <ImageView
+                        android:id="@+id/main_sight_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_sight" />
+
+                    <ImageView
+                        android:id="@+id/main_magazine_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_magazine" />
+
+
+                    <ImageView
+                        android:id="@+id/main_map_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_map" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/main_rate_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_exchange" />
+
+                    <ImageView
+                        android:id="@+id/main_voice_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_voice" />
+
+                    <ImageView
+                        android:id="@+id/main_talk_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_talk" />
+
+                    <ImageView
+                        android:id="@+id/main_translate_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_translate" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/banner_simya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/banner_simya" />
+            <ImageView
+                android:id="@+id/banner_samjin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/banner_samjin" />
+
+            <RelativeLayout
+                android:id="@+id/main_title_today_res"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/main_title_textview"
+                    android:text="@string/main_title_alipay" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/home_layout_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_title_today_res"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/main_recommend01"
+                        style="@style/main_recommend"
+                        android:src="@mipmap/btn_alipay_ganselounge" />
+
+                    <ImageView
+                        android:id="@+id/main_recommend02"
+                        style="@style/main_recommend"
+                        android:src="@mipmap/btn_alipay_nilmori" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/main_recommend03"
+                        style="@style/main_recommend"
+                        android:src="@mipmap/btn_alipay_donpas" />
+
+                    <ImageView
+                        android:id="@+id/main_recommend04"
+                        style="@style/main_recommend"
+                        android:src="@mipmap/btn_alipay_beoltae" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--restaurant category layout-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <!--first row category-->
+
+                <LinearLayout style="@style/main_category_restaurant_layout">
+
+                    <ImageView
+                        android:id="@+id/main_category_cityhall"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_cityhall" />
+
+                    <ImageView
+                        android:id="@+id/main_category_baozen"
+                        style="@style/main_category_restaurant"
+                        android:layout_weight="2"
+                        android:src="@drawable/clicked_home_baozen" />
+
+                    <ImageView
+                        android:id="@+id/main_category_joongangro"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_joongangro" />
+                </LinearLayout>
+                <!--second row category-->
+                <LinearLayout style="@style/main_category_restaurant_layout">
+
+                    <ImageView
+                        android:id="@+id/main_category_jejusi"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_jejusi" />
+
+                    <ImageView
+                        android:id="@+id/main_category_aewol"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_aewol" />
+
+                    <ImageView
+                        android:id="@+id/main_category_jejuwest"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_jejuwest" />
+
+                    <ImageView
+                        android:id="@+id/main_category_waljeong"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_waljeong" />
+                </LinearLayout>
+                <!--third row category-->
+                <LinearLayout style="@style/main_category_restaurant_layout">
+
+                    <ImageView
+                        android:id="@+id/main_category_sungsan"
+                        style="@style/main_category_restaurant"
+                        android:layout_weight="2"
+                        android:src="@drawable/clicked_home_sungsan" />
+
+                    <ImageView
+                        android:id="@+id/main_category_jejueast"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_jejueast" />
+
+                    <ImageView
+                        android:id="@+id/main_category_cheonjiyeon"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_cheonjiyeon" />
+                </LinearLayout>
+
+                <!--fourth row category-->
+                <LinearLayout style="@style/main_category_restaurant_layout">
+
+                    <ImageView
+                        android:id="@+id/main_category_joongmoon"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_joongmoon" />
+
+                    <ImageView
+                        android:id="@+id/main_category_seoguipo"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_seoguipo" />
+
+                    <ImageView
+                        android:id="@+id/main_category_seoul"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_seoul" />
+
+                    <ImageView
+                        android:id="@+id/main_category_suwon"
+                        style="@style/main_category_restaurant"
+                        android:src="@drawable/clicked_home_suwon" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--exchage rate-->
+
+            <LinearLayout
+                android:id="@+id/main_exchagerate_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/exchange_rate"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@mipmap/img_main_exchange" />
+
+                <TextView
+                    android:id="@+id/main_rate_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="2015-01-02"
+                    android:textColor="@color/gray_9b"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/main_rate_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="17:35"
+                    android:textColor="@color/gray_9b"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/main_rate_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="184.51"
+                    android:textColor="@color/tndn_pink"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+
+            <ImageView
+                android:id="@+id/main_banner01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/img_banner01" />
+
+            <ImageView
+                android:id="@+id/main_banner02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/img_banner02" />
+            <ImageView
+                android:id="@+id/main_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/banner_ganse" />
+
+            <!--jeju weekly-->
+            <LinearLayout
+                android:id="@+id/main_title_jejuweekly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/main_title_textview"
+                    android:text="@string/main_title_jejuweekly" />
+                <!--first weekly-->
+                <LinearLayout
+                    android:id="@+id/main_jejuweekly_01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/img_weekly_02" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            style="@style/main_jejuweekly_title"
+                            android:text="@string/jejuweekly_title_01" />
+
+                        <TextView
+                            style="@style/main_jejuweekly_content"
+                            android:text="@string/jejuweekly_content_01" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/tndn_line" />
+                <!--second weekly-->
+                <LinearLayout
+                    android:id="@+id/main_jejuweekly_02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/img_weekly_01" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            style="@style/main_jejuweekly_title"
+                            android:text="@string/jejuweekly_title_02" />
+
+                        <TextView
+                            style="@style/main_jejuweekly_content"
+                            android:text="@string/jejuweekly_content_02" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/main_title_textview"
+                    android:text="@string/voice" />
+
+                <ImageView
+                    android:id="@+id/main_voice_more"
+                    style="@style/arrow_imageview" />
+            </RelativeLayout>
+
+
+            <ListView
+                android:id="@+id/main_voice_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:background="@color/white" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <tndn.app.nyam.widget.TDTabBar
+        android:id="@+id/tabbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

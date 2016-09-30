@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+    android:state_enable : �궗�슜 媛��뒫 �긽�깭
+    android:state_selected : �꽑�깮 �긽�깭
+    android:state_pressed : �겢由� �긽�깭 (�닃�젮�엳�뒗 寃쎌슦)
+    android:state_focused : �룷而ㅼ뒪 �긽�깭
+    android:state_checked : 泥댄겕�맂 �긽�깭
+    -->
+    <item android:drawable="@mipmap/tab_mypage_clicked" android:state_selected="true" />
+    <item android:drawable="@mipmap/tab_mypage" android:state_selected="false" />
+
+</selector>

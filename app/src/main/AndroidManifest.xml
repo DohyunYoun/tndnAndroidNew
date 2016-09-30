@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="tndn.app.nyam">
+
+
+    <!-- for snb map -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.LOCATION" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+
+    <!-- zxing qr reader -->
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <!--SplashActivity-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--LoginActivity, StoreListActivity-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--GpsInfoActivity-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+
+    <application
+        android:name=".utils.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+
+        <!--LaunchActivity-->
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <!--Other Activities-->
+        <activity android:name=".TDHomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="home"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TDAssistantActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="assistant"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TDMypageActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="mypage"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TDJoinActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="join"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TDLoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="login"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TDUserEditActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="useredit"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+        <!--ETC-->
+        <activity android:name=".VoiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="voice"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+        <!--FOOD-->
+        <activity android:name=".StoreListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="getStoreList"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".StoreInfoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="getStoreInfo"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".StoreMenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="getStoreMenu"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".FoodOrderAcitivty">
+        </activity>
+
+
+        <!--FILTER-->
+        <activity android:name=".StoreListFilterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="storeListFilter"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+        <!--Zxing Library-->
+        <activity
+            android:name="com.google.zxing.client.tndn.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="com.google.zxing.client.tndn.SCAN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".map.MapBusAirportActivity" />
+        <activity android:name=".map.MapErrorActivity" />
+        <activity android:name=".map.MapMainActivity" />
+        <activity android:name=".map.MapPublicRoutMainActivity" />
+        <activity android:name=".map.MapSearchResultActivity" />
+        <activity android:name=".map.MapRoutActivity" />
+        <activity android:name=".map.MapRoutResultActivity" />
+        <activity android:name=".map.MapRoutMainActivity" />
+        <activity android:name=".map.MapPublicRoutResultActivity" />
+        <activity android:name=".map.MapPublicRoutResultDetailActivity" />
+        <activity android:name=".map.MapWalkRoutMainActivity" />
+        <activity android:name=".map.MapWalkRoutResultActivity" />
+    </application>
+
+</manifest>

@@ -1,0 +1,393 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <!--<item name="colorPrimaryDark">@color/white</item>-->
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColor">@color/gray_67</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorControlNormal">@color/tndn_black</item>
+        <item name="colorControlActivated">@color/tndn_pink</item>
+        <!--<item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>-->
+
+    </style>
+
+    <!--<style name="AppTheme.Widget.TextView" parent="android:Widget.TextView">-->
+    <!--<item name="fontPath">fonts/notodemi.mp3</item>-->
+    <!--</style>-->
+
+
+    <!--base style-->
+    <style name="imageview">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--for edittext like apptheme-->
+    <style name="edittext_underline" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/apptheme_edit_text_holo_light</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <!--TDHomeActivity-->
+    <style name="main_category_imageview">
+        <!--투명하게-->
+        <item name="android:layout_width">0dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="main_title_textview">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/gray_9b</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="main_recommend">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
+
+    <style name="main_category_restaurant_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="main_category_restaurant">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="main_jejuweekly_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="main_jejuweekly_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/gray_9b</item>
+    </style>
+
+    <style name="arrow_imageview">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:src">@mipmap/ic_arrow_black</item>
+    </style>
+
+    <!--TDMypage-->
+    <style name="coupon_black_textview">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="coupon_gray_textview">
+        <item name="android:textColor">@color/gray_9b</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--TDUserEditActivity-->
+    <style name="linearlayout_join">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!--StoreList-->
+    <style name="item_category_name">
+        <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/tndn_black</item>
+    </style>
+
+    <style name="item_category_address">
+        <item name="android:textColor">@color/gray_9b</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="item_res_category_mainmenu">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/tndn_yellow</item>
+    </style>
+
+    <!--StoreListFilter-->
+    <style name="store_filter_location_item_imageview">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="store_filter_food_item_imageview">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+    <!--공항버스정보(MapBusAirportActivity) 레이아웃-->
+    <style name="bus_airport_title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/tndn_pink</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="bus_airport_18sp_pink">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/tndn_pink</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="bus_airport_12sp_black">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/tndn_black</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="bus_airport_14sp_pink">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/tndn_pink</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--end 공항버스-->
+
+    <!--start store info-->
+    <style name="store_info_time">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">10dp</item>
+
+    </style>
+
+    <style name="store_info_name">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="info_relative_layout">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="store_info_budget_chn">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/tndn_pink</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">5dp</item>
+
+    </style>
+
+    <style name="store_info_budget_kor">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/gray_67</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!--지도 관련 스타일-->
+    <!--지도바꾸면 지우기-->
+    <style name="map_rout_result_etc">
+        <item name="android:textColor">@color/gray_9b</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="map_public_rout_result_name">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="map_public_rout_result_etc">
+        <item name="android:textColor">@color/gray_9b</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="map_route_what">
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="map_route_underline">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="map_rout_result_name">
+        <item name="android:textSize">18sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="item_map_search_result_name">
+        <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="item_map_search_result_address">
+        <item name="android:textColor">@color/gray_9b</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--지도 관련 끝-->
+
+    <!--STOREINFO-->
+    <style name="item_menu_name_chn">
+        <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="item_menu_name_kor">
+        <item name="android:textSize">10sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/gray_9b</item>
+    </style>
+
+    <style name="item_menu_price_chn">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/tndn_yellow</item>
+    </style>
+
+    <style name="item_menu_price_kor">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/tndn_yellow</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+
+    <style name="item_menu_count">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray_9b</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <!--STOREMENU-->
+    <style name="menu_category_textview">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_res_category</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="menu_total_kor">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="menu_total_chn">
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="menu_pay_button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--STORE ORDER-->
+    <style name="item_food_order_name_chn">
+        <item name="android:textSize">10sp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/gray_9b</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="item_food_order_name_kor">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+
+    </style>
+
+    <style name="item_food_order_price_chn">
+        <item name="android:textSize">10sp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textColor">@color/tndn_yellow</item>
+
+    </style>
+
+    <style name="item_food_order_price_kor">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/tndn_yellow</item>
+
+    </style>
+
+    <style name="item_food_order_count">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

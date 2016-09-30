@@ -1,0 +1,120 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/login_hidelayout"
+    android:background="@color/white">
+    <tndn.app.nyam.widget.TDActionBar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/login_skip"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/actionbar"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:padding="20dp"
+        android:text="@string/skip"
+        android:textColor="@color/tndn_pink"
+        android:textSize="12sp" />
+
+    <!--login input layout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="40dp">
+        <!--start id-->
+        <LinearLayout
+            android:id="@+id/login_id_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/login_id_imageview"
+                style="@style/imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/selector_login_id" />
+
+            <tndn.app.nyam.widget.ClearEditText
+                android:id="@+id/login_id"
+                style="@style/edittext_underline"
+                android:layout_width="match_parent"
+                android:inputType="textEmailAddress"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:gravity="right"
+                android:hint="@string/login_email_hint"
+                android:textColorHint="@color/gray_9b"
+                android:textCursorDrawable="@null"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!--end id-->
+        <!--start password-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/login_password_imageview"
+                style="@style/imageview"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:src="@drawable/selector_login_password" />
+
+            <tndn.app.nyam.widget.ClearEditText
+                android:id="@+id/login_password"
+                style="@style/edittext_underline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:gravity="right"
+                android:hint="@string/login_password_hint"
+                android:textColorHint="@color/gray_9b"
+                android:inputType="textPassword"
+                android:textCursorDrawable="@null"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!--end password-->
+
+        <TextView
+            android:id="@+id/login_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:padding="20dp"
+            android:text="@string/login_join"
+            android:textColor="@color/gray_9b"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <!--end login input layout-->
+
+    <ImageView
+        android:id="@+id/login_tndn_login"
+        style="@style/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/login_sina_weibo_login"
+        android:src="@mipmap/btn_login_tndn" />
+
+    <ImageView
+        android:id="@+id/login_sina_weibo_login"
+        style="@style/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/btn_login_sina_wiebo" />
+
+</RelativeLayout>

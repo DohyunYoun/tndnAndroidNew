@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="2dp"
+    android:layout_marginTop="2dp"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:weightSum="1">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_food_order_name_kor"
+            style="@style/item_food_order_name_kor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="함박스테이크" />
+
+        <TextView
+            android:id="@+id/item_food_order_name_chn"
+            style="@style/item_food_order_name_chn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="함박스테이크" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_food_order_count"
+        style="@style/item_food_order_count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.10"
+        android:text="0"
+        android:textColor="@color/gray_9b" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:gravity="center_vertical|right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_food_order_price_kor"
+            style="@style/item_food_order_price_kor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/item_food_order_price_chn"
+            style="@style/item_food_order_price_chn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

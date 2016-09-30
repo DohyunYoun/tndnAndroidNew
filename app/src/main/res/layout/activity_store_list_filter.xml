@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <tndn.app.nyam.widget.TDActionBar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/actionbar"
+        android:background="@color/tndn_line" />
+    <!--This is filter-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:layout_marginBottom="49dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--title about location filter-->
+
+            <RelativeLayout
+                android:id="@+id/store_list_filter_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/main_title_textview"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_location" />
+
+                <ImageView
+                    android:id="@+id/store_list_filter_view_map"
+                    style="@style/imageview"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:src="@drawable/clicked_view_map" />
+
+            </RelativeLayout>
+
+            <!--start jeju location filter-->
+            <LinearLayout
+                android:id="@+id/store_list_filter_location_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <!--first rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_cityhall"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_cityhall" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_baozen"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_baozen" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_joongangro"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_joongangro" />
+                </LinearLayout>
+                <!--first rows end-->
+
+                <!--2 rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_jejusi"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_jejusi" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_aewol_hyeobjae_beach"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_aewol_hyeobjae_beach" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_jejuwest"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_jejuwest" />
+                </LinearLayout>
+                <!--2 rows end-->
+                <!--3 rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_waljeong"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_waljeong" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_sungsan"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_sungsan" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_jejueast"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_jejueast" />
+                </LinearLayout>
+                <!--3 rows end-->
+                <!--4 rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_cheonjiyeon"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_cheonjiyeon" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_joongmoon"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_joongmoon" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_seoguipo"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_seoguipo" />
+                </LinearLayout>
+                <!--4 rows end-->
+            </LinearLayout>
+            <!--end jeju location filter-->
+
+            <!--start suwon location filter-->
+            <LinearLayout
+                android:id="@+id/store_list_filter_suwon_location_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+                <!--first rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_suwon"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_suwon" />
+
+                    <ImageView
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_itaewon"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_jongno"
+                        android:visibility="gone" />
+                </LinearLayout>
+                <!--first rows end-->
+
+            </LinearLayout>
+            <!--end suwon location filter-->
+
+            <!--start seoul location filter-->
+            <LinearLayout
+                android:id="@+id/store_list_filter_seoul_location_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+                <!--first rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_gangnam"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_gangnam" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_itaewon"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_itaewon" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_jongno"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_jongno" />
+                </LinearLayout>
+                <!--first rows end-->
+
+                <!--2 rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_wangsimni"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_wangsimni" />
+
+                    <ImageView
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_jejuwest"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_jejuwest"
+                        android:visibility="gone" />
+                </LinearLayout>
+                <!--2 rows end-->
+            </LinearLayout>
+            <!--end seoul location filter-->
+
+
+            <!--start busan location filter-->
+            <LinearLayout
+                android:id="@+id/store_list_filter_busan_location_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+                <!--first rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_busan"
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_busan" />
+
+                    <ImageView
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_itaewon"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        style="@style/store_filter_location_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_jongno"
+                        android:visibility="gone" />
+                </LinearLayout>
+                <!--first rows end-->
+            </LinearLayout>
+            <!--end busan location filter-->
+
+
+            <!--title food filter-->
+            <RelativeLayout
+                android:id="@+id/store_list_filter_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/main_title_textview"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_food" />
+
+            </RelativeLayout>
+
+            <!--start food filter-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <!--1 rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_korean"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_korean" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_chinese"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_chinese" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_japanese"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_japanese" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_western"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_western" />
+                </LinearLayout>
+                <!--1 rows end-->
+                <!--2 rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_snack"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_snack" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_cafe"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_cafe" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_fish"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_fish" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_chicken"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_chicken" />
+                </LinearLayout>
+                <!--2 rows end-->
+                <!--3 rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_lunchbox"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_lunchbox" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_fastfood"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_fastfood" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_buffet"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_buffet" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_sidedish"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_sidedish" />
+
+                </LinearLayout>
+                <!--3 rows end-->
+                <!--4 rows start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_cook"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_cook" />
+
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_etc"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_etc" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_family"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_family"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/store_list_filter_distribution"
+                        style="@style/store_filter_food_item_imageview"
+                        android:src="@drawable/selector_store_list_filter_distribution"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+                <!--4 rows end-->
+                <!--end food filter-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/store_list_filter_apply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/clicked_store_list_filter_apply" />
+
+    <RelativeLayout
+        android:id="@+id/store_list_view_map_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#cc000000"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/store_list_view_map_busan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_busanmap"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/store_list_view_map_jeju"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_jejumap"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/store_list_view_map_suwon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="35dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_suwonmap"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/store_list_view_map_seoul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_seoulmap"
+            android:visibility="invisible" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

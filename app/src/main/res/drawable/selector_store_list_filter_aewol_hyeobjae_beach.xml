@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+    android:state_enable : 사용 가능 상태
+    android:state_selected : 선택 상태
+    android:state_pressed : 클릭 상태 (눌려있는 경우)
+    android:state_focused : 포커스 상태
+    android:state_checked : 체크된 상태
+    -->
+    <!-- 클릭 했을 경우 -->
+    <item android:drawable="@mipmap/btn_aewol_hyeobjae_beach_clicked" android:state_selected="true" />
+    <!-- 클릭하지 않은 경우 -->
+    <item android:drawable="@mipmap/btn_aewol_hyeobjae_beach_unclicked" android:state_selected="false" />
+
+</selector>

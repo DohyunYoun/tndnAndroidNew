@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="tndn_yellow">#ffbd36</color>
+    <color name="tndn_pink">#e03e52</color>
+    <color name="tndn_deep_pink">#d03047</color>
+    <color name="tndn_orange">#ff8a40</color>
+    <!--<color name="tndn_beige">#fcebe2</color>-->
+    <color name="tndn_black">#282932</color>
+    <!--line-->
+    <color name="tndn_line">#e2e2e2</color>
+    <!--비활성화-->
+    <color name="gray_9b">#9b9b9b</color>
+    <!--typo-->
+    <color name="gray_67">#676767</color>
+
+    <!--<color name="nyam_5b_typo">#5b5b5b</color>-->
+
+    <!--<color name="grey_e2">#E2E2E2</color>-->
+    <!--<color name="grey_99">#999999</color>-->
+    <!--<color name="grey_cc">#cccccc</color>-->
+    <!--<color name="grey_d7">#d7d7d7</color>-->
+
+    <!--<color name="grey_d8">#d8d8d8</color>-->
+    <!--<color name="black_44">#444444</color>-->
+    <color name="blue_bus">#05abd8</color>
+    <color name="alipay">#00aaef</color>
+    <color name="blue_walk">#383a5e</color>
+    <!--<color name="grey_f6">#F6F6F6</color>-->
+</resources>

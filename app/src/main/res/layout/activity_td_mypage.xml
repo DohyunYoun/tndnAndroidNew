@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <tndn.app.nyam.widget.TDActionBar
+            android:id="@+id/actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:id="@+id/mypage_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mypage_name"
+                    style="@style/coupon_black_textview"
+                    android:text="@string/login_login" />
+
+                <TextView
+                    android:id="@+id/mypage_email"
+                    style="@style/coupon_gray_textview"
+                    android:layout_marginTop="5dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mypage_logout"
+                style="@style/coupon_gray_textview"
+                android:layout_toLeftOf="@+id/mypage_more"
+                android:text="@string/logout" />
+
+            <ImageView
+                android:id="@+id/mypage_more"
+                style="@style/arrow_imageview"
+                android:layout_marginLeft="5dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/mypage_coupon"
+                style="@style/imageview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/clicked_mypage_coupon" />
+
+            <ImageView
+                android:id="@+id/mypage_assistant"
+                style="@style/imageview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/clicked_mypage_assitant" />
+
+            <ImageView
+                style="@style/imageview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/btn_mypage_service_ready" />
+
+            <ImageView
+                style="@style/imageview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/btn_mypage_service_ready" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <tndn.app.nyam.widget.TDTabBar
+        android:id="@+id/tabbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

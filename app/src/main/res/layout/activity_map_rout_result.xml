@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <tndn.app.nyam.widget.TDActionBar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/actionbar"
+        android:id="@+id/map_rout_result"
+        android:background="@color/white"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/map_rout_result_name"
+            style="@style/map_rout_result_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="구좌상회" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/map_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距离 约 " />
+
+            <TextView
+                android:id="@+id/map_rout_result_dist"
+                style="@style/map_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.2km"
+                android:textColor="@color/tndn_pink" />
+
+            <TextView
+                style="@style/map_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="时间 约 " />
+
+            <TextView
+                android:id="@+id/map_rout_result_time"
+                style="@style/map_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.2km"
+                android:textColor="@color/tndn_pink" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/map_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车费 约 " />
+
+            <TextView
+                android:id="@+id/map_rout_result_cost"
+                style="@style/map_rout_result_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.2km"
+                android:textColor="@color/tndn_yellow" />
+        </LinearLayout>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/map_rout_result_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/map_rout_result" />
+
+</RelativeLayout>

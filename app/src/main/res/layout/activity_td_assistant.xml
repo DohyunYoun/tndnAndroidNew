@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <tndn.app.nyam.widget.TDActionBar
+            android:id="@+id/actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
+
+
+        <ImageView
+            style="@style/imageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actionbar"
+            android:padding="20dp"
+            android:src="@mipmap/img_translatebubble" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tabbar"
+            android:background="@mipmap/img_translate_background"
+            android:gravity="bottom|center_horizontal">
+
+            <ImageView
+                android:id="@+id/assistant_go"
+                style="@style/imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/clicked_go_translate" />
+        </LinearLayout>
+
+        <tndn.app.nyam.widget.TDTabBar
+            android:id="@+id/tabbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/assistant_popup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e6000000"
+        android:visibility="gone">
+
+
+        <ImageView
+            style="@style/imageview"
+            android:id="@+id/assistant_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/img_translate_popup" />
+
+    </RelativeLayout>
+</FrameLayout>
