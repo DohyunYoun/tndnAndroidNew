@@ -156,8 +156,8 @@ public class TDJoinActivity extends AppCompatActivity implements View.OnFocusCha
                 } else {
                     //회원가입 api 실행
                     Map<String, String> params = new HashMap<>();
-                    params.put("user_id", join_id.getText().toString());
-                    params.put("social_classify", "tndn");
+                    params.put("socialUserId", join_id.getText().toString());
+                    params.put("socialClassify", "tndn");
                     params.put("password", join_password.getText().toString());
                     String gender;
                     int id = join_gender.getCheckedRadioButtonId();
@@ -172,12 +172,13 @@ public class TDJoinActivity extends AppCompatActivity implements View.OnFocusCha
                     params.put("gender", gender);
                     params.put("location", "");
                     params.put("name", join_name.getText().toString());
-                    params.put("age", age);
-                    params.put("wexin_id", "");
-                    params.put("os", "3");
-                    params.put("useris", PreferenceManager.getInstance(getApplicationContext()).getUseris());
+                    params.put("birthdate", age);
+                    params.put("wexinId", "");
+                    params.put("userCode", PreferenceManager.getInstance(getApplicationContext()).getUsercode());
+                    params.put("os", "android");
+                    params.put("userIs", PreferenceManager.getInstance(getApplicationContext()).getUseris());
 
-                    CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().userJoinURL, params, new Response.Listener<JSONObject>() {
+                    CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().setTndnJoinURL, params, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject res) {
                             try {
@@ -191,7 +192,7 @@ public class TDJoinActivity extends AppCompatActivity implements View.OnFocusCha
                                     PreferenceManager.getInstance(getApplicationContext()).setUsername(join_name.getText().toString());
                                     PreferenceManager.getInstance(getApplicationContext()).setUseremail(join_id.getText().toString());
 
-                                    startActivity(new Intent(TDJoinActivity.this, TDHomeActivity.class));
+                                    startActivity(new Intent(TDJoinActivity.this, TDMypageActivity.class));
                                     finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();

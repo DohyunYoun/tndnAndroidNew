@@ -29,6 +29,7 @@ import java.util.Map;
 import tndn.app.nyam.alipay.PayDemoActivity;
 import tndn.app.nyam.data.StoreInfoData;
 import tndn.app.nyam.utils.AppController;
+import tndn.app.nyam.utils.CustomRequest;
 import tndn.app.nyam.utils.GpsInfo;
 import tndn.app.nyam.utils.IsOnline;
 import tndn.app.nyam.utils.MakePaymentPrice;
@@ -125,8 +126,57 @@ public class TDInstantPayActivity extends AppCompatActivity {
                     AlertDialog alert = alert_confirm.create();
                     alert.show();
                 } else {
-                    //new TDUrls().getOrderURL() + idx + "&price_kor=" + straight_pay_kor.getText().toString()
-                    JsonObjectRequest objreq = new JsonObjectRequest(Request.Method.POST, new TDUrls().setStoreInstantOrder, new Response.Listener<JSONObject>() {
+                    Map<String, String> params = new HashMap<>();
+                    /**
+                     *
+                     *
+                     * idxStore(*)
+                     * nameStoreKor(*)
+                     * nameStoreChn(*)
+                     * data(*)
+                     * currency(*)
+                     * priceKor(*)
+                     * priceChn(*)
+                     * ouitTradeNo(*)
+                     * payType(*)
+                     *
+                     * idxAppUser
+                     * priceSaleKor
+                     * priceSaleChn
+                     * sale
+                     *
+                     * userLog
+                     * os(*)
+                     */
+
+                    outTradeNo = new OutTradeNo().getOutTradeNo();
+
+                    params.put("idxStore", id + "");
+                    params.put("nameStoreKor", store.getName_kor());
+                    params.put("nameStoreChn", store.getName_chn());
+
+                    data = "즉시결제#" + straight_pay_kor.getText().toString() + "#1";
+                    params.put("data", data);
+                    params.put("currency", curr + "");
+
+                    priceKor = straight_pay_kor.getText().toString().replace(".0", "").replace(",", "");
+                    priceChn = straight_pay_chn_web.getText().toString().replace("¥ ", "").replace(",", "");
+                    // priceChnSale = straight_pay_chn.getText().toString().replace("¥ ", "").replace(",", "");
+
+                    params.put("priceKor", priceKor);
+                    params.put("priceChn", priceChn);
+                    params.put("priceKorSale", priceKorSale);
+                    params.put("priceChnSale", priceChnSale);
+                    params.put("outTradeNo", outTradeNo);
+                    params.put("payType", "alipay");
+
+                    params.put("sale", sale * 100 + "");
+                    params.put("userIs", PreferenceManager.getInstance(getApplicationContext()).getUseris());
+                    params.put("userFrom", PreferenceManager.getInstance(getApplicationContext()).getUserfrom());
+                    params.put("os", "android");
+                    params.put("userCode", PreferenceManager.getInstance(getApplicationContext()).getUsercode());
+
+                    CustomRequest objreq = new CustomRequest(Request.Method.POST, new TDUrls().setStoreInstantOrder, params, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
 
@@ -173,66 +223,8 @@ public class TDInstantPayActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
                             hidepDialog();
                         }
-                    }) {
-
-                        @Override
-                        protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                            Map<String, String> params = new HashMap<>();
-                            /**
-                             *
-                             *
-                             * idxStore(*)
-                             * nameStoreKor(*)
-                             * nameStoreChn(*)
-                             * data(*)
-                             * currency(*)
-                             * priceKor(*)
-                             * priceChn(*)
-                             * ouitTradeNo(*)
-                             * payType(*)
-                             *
-                             * idxAppUser
-                             * priceSaleKor
-                             * priceSaleChn
-                             * sale
-                             *
-                             * userLog
-                             * os(*)
-                             */
-
-
-                            params.put("idxStore", id + "");
-                            params.put("nameStoreKor", store.getName_kor());
-                            params.put("nameStoreChn", store.getName_chn());
-
-                            data = "즉시결제#" + straight_pay_kor.getText().toString() + "#1";
-                            params.put("data", data);
-                            params.put("currency", curr + "");
-
-                            priceKor = straight_pay_kor.getText().toString().replace(".0", "").replace(",", "");
-                            priceChn = straight_pay_chn_web.getText().toString().replace("¥ ", "").replace(",", "");
-                            // priceChnSale = straight_pay_chn.getText().toString().replace("¥ ", "").replace(",", "");
-
-                            params.put("priceKor", priceKor);
-                            params.put("priceChn", priceChn);
-                            params.put("priceKorSale", priceKorSale);
-                            params.put("priceChnSale", priceChnSale);
-                            params.put("ouitTradeNo", outTradeNo);
-                            params.put("payType", "alipay");
-
-                            params.put("sale", sale * 100 + "");
-                            params.put("useris", PreferenceManager.getInstance(getApplicationContext()).getUseris());
-                            params.put("userfrom", PreferenceManager.getInstance(getApplicationContext()).getUserfrom());
-                            params.put("os", "android");
-                            params.put("usercode", PreferenceManager.getInstance(getApplicationContext()).getUsercode());
-
-                            return params;
-                        }
-
-                    };
-                    AppController.getInstance().
-
-                            addToRequestQueue(objreq);
+                    });
+                    AppController.getInstance().addToRequestQueue(objreq);
 
                 }
             }
@@ -266,7 +258,6 @@ public class TDInstantPayActivity extends AppCompatActivity {
         price_kor = 0;
         price_sale_kor = 0;
         priceChnSale = "";
-        outTradeNo = new OutTradeNo().getOutTradeNo();
     }
 
 
@@ -469,12 +460,15 @@ public class TDInstantPayActivity extends AppCompatActivity {
 
                                 if (price_kor <= 50000) {
                                     //5%
+                                    sale=0.05;
                                     price_sale_kor = (int) (price_kor * 0.95);
                                 } else if (price_kor <= 100000) {
                                     //4%
+                                    sale=0.04;
                                     price_sale_kor = (int) (price_kor * 0.96);
                                 } else {
                                     //3%
+                                    sale=0.03;
                                     price_sale_kor = (int) (price_kor * 0.97);
                                 }
 
@@ -482,15 +476,14 @@ public class TDInstantPayActivity extends AppCompatActivity {
                                     //최대 10,000원 할인
                                     priceKorSale = (price_kor - 10000) + "";
                                     priceChnSale = new MakePaymentPrice().makePaymentPrice(price_kor - 10000 + "", getApplicationContext(), curr);
-                                    straight_pay_chn_web.setText(new MakePricePretty().makePricePretty(getApplicationContext(), price_sale_kor + "", false));
                                     straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + priceChnSale);
                                 } else {
                                     priceKorSale = price_sale_kor + "";
                                     priceChnSale = new MakePaymentPrice().makePaymentPrice(price_sale_kor + "", getApplicationContext(), curr);
-                                    straight_pay_chn_web.setText(new MakePricePretty().makePricePretty(getApplicationContext(), price_sale_kor + "", false));
                                     straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + priceChnSale);
 
                                 }
+                                straight_pay_chn_web.setText(new MakePaymentPrice().makePaymentPrice(price_kor + "",getApplicationContext(),curr));
 
 //                            straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + new MakePaymentPrice().makePaymentPrice(Integer.parseInt(s.toString()) * 0.9 + "", getApplicationContext(), curr));
 //                            straight_pay_chn_web.setText(getResources().getString(R.string.curr_chn) + " " + new MakePaymentPrice().makePaymentPrice(Integer.parseInt(s.toString()) * 0.95 + "", getApplicationContext(), curr));

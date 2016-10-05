@@ -24,8 +24,9 @@
 
     <!--GpsInfoActivity-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
 
     <!--SaveImageToStorage-->
@@ -214,6 +215,16 @@
             </intent-filter>
         </activity>
 
+
+        <!-- This is for weibo oauth -->
+        <!-- 必须注册在微博授权，分享微博时候用到 -->
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+
         <!--MapActivities-->
         <activity android:name=".map.MapMainActivity">
             <intent-filter>
@@ -320,6 +331,7 @@
                     android:scheme="tndn" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

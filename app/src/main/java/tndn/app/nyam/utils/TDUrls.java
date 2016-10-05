@@ -6,9 +6,9 @@ public class TDUrls {
      * TNDN URL
      */
 //    실제 서버
-//    private String TNDNURL = "http://52.69.30.53:505/";
+    private String TNDNURL = "http://52.69.30.53:505";
 //    테스트 서버
-    private String TNDNURL = "http://52.69.34.17:505";
+//    private String TNDNURL = "http://52.69.34.17:505";
 
 
     /**
@@ -16,16 +16,17 @@ public class TDUrls {
      */
     public String logHomeURL = TNDNURL + "/logHome";
     public String currencyURL = "http://tndn.net/api/currency";
-    public String errorCheckURL = TNDNURL + "/errorCheck";
+    public String errorCheckURL = TNDNURL + "/errorCheck2";
     public String getImageURL = TNDNURL + "/getImage";
 
     /**
      * USER
      */
-    public String getUserURL = TNDNURL + "/getUser";
-    public String setUserURL = TNDNURL + "/setUser";
-    public String userLoginURL = TNDNURL + "/userLogin";
-    public String userJoinURL = TNDNURL + "/userJoin";
+    public String getUserInfoURL = TNDNURL + "/getUserInfo";
+    public String setUserEditURL = TNDNURL + "/setUserEdit";
+    public String getTndnLoginURL = TNDNURL + "/getTndnLogin";
+    public String getSocialLoginURL = TNDNURL + "/getSocialLogin";
+    public String setTndnJoinURL = TNDNURL + "/setTndnJoin";
 
     /**
      * STORE

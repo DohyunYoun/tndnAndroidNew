@@ -150,7 +150,7 @@ public class TDUserEditActivity extends AppCompatActivity implements View.OnFocu
             public void onClick(View v) {
                 //회원가입 api 실행
                 Map<String, String> params = new HashMap<>();
-                params.put("tndn_id", PreferenceManager.getInstance(getApplicationContext()).getTndnid());
+                params.put("id", PreferenceManager.getInstance(getApplicationContext()).getTndnid());
                 String gender;
                 int id = user_edit_gender.getCheckedRadioButtonId();
                 int _id = R.id.user_edit_gender_male;
@@ -164,20 +164,19 @@ public class TDUserEditActivity extends AppCompatActivity implements View.OnFocu
                 params.put("gender", gender);
                 params.put("location", "");
                 params.put("name", user_edit_name.getText().toString());
-                params.put("age", age);
-                params.put("wexin_id", "");
-                params.put("os", "3");
-                params.put("usercode", PreferenceManager.getInstance(getApplicationContext()).getUsercode());
-                params.put("useris", PreferenceManager.getInstance(getApplicationContext()).getUseris());
+                params.put("birthdate", age);
+                params.put("wexinId", "");
+                params.put("os", "android");
+                params.put("userCode", PreferenceManager.getInstance(getApplicationContext()).getUsercode());
+                params.put("userIs", PreferenceManager.getInstance(getApplicationContext()).getUseris());
 
-                CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().setUserURL, params, new Response.Listener<JSONObject>() {
+                CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().setUserEditURL, params, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject res) {
                         try {
-                            String result = res.getString("result");
-                            String data = res.getString("data");
 
-                            if (result.equals("success")) {
+                            if (res.getString("result").equals("success")) {//if result failed
+
 
                                 PreferenceManager.getInstance(getApplicationContext()).setUsername(user_edit_name.getText().toString());
                                 PreferenceManager.getInstance(getApplicationContext()).setUseremail(user_edit_id.getText().toString());
@@ -185,7 +184,7 @@ public class TDUserEditActivity extends AppCompatActivity implements View.OnFocu
                                 startActivity(new Intent(TDUserEditActivity.this, TDMypageActivity.class));
                                 finish();
                             } else {
-                                Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Internet Access Failed", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
@@ -308,37 +307,40 @@ public class TDUserEditActivity extends AppCompatActivity implements View.OnFocu
     };
 
     private void getUser(String tndn_id) {
-        JsonObjectRequest objreq = new JsonObjectRequest(new TDUrls().getUserURL+"?id="+tndn_id+ new UserLog().getLog(this), new Response.Listener<JSONObject>() {
+        JsonObjectRequest objreq = new JsonObjectRequest(new TDUrls().getUserInfoURL + "?id=" + tndn_id + new UserLog().getLog(this), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject res) {
 
                 try {
-                    String result = res.getString("result");
-                    if (result.equals("success")) {
+                    if (res.getString("result").equals("success")) {
                         /**
-                         * {
+                         {
                          "result": "success",
-                         "data": {
+                         "data": [
+                         {
                          "social_classify": "tndn",
-                         "social_user_id": "tndn@tndn.net",
-                         "password": "tndn0505",
-                         "wexin_id": "",
-                         "name": "tndn",
+                         "social_user_id": "1005@tndn.net",
+                         "password": "100555",
+                         "weixin_id": "",
+                         "name": "1005",
                          "gender": "f",
-                         "age": "20160624",
+                         "birthdate": "",
                          "location": ""
                          }
+                         ]
                          }
                          */
-                        JSONObject obj = res.getJSONObject("data");
-                        String social_classify = obj.getString("social_classify");
-                        String social_user_id = obj.getString("social_user_id");
-                        String password = obj.getString("password");
-                        String wexin_id = obj.getString("wexin_id");
-                        String name = obj.getString("name");
-                        String gender = obj.getString("gender");
-                        String age = obj.getString("age");
-                        String location = obj.getString("location");
+                        JSONObject data = res.getJSONArray("data").getJSONObject(0);
+
+                        String social_classify = data.getString("social_classify");
+                        String social_user_id = data.getString("social_user_id");
+                        String password = data.getString("password");
+                        String weixin_id = data.getString("weixin_id");
+                        String name = data.getString("name");
+                        String gender = data.getString("gender");
+                        String age = data.getString("birthdate");
+                        String location = data.getString("location");
+
 
                         if (gender.equals("")) {
                             gender = "f";

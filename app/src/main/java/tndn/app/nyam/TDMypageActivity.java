@@ -206,6 +206,7 @@ public class TDMypageActivity extends AppCompatActivity {
         mypage_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (isUser) {
                     mypage_name.setText(getResources().getString(R.string.login_login));
                     mypage_email.setText("");
@@ -215,6 +216,9 @@ public class TDMypageActivity extends AppCompatActivity {
                     PreferenceManager.getInstance(getApplicationContext()).setUseremail("");
                 } else {
                     startActivity(new Intent(TDMypageActivity.this, TDLoginActivity.class).putExtra("FROM","MYPAGE"));
+                    PreferenceManager.getInstance(getApplicationContext()).setTndnid("");
+                    PreferenceManager.getInstance(getApplicationContext()).setUsername("");
+                    PreferenceManager.getInstance(getApplicationContext()).setUseremail("");
 
                 }
             }
@@ -237,8 +241,12 @@ public class TDMypageActivity extends AppCompatActivity {
 
                 if (isUser)
                     startActivity(new Intent(TDMypageActivity.this, TDUserEditActivity.class));
-                else
-                    startActivity(new Intent(TDMypageActivity.this, TDLoginActivity.class).putExtra("FROM","MYPAGE"));
+                else {
+                    startActivity(new Intent(TDMypageActivity.this, TDLoginActivity.class).putExtra("FROM", "MYPAGE"));
+                    PreferenceManager.getInstance(getApplicationContext()).setTndnid("");
+                    PreferenceManager.getInstance(getApplicationContext()).setUsername("");
+                    PreferenceManager.getInstance(getApplicationContext()).setUseremail("");
+                }
 
 
             }
@@ -298,37 +306,49 @@ public class TDMypageActivity extends AppCompatActivity {
     }
 
     private void getUser(String tndn_id) {
-        JsonObjectRequest objreq = new JsonObjectRequest(new TDUrls().getUserURL+"?id="+tndn_id + new UserLog().getLog(this), new Response.Listener<JSONObject>() {
+        JsonObjectRequest objreq = new JsonObjectRequest(new TDUrls().getUserInfoURL+"?id="+tndn_id + new UserLog().getLog(this), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject res) {
 
                 try {
-                    String result = res.getString("result");
-                    if (result.equals("success")) {
+                    if (res.getString("result").equals("success")) {
                         /**
-                         * {
+                         {
                          "result": "success",
-                         "data": {
+                         "data": [
+                         {
                          "social_classify": "tndn",
-                         "social_user_id": "tndn@tndn.net",
-                         "password": "tndn0505",
-                         "wexin_id": "",
-                         "name": "tndn",
+                         "social_user_id": "1005@tndn.net",
+                         "password": "100555",
+                         "weixin_id": "",
+                         "name": "1005",
                          "gender": "f",
-                         "age": "20160624",
+                         "birthdate": "",
                          "location": ""
                          }
+                         ]
                          }
                          */
-                        JSONObject obj = res.getJSONObject("data");
-                        String social_classify = obj.getString("social_classify");
-                        String social_user_id = obj.getString("social_user_id");
-                        String password = obj.getString("password");
-                        String wexin_id = obj.getString("wexin_id");
-                        String name = obj.getString("name");
-                        String gender = obj.getString("gender");
-                        String age = obj.getString("age");
-                        String location = obj.getString("location");
+                        JSONObject data = res.getJSONArray("data").getJSONObject(0);
+
+                        String social_classify = data.getString("social_classify");
+                        String social_user_id = data.getString("social_user_id");
+                        String password = data.getString("password");
+                        String weixin_id = data.getString("weixin_id");
+                        String name = data.getString("name");
+                        String gender = data.getString("gender");
+                        String age = data.getString("birthdate");
+                        String location = data.getString("location");
+
+
+                        if (gender.equals("")) {
+                            gender = "f";
+                        }
+
+                        if (age.equals("")) {
+                            age = "19950505";
+                        }
+
 
                         PreferenceManager.getInstance(getApplicationContext()).setUsername(name);
                         PreferenceManager.getInstance(getApplicationContext()).setUseremail(social_user_id);

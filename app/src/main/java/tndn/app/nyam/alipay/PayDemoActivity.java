@@ -18,12 +18,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
 import tndn.app.nyam.utils.AppController;
+import tndn.app.nyam.utils.CustomRequest;
 import tndn.app.nyam.utils.PreferenceManager;
 import tndn.app.nyam.utils.TDUrls;
 
@@ -66,41 +70,34 @@ public class PayDemoActivity {
                         Toast.makeText(mcontext, "支付成功",
                                 Toast.LENGTH_SHORT).show();
                         /* success log and send message*/
-                        StringRequest req = new StringRequest(Request.Method.POST, new TDUrls().setStorePay, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                if (response.equals("success")) {
-                                    String url = "tndn://complete";
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    mcontext.startActivity(intent);
-                                    activity.finish();
-                                } else {
-                                    Log.e("paylog", "fail");
-                                }
+                        Map<String, String> params = new HashMap<>();
+                        params.put("id", id);
+                        params.put("thisIs", "instant");
+                        params.put("outTradeNo", outTradeNo);
 
+                        CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().setStorePay, params, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    if (response.getString("result").equals("success")) {//if result failed
+                                        String url = "tndn://complete";
+                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        mcontext.startActivity(intent);
+                                        activity.finish();
+                                    } else {
+                                        Log.e("paylog", "fail");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.e("paylog", error.toString());
                             }
-                        }) {
-
-                            @Override
-                            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                                Map<String, String> params = new HashMap<>();
-                                params.put("id", id);
-                                params.put("thisIs", "instant");
-                                params.put("outTradeNo", outTradeNo);
-                                params.put("useris", PreferenceManager.getInstance(mcontext).getUseris());
-                                params.put("userfrom", PreferenceManager.getInstance(mcontext).getUserfrom());
-                                params.put("os", "android");
-                                params.put("usercode", PreferenceManager.getInstance(mcontext).getUsercode());
-
-                                return params;
-                            }
-                        };
+                        });
                         AppController.getInstance().addToRequestQueue(req);
 
 

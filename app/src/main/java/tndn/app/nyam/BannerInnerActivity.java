@@ -45,7 +45,7 @@ public class BannerInnerActivity extends AppCompatActivity {
         if (Intent.ACTION_VIEW.equals(i.getAction())) {
             //카테고리에서 아이템 클릭이나 홈에서 아이템 클릭
             Uri uri = i.getData();
-            if (uri.getQueryParameter("banner").equals("rentcar")) {
+            if (uri.getQueryParameter("id").equals("rentcar")) {
                 banner.setImageResource(R.mipmap.img_rentcar);
                 banner.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -55,7 +55,7 @@ public class BannerInnerActivity extends AppCompatActivity {
                     }
                 });
 
-            } else if (uri.getQueryParameter("banner").equals("aidibao")) {
+            } else if (uri.getQueryParameter("id").equals("aidibao")) {
                 banner.setImageResource(R.mipmap.img_aidibao);
                 banner.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -65,7 +65,7 @@ public class BannerInnerActivity extends AppCompatActivity {
                     }
                 });
 
-            } else if (uri.getQueryParameter("banner").equals("simya")) {
+            } else if (uri.getQueryParameter("id").equals("simya")) {
                 banner.setImageResource(R.mipmap.img_simya);
                 banner.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override

@@ -258,13 +258,14 @@ public class TDLoginActivity extends AppCompatActivity {
                                                     } else {
 
                                                         Map<String, String> params = new HashMap<>();
-                                                        params.put("user_id", login_id.getText().toString());
-                                                        params.put("social_classify", "tndn");
+                                                        params.put("socialUserId", login_id.getText().toString());
+                                                        params.put("socialClassify", "tndn");
                                                         params.put("password", login_password.getText().toString());
-                                                        params.put("os", "3");
-                                                        params.put("useris", PreferenceManager.getInstance(getApplicationContext()).getUseris());
+                                                        params.put("os", "android");
+                                                        params.put("userCode", PreferenceManager.getInstance(getApplicationContext()).getUsercode());
+                                                        params.put("userIs", PreferenceManager.getInstance(getApplicationContext()).getUseris());
 
-                                                        CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().userLoginURL, params, new Response.Listener<JSONObject>() {
+                                                        CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().getTndnLoginURL, params, new Response.Listener<JSONObject>() {
                                                             @Override
                                                             public void onResponse(JSONObject res) {
                                                                 try {
@@ -502,24 +503,25 @@ public class TDLoginActivity extends AppCompatActivity {
                      */
                     Map<String, String> params = new HashMap<>();
 
-                    params.put("user_id", user.id);
-                    params.put("social_classify", "weibo");
+                    params.put("socialUserId", user.id);
+                    params.put("socialClassify", "weibo");
                     params.put("password", "");
                     params.put("gender", user.gender);
                     params.put("location", user.location);
                     params.put("name", user.screen_name);
-                    params.put("age", "");
-                    params.put("wexin_id", "");
-                    params.put("os", "3");
-                    params.put("useris", PreferenceManager.getInstance(getApplicationContext()).getUseris());
-                    CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().userJoinURL, params, new Response.Listener<JSONObject>() {
+                    params.put("birthdate", "");
+                    params.put("wexinId", "");
+                    params.put("os", "android");
+                    params.put("userCode", PreferenceManager.getInstance(getApplicationContext()).getUsercode());
+                    params.put("userIs", PreferenceManager.getInstance(getApplicationContext()).getUseris());
+                    CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().getSocialLoginURL, params, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject res) {
                             try {
                                 String result = res.getString("result");
                                 String data = res.getString("data");
 
-                                if (result.equals("success")) {
+                                if (result.equals("success")||result.equals("exist-user")||result.equals("new-user")) {
                                     PreferenceManager.getInstance(getApplicationContext()).setTndnid(data);
                                     PreferenceManager.getInstance(getApplicationContext()).setUsername(user.name);
                                     PreferenceManager.getInstance(getApplicationContext()).setUseremail(user.id);
