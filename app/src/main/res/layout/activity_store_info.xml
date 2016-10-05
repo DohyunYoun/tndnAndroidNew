@@ -25,12 +25,14 @@
                     android:layout_alignParentTop="true" />
 
                 <LinearLayout
+                    android:id="@+id/store_info_ll"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/white"
                     android:gravity="center|bottom"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/food_menu_information"

@@ -45,6 +45,7 @@ public class StoreListData implements Serializable {
     int idx_store;
     int idx_store_classify;
     int idx_region_category;
+    int idx_store_major_classify;
     String classify_kor;
     String classify_chn;
     String category_name_kor;
@@ -268,12 +269,21 @@ public class StoreListData implements Serializable {
         this.distance = distance;
     }
 
+    public int getIdx_store_major_classify() {
+        return idx_store_major_classify;
+    }
+
+    public void setIdx_store_major_classify(int idx_store_major_classify) {
+        this.idx_store_major_classify = idx_store_major_classify;
+    }
+
     @Override
     public String toString() {
         return "StoreListData{" +
                 "idx_store=" + idx_store +
                 ", idx_store_classify=" + idx_store_classify +
                 ", idx_region_category=" + idx_region_category +
+                ", idx_store_major_classify=" + idx_store_major_classify +
                 ", classify_kor='" + classify_kor + '\'' +
                 ", classify_chn='" + classify_chn + '\'' +
                 ", category_name_kor='" + category_name_kor + '\'' +

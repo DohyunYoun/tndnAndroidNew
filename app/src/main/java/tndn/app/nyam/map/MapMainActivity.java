@@ -171,6 +171,11 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
                     public void run() {
                         latitude = gps.getLatitude();
                         longitude = gps.getLongitude();
+                        if (latitude == 0)
+                            latitude = 33.5039166;
+                        if (longitude == 0)
+                            longitude = 126.4948946;
+
                         Coord transCoordination = mapView.getProjection().transCoordination(Projection.WGS84,
                                 Projection.UTMK, new Coord((float) longitude, (float) latitude));            // 제주시청 주변 위,경도값
                         mapView.setMapCenter(transCoordination);
@@ -206,7 +211,7 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 Coord transCoordination = mapView.getProjection().transCoordination(Projection.WGS84,
-                                        Projection.UTMK, new Coord(126.5276157f, 33.5002358f));            // 제주시청 주변 위,경도값
+                                        Projection.UTMK, new Coord(126.4948946f, 33.5039166f));            // 제주시청 주변 위,경도값
                                 mapView.setMapCenter(transCoordination);                                // 입력된 위치로 MAP의 중앙이 이동
                                 hidepDialog();
                                 return;

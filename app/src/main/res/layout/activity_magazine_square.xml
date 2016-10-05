@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--actionbar-->
+        <tndn.app.nyam.widget.TDActionBar
+            android:id="@+id/actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <GridView
+            android:id="@+id/magazine_square_gridview"
+            android:layout_width="match_parent"
+            android:verticalSpacing="1dp"
+            android:horizontalSpacing="1dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:numColumns="3"
+            android:stretchMode="columnWidth" />
+
+    </LinearLayout>
+    <!--검정박스-->
+    <LinearLayout
+        android:id="@+id/magazine_square_popup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#cc000000"
+        android:padding="30dp"
+        android:visibility="gone"
+        android:gravity="center">
+        <!--흰색 팝업 시작-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_magazine_square_popup"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_margin="30dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/magazine_square_popup_name"
+                        style="@style/item_menu_name_chn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="함박스테이크" />
+
+                    <TextView
+                        android:id="@+id/magazine_square_popup_distance"
+                        style="@style/item_menu_name_kor"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"
+                        android:text="900m" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/magazine_square_popup_go"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:layout_alignParentRight="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/clicked_magazine_square_more" />
+            </RelativeLayout>
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/magazine_square_popup_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"/>
+        </LinearLayout>
+        <!--흰색팝업 꿑-->
+    </LinearLayout>
+    <!--검정박스 끝-->
+</FrameLayout>

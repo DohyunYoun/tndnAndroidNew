@@ -91,7 +91,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
-        android:src="@mipmap/ic_rout_bus" />
+        android:src="@mipmap/ic_rout_bus"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/map_route"

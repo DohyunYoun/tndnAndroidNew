@@ -1,6 +1,7 @@
 package tndn.app.nyam;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -83,6 +84,7 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
     int[] foodIds;
     String locationId;
     String foodId;
+    private String mainId;
 
 
     @Override
@@ -121,6 +123,23 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
 
         initialize();
         initView();
+
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            Uri uri = intent.getData();
+            mainId = uri.getQueryParameter("mainId");
+            if (mainId == null || mainId.equals("") || mainId.equals("undefined") || mainId.equals("null"))
+                mainId = "1";
+
+        } else {
+            mainId = "1";
+        }
+
+        if (mainId.equals("1")) {
+            findViewById(R.id.sotre_list_filter_food_ll).setVisibility(View.VISIBLE);
+            findViewById(R.id.store_list_filter_food).setVisibility(View.VISIBLE);
+        }
 
 
         /**
@@ -802,9 +821,12 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
                         }
                     }
                 }
-                startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+
                 PreferenceManager.getInstance(getApplicationContext()).setLocationId(locationId);
                 PreferenceManager.getInstance(getApplicationContext()).setFoodId(foodId);
+                String url = "tndn://getStoreList?mainId=" + mainId;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
                 /**
                  * Activity 종료
                  */

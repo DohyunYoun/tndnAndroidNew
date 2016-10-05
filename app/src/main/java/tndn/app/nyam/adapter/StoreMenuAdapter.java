@@ -161,7 +161,7 @@ public class StoreMenuAdapter extends BaseAdapter {
                 if (list.get(position).getIdx_image_file_path() == 0) {
                     viewHolder.item_res_menu_imageview.setImageResource(R.mipmap.noimg_food);
                 } else {
-                    viewHolder.item_res_menu_imageview.setImageUrl(url + list.get(position).getIdx_image_file_path(), mImageLoader);
+                    viewHolder.item_res_menu_imageview.setImageUrl(url + "&id=" + list.get(position).getIdx_image_file_path(), mImageLoader);
                 }
 
 //        viewHolder.item_res_menu_name_chn.setText(list.get(position).getIdx_imageFilePath()+"_"+list.get(position).getMenuCHNName());
@@ -236,7 +236,7 @@ public class StoreMenuAdapter extends BaseAdapter {
             if (list.get(position).getIdx_image_file_path() == 0) {
                 viewHolder.item_res_menu_imageview.setImageResource(R.mipmap.noimg_food);
             } else {
-                viewHolder.item_res_menu_imageview.setImageUrl(url + list.get(position).getIdx_image_file_path(), mImageLoader);
+                viewHolder.item_res_menu_imageview.setImageUrl(url + "&id=" + list.get(position).getIdx_image_file_path(), mImageLoader);
             }
 
 //        viewHolder.item_res_menu_name_chn.setText(list.get(position).getIdx_imageFilePath()+"_"+list.get(position).getMenuCHNName());

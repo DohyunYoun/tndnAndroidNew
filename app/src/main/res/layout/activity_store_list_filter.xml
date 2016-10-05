@@ -294,6 +294,7 @@
                 android:id="@+id/store_list_filter_food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
 
                 android:background="@color/white"
@@ -311,7 +312,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
+                android:visibility="gone"
                 android:orientation="vertical"
+                android:id="@+id/sotre_list_filter_food_ll"
                 android:padding="10dp">
                 <!--1 rows start-->
                 <LinearLayout

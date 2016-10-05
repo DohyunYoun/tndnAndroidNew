@@ -1,0 +1,172 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/imageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bar_alipay" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="“微信支付”系统正在准备中！请用支付宝付款"
+            android:textColor="@color/gray_9b"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_close_pink" />
+
+        <!--krw input-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ir_krw" />
+
+            <tndn.app.nyam.widget.ClearEditText
+                android:id="@+id/straight_pay_kor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:gravity="center"
+                android:hint="请输入金额"
+                android:inputType="numberDecimal"
+                android:textColor="@color/tndn_black"
+                android:textColorHint="@color/gray_9b"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!--webapp grey rmb-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/line_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_rmb_unselected" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="right">
+
+                    <TextView
+                        android:id="@+id/straight_pay_chn_web"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.0"
+                        android:textColor="@color/gray_9b"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!--app pink rmb-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_rmb_selected" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/straight_pay_chn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0"
+                    android:textColor="@color/tndn_pink"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/limit_10000"
+            android:textColor="@color/tndn_black"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/straight_pay_button"
+            style="@style/imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/clicked_instant_pay_pay" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

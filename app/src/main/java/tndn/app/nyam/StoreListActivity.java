@@ -69,9 +69,10 @@ public class StoreListActivity extends AppCompatActivity {
     /**
      * value
      */
-    private String locationId;
-    private String foodId;
-    private int localizationId;
+    private String mainId = "";
+    private String locationId = "";
+    private String foodId = "";
+    private int localizationId = 1;
     private String orderBy;
     private int page;
 
@@ -109,7 +110,7 @@ public class StoreListActivity extends AppCompatActivity {
                 PreferenceManager.getInstance(getApplicationContext()).setLocationcheck("");
                 stores = new ArrayList<StoreListData>();
                 page = 0;
-                getStoreList(locationId, foodId, orderBy, localizationId, page, false);
+                getStoreList(mainId, locationId, foodId, orderBy, localizationId, page, false);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +135,13 @@ public class StoreListActivity extends AppCompatActivity {
         foodId = PreferenceManager.getInstance(getApplicationContext()).getFoodId();
         localizationId = Integer.parseInt(PreferenceManager.getInstance(getApplicationContext()).getLocalization());
 
+        Intent intent = getIntent();
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            Uri uri = intent.getData();
+            mainId = uri.getQueryParameter("mainId");
+            if (mainId == null || mainId.equals("") || mainId.equals("undefined") || mainId.equals("null"))
+                mainId = "";
+        }
         if (PreferenceManager.getInstance(getApplicationContext()).getOrderby().equals("")) {
             PreferenceManager.getInstance(this).setOrderby("distance");
         }
@@ -147,7 +155,7 @@ public class StoreListActivity extends AppCompatActivity {
         /**
          * Call List
          */
-        getStoreList(locationId, foodId, orderBy, localizationId, page, false);
+        getStoreList(mainId, locationId, foodId, orderBy, localizationId, page, false);
 
 
         /**
@@ -169,7 +177,7 @@ public class StoreListActivity extends AppCompatActivity {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastitemVisibleFlag && !lastitemFinishedFlag) {
                     //TODO 화면이 바닦에 닿을때 처리
                     page = page + 20;
-                    getStoreList(locationId, foodId, orderBy, localizationId, page, true);
+                    getStoreList(mainId, locationId, foodId, orderBy, localizationId, page, true);
                 }
             }
 
@@ -179,7 +187,11 @@ public class StoreListActivity extends AppCompatActivity {
         store_list_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), StoreListFilterActivity.class));
+
+                String url = "tndn://storeListFilter?mainId=" + mainId;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+//                startActivity(new Intent(getApplicationContext(), StoreListFilterActivity.class));
 
             }
         });
@@ -194,9 +206,9 @@ public class StoreListActivity extends AppCompatActivity {
                     PreferenceManager.getInstance(getApplicationContext()).setOrderby("distance");
                     orderBy = "distance";
                     stores = new ArrayList<StoreListData>();
-                    page=0;
+                    page = 0;
 
-                    getStoreList(locationId, foodId, orderBy, localizationId, page, false);
+                    getStoreList(mainId, locationId, foodId, orderBy, localizationId, page, false);
                     store_list_orderby_distance.setSelected(true);
                     store_list_orderby_popular.setSelected(false);
                 }
@@ -214,9 +226,9 @@ public class StoreListActivity extends AppCompatActivity {
                     PreferenceManager.getInstance(getApplicationContext()).setOrderby("popular");
                     orderBy = "popular";
                     stores = new ArrayList<StoreListData>();
-                    page=0;
+                    page = 0;
 
-                    getStoreList(locationId, foodId, orderBy, localizationId, page, false);
+                    getStoreList(mainId, locationId, foodId, orderBy, localizationId, page, false);
                     store_list_orderby_distance.setSelected(false);
                     store_list_orderby_popular.setSelected(true);
                 }
@@ -255,7 +267,7 @@ public class StoreListActivity extends AppCompatActivity {
     /**
      * Internet Access
      */
-    private void getStoreList(String locationId, String classifyId, String orderBy, int localizationId, final int page, final boolean chkreloading) {
+    private void getStoreList(final String mainId, String locationId, String classifyId, String orderBy, int localizationId, final int page, final boolean chkreloading) {
 
         if (!new IsOnline().onlineCheck(this)) {                  //internet check failed start
             Toast.makeText(this, "Internet Access Failed", Toast.LENGTH_SHORT).show();
@@ -286,7 +298,7 @@ public class StoreListActivity extends AppCompatActivity {
                 }
             }//end else system gps check
 
-            url = new TDUrls().getStoreListURL + "?mainId=1&locationId=" + locationId + "&classifyId=" + classifyId + "&orderBy=" + orderBy + "&localizationId=" + localizationId + "&page=" + page + "&mlat=" + latitude + "&mlon=" + longitude + new UserLog().getLog(getApplicationContext());
+            url = new TDUrls().getStoreListURL + "?mainId=" + mainId + "&locationId=" + locationId + "&classifyId=" + classifyId + "&orderBy=" + orderBy + "&localizationId=" + localizationId + "&page=" + page + "&mlat=" + latitude + "&mlon=" + longitude + new UserLog().getLog(getApplicationContext());
             JsonObjectRequest objreq = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject res) {
@@ -410,12 +422,12 @@ public class StoreListActivity extends AppCompatActivity {
                                             break;
                                         case "latitude":
                                             if (value.equals("") || value.equals("null") || value.equals("NULL"))
-                                                value = "";
+                                                value = "0";
                                             store.setLatitude(value);
                                             break;
                                         case "longitude":
                                             if (value.equals("") || value.equals("null") || value.equals("NULL"))
-                                                value = "";
+                                                value = "0";
                                             store.setLongitude(value);
                                             break;
                                         case "is_pay":
@@ -429,12 +441,21 @@ public class StoreListActivity extends AppCompatActivity {
                                             store.setMenu_input_type(value);
                                             break;
                                         case "idx_image_file_path":
-                                            if (value.equals("") || value.equals("null") || value.equals("NULL"))
-                                                value = "0";
+                                            if (value.equals("") || value.equals("null") || value.equals("NULL")) {
+                                                if (mainId.equals("1")) {
+                                                    value = "0";
+                                                } else if (mainId.equals("2")) {
+                                                    value = "0";
+                                                } else if (mainId.equals("3")) {
+                                                    value = "7630";
+                                                } else {
+                                                    value = "0";
+                                                }
+                                            }
                                             store.setIdx_image_file_path(Integer.parseInt(value));
                                             break;
                                         case "distance":
-                                            if (value.equals("") || value.equals("null") || value.equals("NULL")||value.equals("0")) {
+                                            if (value.equals("") || value.equals("null") || value.equals("NULL") || value.equals("0")) {
                                                 store.setDistance(getApplicationContext().getString(R.string.no_distance));
                                             } else {
                                                 store.setDistance(value);
@@ -468,7 +489,7 @@ public class StoreListActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 //                            String url = new TDUrls().getIntentURL("getShop", stores.get(position).getIdx_store()) + "&input_type=" + stores.get(position).getMenu_input_type() + "&resName=" + stores.get(position).getName_chn();
-                            String url = "tndn://getStoreInfo?id=" + stores.get(position).getIdx_store() + "&inputType=" + stores.get(position).getMenu_input_type() + "&nameChn=" + stores.get(position).getName_chn();
+                            String url = "tndn://getStoreInfo?mainId=" + mainId + "&id=" + stores.get(position).getIdx_store() + "&inputType=" + stores.get(position).getMenu_input_type() + "&nameChn=" + stores.get(position).getName_chn();
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             startActivity(intent);
 
@@ -476,7 +497,11 @@ public class StoreListActivity extends AppCompatActivity {
                     });
                 }   //end response
 
-            }, new Response.ErrorListener() {   //end request
+            }
+
+                    , new Response.ErrorListener()
+
+            {   //end request
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -485,11 +510,15 @@ public class StoreListActivity extends AppCompatActivity {
                     //hide the progress dialog
                     hidepDialog();
                 }
-            });
+            }
+
+            );
 
             // Adding request to request queue
 
-            AppController.getInstance().addToRequestQueue(objreq);
+            AppController.getInstance().
+
+                    addToRequestQueue(objreq);
         }//end internet check success
 
     }//end getStoreLIst

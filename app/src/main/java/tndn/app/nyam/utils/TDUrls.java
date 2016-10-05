@@ -42,6 +42,10 @@ public class TDUrls {
     public String getMapNameURL = TNDNURL + "/getMapName";
     public String getMapRouteURL = TNDNURL + "/getMapRoute";
 
-
+    /**
+     * PAY
+     */
+    public String setStoreInstantOrder = TNDNURL + "/setStoreInstantOrder";
+    public String setStorePay = TNDNURL + "/setStorePay";
 
 }

@@ -12,7 +12,9 @@
     <string name="error">敬请期待</string>
     <string name="food">饮食</string>
     <string name="order">请帮我下单</string>
-
+    <string name="exchange_rate">汇率</string>
+    <string name="attraction">景点</string>
+    <string name="magazine">旅游杂志</string>
 
 
     <!--zxing-->
@@ -132,4 +134,15 @@
 
     <!--FoodOrderActivity-->
     <string name="alipay">用支付宝支付</string>
+
+    <!--ExchangeRateActivity-->
+    <string name="exchange_rate_hint">请输入换算金额</string>
+
+    <!--Magazine-->
+    <!--<string name="title_activity_theme">主题 </string>-->
+    <string name="magazine_theme">主题</string>
+    <string name="square_attraction">照片景点查询</string>
+
+    <!--pay-->
+    <string name="limit_10000">最多优惠10,000韩币</string>
 </resources>

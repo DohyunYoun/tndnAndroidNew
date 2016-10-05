@@ -1,11 +1,13 @@
 package tndn.app.nyam;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,6 +24,8 @@ public class TDAssistantActivity extends AppCompatActivity {
 
     private BackPressCloseHandler backPressCloseHandler;
 
+    private boolean flag = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +38,12 @@ public class TDAssistantActivity extends AppCompatActivity {
         Button back = (Button) findViewById(R.id.actionbar_back_button);
 
         actionbar_text.setText(getResources().getString(R.string.cs));
-        back.setVisibility(View.GONE);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 /********************************************
  for actionbar
  ********************************************/
@@ -68,7 +77,7 @@ public class TDAssistantActivity extends AppCompatActivity {
         tabbar_mypage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LogHome().send(getApplicationContext(),"tab-mypage");
+                new LogHome().send(getApplicationContext(), "tab-mypage");
 
                 startActivity(new Intent(getApplicationContext(), TDMypageActivity.class));
                 finish();
@@ -80,7 +89,27 @@ public class TDAssistantActivity extends AppCompatActivity {
          for tabbar
          *********************************************/
 
-        backPressCloseHandler = new BackPressCloseHandler(this);
+        Intent intent = getIntent();
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            Uri uri = intent.getData();
+            if (uri.getQueryParameter("assistant") == null || uri.getQueryParameter("assistant").equals("")
+                    || uri.getQueryParameter("assistant").equals("undefined") || uri.getQueryParameter("assistant").equals("null")) {
+                //               일반적으로 넘어오는것
+                back.setVisibility(View.GONE);
+                backPressCloseHandler = new BackPressCloseHandler(this);
+
+            } else {
+                flag = false;
+                findViewById(R.id.tabbar).setVisibility(View.GONE);
+                LinearLayout assistant_ll = (LinearLayout) findViewById(R.id.assistant_ll);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) assistant_ll.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                assistant_ll.setLayoutParams(params); //causes layout update
+            }
+        }else{
+            back.setVisibility(View.GONE);
+            backPressCloseHandler = new BackPressCloseHandler(this);
+        }
 
 
         assistant_popup = (RelativeLayout) findViewById(R.id.assistant_popup);
@@ -112,6 +141,7 @@ public class TDAssistantActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        backPressCloseHandler.onBackPressed();
+        if (flag)
+            backPressCloseHandler.onBackPressed();
     }
 }

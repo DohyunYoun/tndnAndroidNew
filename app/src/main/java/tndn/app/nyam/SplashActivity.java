@@ -106,7 +106,41 @@ public class SplashActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("splash", error.getMessage());
+                    Handler handler = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            super.handleMessage(msg);
+                            if (PreferenceManager.getInstance(SplashActivity.this).getUseris().equals("") || PreferenceManager.getInstance(getApplicationContext()).getUseris() == null) {
+                                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SplashActivity.this);
+                                alert_confirm.setMessage("您的旅行类型是什么").setCancelable(false).setPositiveButton("自由行",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                PreferenceManager.getInstance(getApplicationContext()).setUseris("fit");
+                                                chkUserIntent();
+                                            }
+                                        }).setNegativeButton("团体游",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+
+                                                PreferenceManager.getInstance(getApplicationContext()).setUseris("pack");
+                                                chkUserIntent();
+                                            }
+                                        });
+                                AlertDialog alert = alert_confirm.create();
+                                alert.show();
+
+                            } else {
+                                chkUserIntent();
+                            }
+
+                        }
+                    };
+
+                    handler.sendEmptyMessageDelayed(0, 2000);
                 }
             });
             AppController.getInstance().addToRequestQueue(req);
@@ -119,7 +153,6 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
-                    Log.e("TNDNLOG", "1" + PreferenceManager.getInstance(SplashActivity.this).getUseris());
                     if (PreferenceManager.getInstance(SplashActivity.this).getUseris().equals("") || PreferenceManager.getInstance(getApplicationContext()).getUseris() == null) {
                         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SplashActivity.this);
                         alert_confirm.setMessage("您的旅行类型是什么").setCancelable(false).setPositiveButton("自由行",

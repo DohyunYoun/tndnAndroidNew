@@ -45,14 +45,14 @@ public class ImagePagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 if (position == 0) {
-                    new LogHome().send(mContext, "banner-getAttractionList");
-                    String intentURL = "tndn://getAttractionList?id=29";
+                    new LogHome().send(mContext, "banner-attraction");
+                    String intentURL = "tndn://getStoreList?mainId=3&id=29";
 //                    PreferenceManager.getInstance(mContext).setSiteLocalization("1");
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL));
                     mContext.startActivity(intent);
                 } else if (position == 1) {
-                    new LogHome().send(mContext, "banner-getStoreList");
-                    String intentURL = "tndn://getFoodList";
+                    new LogHome().send(mContext, "banner-food");
+                    String intentURL = "tndn://getStoreList?mainId=1";
                     PreferenceManager.getInstance(mContext).setLocalization("1");
                     PreferenceManager.getInstance(mContext).setFoodId("");
                     PreferenceManager.getInstance(mContext).setLocationId("");

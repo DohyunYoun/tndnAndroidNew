@@ -136,6 +136,11 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
     private int extra_position;
     private int drink_position;
 
+    /**
+     * value
+     */
+    private String mainId = "1";
+
     private Handler mHandler = new Handler() {
 
         @Override
@@ -221,15 +226,31 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
         if (Intent.ACTION_VIEW.equals(i.getAction())) {
             //카테고리에서 아이템 클릭이나 홈에서 아이템 클릭
             Uri uri = i.getData();
-            id = Integer.parseInt(uri.getQueryParameter("id"));
+            Log.e("tt",uri.getQueryParameter("id"));
+            String tmp = uri.getQueryParameter("id");
+            if (uri.getQueryParameter("id") == null || uri.getQueryParameter("id").equals("") || uri.getQueryParameter("id").equals("undefined") || uri.getQueryParameter("id").equals("null"))
+                id = 6;
+            else
+                id = Integer.parseInt(uri.getQueryParameter("id"));
+
             if (uri.getQueryParameter("from") != null) {
                 from = uri.getQueryParameter("from");
             }
+
+            mainId = uri.getQueryParameter("mainId");
+            if (mainId == null || mainId.equals("") || mainId.equals("undefined") || mainId.equals("null"))
+                mainId = "1";
+
         } else {
             //에러 혹은 큐알로 바로 찍어서 들어왔을때
 //            idx = i.getIntExtra("IDX", 0);
             id = 6;
             from = null;
+            mainId = "1";
+        }
+
+        if (mainId.equals("1")) {
+            findViewById(R.id.store_info_ll).setVisibility(View.VISIBLE);
         }
 
         food_menu_menu.setOnClickListener(new View.OnClickListener() {
@@ -518,12 +539,12 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
 
                             tmpValue = info.getString("latitude");
                             if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
+                                tmpValue = "0";
                             store.setLatitude(tmpValue);
 
                             tmpValue = info.getString("longitude");
                             if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
+                                tmpValue = "0";
                             store.setLongitude(tmpValue);
 
                             tmpValue = info.getString("is_pay");

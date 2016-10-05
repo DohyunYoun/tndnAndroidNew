@@ -28,6 +28,9 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
 
+    <!--SaveImageToStorage-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -180,8 +183,7 @@
         </activity>
 
 
-        <activity android:name=".FoodOrderAcitivty">
-        </activity>
+        <activity android:name=".FoodOrderAcitivty"></activity>
 
 
         <!--FILTER-->
@@ -212,9 +214,21 @@
             </intent-filter>
         </activity>
 
+        <!--MapActivities-->
+        <activity android:name=".map.MapMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="map"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
         <activity android:name=".map.MapBusAirportActivity" />
         <activity android:name=".map.MapErrorActivity" />
-        <activity android:name=".map.MapMainActivity" />
         <activity android:name=".map.MapPublicRoutMainActivity" />
         <activity android:name=".map.MapSearchResultActivity" />
         <activity android:name=".map.MapRoutActivity" />
@@ -224,6 +238,88 @@
         <activity android:name=".map.MapPublicRoutResultDetailActivity" />
         <activity android:name=".map.MapWalkRoutMainActivity" />
         <activity android:name=".map.MapWalkRoutResultActivity" />
+
+        <!--ExchangeRateActivity-->
+        <activity android:name=".TDExchangeRateActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="exchangerate"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+        <!--Banner-->
+        <activity android:name=".BannerInnerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="banner"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+        <!--Magazine-->
+        <activity android:name=".MagazineHomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="magazine"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MagazineSquareActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="magazineSquare"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+        <!--pay-->
+        <activity android:name=".TDInstantPayActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="pay"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".alipay.PayCompleteActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="complete"
+                    android:scheme="tndn" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

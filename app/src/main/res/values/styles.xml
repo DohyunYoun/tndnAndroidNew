@@ -390,4 +390,32 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <!--EXCHAGE RATE ACTIVITY-->
+    <style name="exchange_rate_ll">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">80dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginRight">80dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="exchange_rate_text">
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!--MAGAZINE ACTIVITY-->
+    <style name="magazine_home_site_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

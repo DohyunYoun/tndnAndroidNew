@@ -63,14 +63,14 @@
                         android:src="@drawable/clicked_home_food" />
 
                     <ImageView
+                        android:id="@+id/main_store_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_store" />
+
+                    <ImageView
                         android:id="@+id/main_sight_imageview"
                         style="@style/main_category_imageview"
                         android:src="@drawable/clicked_home_sight" />
-
-                    <ImageView
-                        android:id="@+id/main_magazine_imageview"
-                        style="@style/main_category_imageview"
-                        android:src="@drawable/clicked_home_magazine" />
 
 
                     <ImageView
@@ -96,13 +96,14 @@
                         style="@style/main_category_imageview"
                         android:src="@drawable/clicked_home_voice" />
 
-                    <ImageView
-                        android:id="@+id/main_talk_imageview"
-                        style="@style/main_category_imageview"
-                        android:src="@drawable/clicked_home_talk" />
 
                     <ImageView
-                        android:id="@+id/main_translate_imageview"
+                        android:id="@+id/main_magazine_imageview"
+                        style="@style/main_category_imageview"
+                        android:src="@drawable/clicked_home_magazine" />
+
+                    <ImageView
+                        android:id="@+id/main_assistant_imageview"
                         style="@style/main_category_imageview"
                         android:src="@drawable/clicked_home_translate" />
 
@@ -118,6 +119,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@mipmap/banner_simya" />
+
             <ImageView
                 android:id="@+id/banner_samjin"
                 android:layout_width="match_parent"
@@ -332,12 +334,12 @@
             </LinearLayout>
 
 
-
             <ImageView
                 android:id="@+id/main_banner01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:visibility="gone"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@mipmap/img_banner01" />
@@ -346,10 +348,12 @@
                 android:id="@+id/main_banner02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@mipmap/img_banner02" />
+
             <ImageView
                 android:id="@+id/main_today"
                 android:layout_width="match_parent"

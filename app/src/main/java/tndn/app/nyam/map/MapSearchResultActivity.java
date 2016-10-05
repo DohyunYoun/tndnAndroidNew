@@ -64,6 +64,7 @@ public class MapSearchResultActivity extends AppCompatActivity {
             showpDialog();
             mapResults = new ArrayList<MapSearchResultData>();
 
+            Log.e("mapsearchresult", new TDUrls().getMapNameURL + "?name=" + query);
             JsonObjectRequest objreq = new JsonObjectRequest(new TDUrls().getMapNameURL + "?name=" + query + new UserLog().getLog(this), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject res) {

@@ -43,8 +43,8 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     private ImageView main_map_imageview;
     private ImageView main_rate_imageview;
     private ImageView main_voice_imageview;
-    private ImageView main_talk_imageview;
-    private ImageView main_translate_imageview;
+    private ImageView main_store_imageview;
+    private ImageView main_assistant_imageview;
 
     private ImageView main_recommend01;
     private ImageView main_recommend02;
@@ -276,8 +276,8 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         main_map_imageview.setOnClickListener(this);
         main_rate_imageview.setOnClickListener(this);
         main_voice_imageview.setOnClickListener(this);
-        main_talk_imageview.setOnClickListener(this);
-        main_translate_imageview.setOnClickListener(this);
+        main_store_imageview.setOnClickListener(this);
+        main_assistant_imageview.setOnClickListener(this);
 
         main_recommend01.setOnClickListener(this);
         main_recommend02.setOnClickListener(this);
@@ -410,8 +410,8 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         main_map_imageview = (ImageView) findViewById(R.id.main_map_imageview);
         main_rate_imageview = (ImageView) findViewById(R.id.main_rate_imageview);
         main_voice_imageview = (ImageView) findViewById(R.id.main_voice_imageview);
-        main_talk_imageview = (ImageView) findViewById(R.id.main_talk_imageview);
-        main_translate_imageview = (ImageView) findViewById(R.id.main_translate_imageview);
+        main_store_imageview = (ImageView) findViewById(R.id.main_store_imageview);
+        main_assistant_imageview = (ImageView) findViewById(R.id.main_assistant_imageview);
 
         main_recommend01 = (ImageView) findViewById(R.id.main_recommend01);
         main_recommend02 = (ImageView) findViewById(R.id.main_recommend02);
@@ -482,50 +482,50 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.main_restaurant_imageview:
                 if (PreferenceManager.getInstance(this).getLocalization().equals("2")) {
                     //수원
-                    intentURL = "tndn://getStoreList?id=32";
+                    intentURL = "tndn://getStoreList?mainId=1&id=32";
                     PreferenceManager.getInstance(getApplicationContext()).setLocationId("");
                     PreferenceManager.getInstance(getApplicationContext()).setFoodId("");
 
 
                 } else if (PreferenceManager.getInstance(this).getLocalization().equals("3")) {
                     //서울
-                    intentURL = "tndn://getStoreList?id=36";
+                    intentURL = "tndn://getStoreList?mainId=1&id=36";
                     PreferenceManager.getInstance(getApplicationContext()).setLocationId("");
                     PreferenceManager.getInstance(getApplicationContext()).setFoodId("");
 
                 } else if (PreferenceManager.getInstance(this).getLocalization().equals("5")) {
                     //부산
-                    intentURL = "tndn://getStoreList?id=40";
+                    intentURL = "tndn://getStoreList?mainId=1&id=40";
                     PreferenceManager.getInstance(getApplicationContext()).setLocationId("");
                     PreferenceManager.getInstance(getApplicationContext()).setFoodId("");
 
                 } else {
                     //제주
-                    intentURL = "tndn://getStoreList?id=20";
+                    intentURL = "tndn://getStoreList?mainId=1&id=20";
                     PreferenceManager.getInstance(this).setLocalization("1");
                     PreferenceManager.getInstance(getApplicationContext()).setLocationId("");
                     PreferenceManager.getInstance(getApplicationContext()).setFoodId("");
 
                 }
                 PreferenceManager.getInstance(this).setUserfrom("31");
-                new LogHome().send(getApplicationContext(), "icon-getStoreList");
+                new LogHome().send(getApplicationContext(), "icon-food");
                 break;
             case R.id.main_sight_imageview:
                 if (PreferenceManager.getInstance(this).getLocalization().equals("2")) {
                     //수원
-                    intentURL = "tndn://attractionList?id=32";
+                    intentURL = "tndn://getStoreList?mainId=3&id=32";
 
 
                 } else if (PreferenceManager.getInstance(this).getLocalization().equals("3")) {
                     //서울
-                    intentURL = "tndn://attractionList?id=36";
+                    intentURL = "tndn://getStoreList?mainId=3&id=36";
 
                 } else {
                     //제주
-                    intentURL = "tndn://attractionList?id=29";
+                    intentURL = "tndn://getStoreList?mainId=3&id=29";
                 }
                 PreferenceManager.getInstance(this).setUserfrom("31");
-                new LogHome().send(getApplicationContext(), "icon-getSites");
+                new LogHome().send(getApplicationContext(), "icon-attraction");
                 break;
 
             case R.id.main_magazine_imageview:
@@ -546,47 +546,47 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 intentURL = "tndn://voice";
                 new LogHome().send(getApplicationContext(), "icon-voice");
                 break;
-            case R.id.main_talk_imageview:
-                intentURL = "tndn://talk";
-                new LogHome().send(getApplicationContext(), "icon-talk");
+            case R.id.main_store_imageview:
+                intentURL = "tndn://getStoreList?mainId=2";
+                new LogHome().send(getApplicationContext(), "icon-store");
                 break;
-            case R.id.main_translate_imageview:
-                intentURL = "tndn://cs";
-                new LogHome().send(getApplicationContext(), "icon-cs");
+            case R.id.main_assistant_imageview:
+                intentURL = "tndn://assistant?assistant=false";
+                new LogHome().send(getApplicationContext(), "icon-assistant");
                 break;
             case R.id.main_recommend01:
-                intentURL = "tndn://getFood?id=6860&name=Ganse客厅";
+                intentURL = "tndn://getStoreInfo?mainId=1&id=6860&name=Ganse客厅";
                 PreferenceManager.getInstance(this).setUserfrom("34");
                 new LogHome().send(getApplicationContext(), "image-ganse");
                 break;
             case R.id.main_recommend02:
-                intentURL = "tndn://getFood?id=6605&name=Nilmori Dong Dong";
+                intentURL = "tndn://getStoreInfo?mainId=1&id=6605&name=Nilmori Dong Dong";
                 PreferenceManager.getInstance(this).setUserfrom("34");
                 new LogHome().send(getApplicationContext(), "image-nilmori");
                 break;
 
             case R.id.main_recommend03:
-                intentURL = "tndn://getFood?id=6666&name=Donpas";
+                intentURL = "tndn://getStoreInfo?mainId=1&id=6666&name=Donpas";
                 PreferenceManager.getInstance(this).setUserfrom("34");
                 new LogHome().send(getApplicationContext(), "image-donpas");
                 break;
             case R.id.main_recommend04:
-                intentURL = "tndn://getFood?id=3513&name=Beoltae";
+                intentURL = "tndn://getStoreInfo?mainId=1&id=3513&name=Beoltae";
                 PreferenceManager.getInstance(this).setUserfrom("34");
                 new LogHome().send(getApplicationContext(), "image-beoltae");
                 break;
             case R.id.main_today:
-                intentURL = "tndn://getFood?id=6860&name=Ganse客厅";
+                intentURL = "tndn://getStoreInfo?mainId=1&id=6860&name=Ganse客厅";
                 PreferenceManager.getInstance(this).setUserfrom("34");
                 new LogHome().send(getApplicationContext(), "banner-ganse");
                 break;
             case R.id.banner_samjin:
-                intentURL = "tndn://getFood?id=7086&name=Samjin鱼丸";
+                intentURL = "tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸";
                 PreferenceManager.getInstance(this).setUserfrom("40");
                 new LogHome().send(getApplicationContext(), "banner-samjin");
                 break;
             case R.id.main_category_cityhall:
-                intentURL = "tndn://getStoreList?id=21";
+                intentURL = "tndn://getStoreList?mainId=1&id=21";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("21");
@@ -594,7 +594,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "image-cityhall");
                 break;
             case R.id.main_category_baozen:
-                intentURL = "tndn://getStoreList?id=20";
+                intentURL = "tndn://getStoreList?mainId=1&id=20";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("20");
@@ -602,7 +602,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "image-baozen");
                 break;
             case R.id.main_category_joongangro:
-                intentURL = "tndn://getStoreList?id=22";
+                intentURL = "tndn://getStoreList?mainId=1&id=22";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("22");
@@ -611,7 +611,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "image-joongangro");
                 break;
             case R.id.main_category_jejusi:
-                intentURL = "tndn://getStoreList?id=26";
+                intentURL = "tndn://getStoreList?mainId=1&id=26";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("26");
@@ -620,7 +620,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "image-jejusi");
                 break;
             case R.id.main_category_aewol:
-                intentURL = "tndn://getStoreList?id=23";
+                intentURL = "tndn://getStoreList?mainId=1&id=23";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("23");
@@ -629,7 +629,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.main_category_jejuwest:
-                intentURL = "tndn://getStoreList?id=30";
+                intentURL = "tndn://getStoreList?mainId=1&id=30";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("30");
@@ -638,7 +638,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "image-jejuwest");
                 break;
             case R.id.main_category_waljeong:
-                intentURL = "tndn://getStoreList?id=24";
+                intentURL = "tndn://getStoreList?mainId=1&id=24";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("24");
@@ -647,7 +647,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.main_category_sungsan:
-                intentURL = "tndn://getStoreList?id=25";
+                intentURL = "tndn://getStoreList?mainId=1&id=25";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("25");
@@ -656,7 +656,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "image-sungsan");
                 break;
             case R.id.main_category_jejueast:
-                intentURL = "tndn://getStoreList?id=29";
+                intentURL = "tndn://getStoreList?mainId=1&id=29";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("29");
@@ -665,7 +665,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.main_category_cheonjiyeon:
-                intentURL = "tndn://getStoreList?id=34";
+                intentURL = "tndn://getStoreList?mainId=1&id=34";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("34");
@@ -674,7 +674,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.main_category_joongmoon:
-                intentURL = "tndn://getStoreList?id=27";
+                intentURL = "tndn://getStoreList?mainId=1&id=27";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("27");
@@ -683,7 +683,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.main_category_seoguipo:
-                intentURL = "tndn://getStoreList?id=28";
+                intentURL = "tndn://getStoreList?mainId=1&id=28";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("1");
                 PreferenceManager.getInstance(this).setLocationId("28");
@@ -691,7 +691,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "image-seoguipo");
                 break;
             case R.id.main_category_suwon:
-                intentURL = "tndn://getStoreList?id=32";
+                intentURL = "tndn://getStoreList?mainId=1&id=32";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("2");
                 PreferenceManager.getInstance(this).setLocationId("32");
@@ -700,7 +700,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "image-suwon");
                 break;
             case R.id.main_category_seoul:
-                intentURL = "tndn://getStoreList?id=36";
+                intentURL = "tndn://getStoreList?mainId=1&id=36";
                 PreferenceManager.getInstance(this).setUserfrom("33");
                 PreferenceManager.getInstance(this).setLocalization("3");
                 PreferenceManager.getInstance(this).setLocationId("36");
