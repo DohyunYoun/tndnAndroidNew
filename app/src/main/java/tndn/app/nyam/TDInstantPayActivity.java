@@ -165,8 +165,8 @@ public class TDInstantPayActivity extends AppCompatActivity {
 
                     params.put("priceKor", priceKor);
                     params.put("priceChn", priceChn);
-                    params.put("priceKorSale", priceKorSale);
-                    params.put("priceChnSale", priceChnSale);
+                    params.put("priceSaleKor", priceKorSale);
+                    params.put("priceSaleChn", priceChnSale);
                     params.put("outTradeNo", outTradeNo);
                     params.put("payType", "alipay");
 
