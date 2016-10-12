@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import tndn.app.nyam.adapter.NetworkImagePagerAdapter;
@@ -692,7 +693,8 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                         store.setImages(idx_images);
                     }
 
-                    mImagePagerAdapter = new NetworkImagePagerAdapter(getApplicationContext(), store.getImages(), "food");
+
+                    mImagePagerAdapter = new NetworkImagePagerAdapter(getApplicationContext(), store.getImages(),new ArrayList<HashMap<String, String>>(), "food");
                     store_info_viewpager.setAdapter(mImagePagerAdapter);
                     indicator.setViewPager(store_info_viewpager);
 

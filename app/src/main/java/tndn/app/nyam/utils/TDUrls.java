@@ -18,6 +18,8 @@ public class TDUrls {
     public String currencyURL = "http://tndn.net/api/currency";
     public String errorCheckURL = TNDNURL + "/errorCheck2";
     public String getImageURL = TNDNURL + "/getImage";
+    public String getBannerURL = TNDNURL + "/getBanner";
+    public String getBannerInfoURL = TNDNURL + "/getBannerInfo";
 
     /**
      * USER

@@ -18,6 +18,7 @@ public class ImagePagerAdapter extends PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
     int[] mImages;
+    String intentURL = "";
 
     public ImagePagerAdapter(Context context, int[] mImages) {
         mContext = context;
@@ -45,30 +46,30 @@ public class ImagePagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 if (position == 0) {
-                    new LogHome().send(mContext, "banner-attraction");
-                    String intentURL = "tndn://getStoreList?mainId=3&id=29";
-//                    PreferenceManager.getInstance(mContext).setSiteLocalization("1");
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL));
-                    mContext.startActivity(intent);
-                } else if (position == 1) {
+
                     new LogHome().send(mContext, "banner-food");
-                    String intentURL = "tndn://getStoreList?mainId=1";
+                    intentURL = "tndn://getStoreList?mainId=1";
                     PreferenceManager.getInstance(mContext).setLocalization("1");
                     PreferenceManager.getInstance(mContext).setFoodId("");
                     PreferenceManager.getInstance(mContext).setLocationId("");
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL));
-                    mContext.startActivity(intent);
+
+                } else if (position == 1) {
+
+                    new LogHome().send(mContext, "banner-weibo");
+                    intentURL = "http://m.weibo.cn/d/tndn?jumpfrom=weibocom";
+//                    PreferenceManager.getInstance(mContext).setSiteLocalization("1");
+
                 } else if (position == 2) {
                     new LogHome().send(mContext, "banner-aidibao");
-                    String intentURL = "tndn://banner?id=aidibao";
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL));
-                    mContext.startActivity(intent);
+                    intentURL = "tndn://banner?id=aidibao";
                 } else if (position == 3) {
                     new LogHome().send(mContext, "banner-rentcar");
-                    String intentURL = "tndn://banner?id=rentcar";
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL));
-                    mContext.startActivity(intent);
+                    intentURL = "tndn://banner?id=rentcar";
                 }
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
             }
         });
         return imageView;

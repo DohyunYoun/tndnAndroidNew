@@ -1,6 +1,7 @@
 package tndn.app.nyam;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,22 +15,44 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import tndn.app.nyam.adapter.ImagePagerAdapter;
 import tndn.app.nyam.adapter.LocalSpinnerAdapter;
+import tndn.app.nyam.adapter.NetworkImagePagerAdapter;
 import tndn.app.nyam.adapter.VoiceAdapter;
+import tndn.app.nyam.utils.AppController;
 import tndn.app.nyam.utils.BackPressCloseHandler;
+import tndn.app.nyam.utils.IsOnline;
 import tndn.app.nyam.utils.LogHome;
 import tndn.app.nyam.utils.PreferenceManager;
 import tndn.app.nyam.utils.SaveExchangeRate;
 import tndn.app.nyam.utils.SetListViewHeight;
+import tndn.app.nyam.utils.TDUrls;
+import tndn.app.nyam.utils.UserLog;
 import tndn.app.nyam.widget.HeightWrappingViewPager;
 
 public class TDHomeActivity extends AppCompatActivity implements View.OnClickListener {
+
+    /**
+     * service
+     */
+    private ProgressDialog pDialog;
 
     /**
      * spinner
@@ -55,8 +78,10 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     //    private ImageView main_function01;
     private ImageView main_banner01;
     private ImageView main_banner02;
-    private ImageView main_today;
-    private ImageView banner_samjin;
+
+    private NetworkImageView banner_simya;
+    private NetworkImageView banner_samjin;
+    private NetworkImageView main_today;
 
 
     private LinearLayout main_exchagerate_ll;
@@ -101,11 +126,18 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     //for image slider
     private HeightWrappingViewPager main_viewpager;
     private ImagePagerAdapter mImagePagerAdapter;
+    private NetworkImagePagerAdapter mNetworkImagePagerAdapter;
+    private CirclePageIndicator indicator;
+    ArrayList<Integer> idx_images;
+    ArrayList<HashMap<String, String>> banners;
 
 
     private BackPressCloseHandler backPressCloseHandler;
     Spinner actionbar_local_spinner;
     private boolean tmp_check;
+
+
+    ImageLoader mImageLoader;
 
 
     @Override
@@ -176,6 +208,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         initView();
         initialize();
         addData();
+        getBanner();
 
         /**
          * spinner
@@ -262,13 +295,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         /**
          * spinner end
          */
-        findViewById(R.id.banner_simya).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new LogHome().send(getApplicationContext(), "banner-simya");
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://banner?id=simya")));
-            }
-        });
+
 
         main_restaurant_imageview.setOnClickListener(this);
         main_sight_imageview.setOnClickListener(this);
@@ -283,8 +310,6 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         main_recommend02.setOnClickListener(this);
         main_recommend03.setOnClickListener(this);
         main_recommend04.setOnClickListener(this);
-        main_today.setOnClickListener(this);
-        banner_samjin.setOnClickListener(this);
 
 
         main_category_cityhall.setOnClickListener(this);
@@ -370,21 +395,6 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
         //Detect Bottom ScrollView
 
-        //for image slider
-        int[] mImages = {
-                R.mipmap.banner_coupon,
-                R.mipmap.img_app_function_01,
-                R.mipmap.banner_aidibao,
-                R.mipmap.banner_rentcar
-        };
-
-        mImagePagerAdapter = new ImagePagerAdapter(this, mImages);
-        main_viewpager = (HeightWrappingViewPager) findViewById(R.id.main_viewpager);
-        main_viewpager.setAdapter(mImagePagerAdapter);
-
-        CirclePageIndicator indecator = (CirclePageIndicator) findViewById(R.id.main_indicator);
-        indecator.setViewPager(main_viewpager);
-
     }
 
     private void initialize() {
@@ -397,6 +407,15 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
         text = new ArrayList<String>();
         sounds = new ArrayList<Integer>();
+        idx_images = new ArrayList<>();
+        banners = new ArrayList<HashMap<String, String>>();
+
+
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage(getApplicationContext().getResources().getString(R.string.plz_wait));
+        pDialog.setCancelable(false);
+
+        mImageLoader = AppController.getInstance().getImageLoader();
 
 
     }
@@ -421,8 +440,10 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
         main_banner01 = (ImageView) findViewById(R.id.main_banner01);
         main_banner02 = (ImageView) findViewById(R.id.main_banner02);
-        main_today = (ImageView) findViewById(R.id.main_today);
-        banner_samjin = (ImageView) findViewById(R.id.banner_samjin);
+
+        banner_simya = (NetworkImageView) findViewById(R.id.banner_simya);
+        banner_samjin = (NetworkImageView) findViewById(R.id.banner_samjin);
+        main_today = (NetworkImageView) findViewById(R.id.main_today);
 
 
         main_category_cityhall = (ImageView) findViewById(R.id.main_category_cityhall);
@@ -456,6 +477,9 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
         findViewById(R.id.main_voice_more).setOnClickListener(this);
 
+        main_viewpager = (HeightWrappingViewPager) findViewById(R.id.main_viewpager);
+        indicator = (CirclePageIndicator) findViewById(R.id.main_indicator);
+
 
     }
 
@@ -469,7 +493,6 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 //위의 contents 값에 scan result가 들어온다.
                 Log.e("TNDN_QRLOG", contents);
             }
-
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -574,16 +597,6 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 intentURL = "tndn://getStoreInfo?mainId=1&id=3513&name=Beoltae";
                 PreferenceManager.getInstance(this).setUserfrom("34");
                 new LogHome().send(getApplicationContext(), "image-beoltae");
-                break;
-            case R.id.main_today:
-                intentURL = "tndn://getStoreInfo?mainId=1&id=6860&name=Ganse客厅";
-                PreferenceManager.getInstance(this).setUserfrom("34");
-                new LogHome().send(getApplicationContext(), "banner-ganse");
-                break;
-            case R.id.banner_samjin:
-                intentURL = "tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸";
-                PreferenceManager.getInstance(this).setUserfrom("40");
-                new LogHome().send(getApplicationContext(), "banner-samjin");
                 break;
             case R.id.main_category_cityhall:
                 intentURL = "tndn://getStoreList?mainId=1&id=21";
@@ -724,6 +737,205 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         startActivity(intent);
     }
 
+    private void errorBanner() {
+        //for image slider
+        int[] mImages = {
+                R.mipmap.img_app_function_01,
+                R.mipmap.img_app_function_02,
+                R.mipmap.banner_aidibao,
+                R.mipmap.banner_rentcar
+        };
+
+        mImagePagerAdapter = new ImagePagerAdapter(getApplicationContext(), mImages);
+        main_viewpager.setAdapter(mImagePagerAdapter);
+        indicator.setViewPager(main_viewpager);
+
+        banner_simya.setDefaultImageResId(R.mipmap.banner_simya);
+        banner_samjin.setDefaultImageResId(R.mipmap.banner_samjin);
+        main_today.setDefaultImageResId(R.mipmap.banner_ganse);
+
+        banner_simya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://banner?id=simya")));
+                PreferenceManager.getInstance(getApplicationContext()).setUserfrom("40");
+                new LogHome().send(getApplicationContext(), "banner-simya");
+            }
+        });
+        banner_samjin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸")));
+                PreferenceManager.getInstance(getApplicationContext()).setUserfrom("40");
+                new LogHome().send(getApplicationContext(), "banner-samjin");
+            }
+        });
+        main_today.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://getStoreInfo?mainId=1&id=6860&name=Ganse客厅")));
+                PreferenceManager.getInstance(getApplicationContext()).setUserfrom("34");
+                new LogHome().send(getApplicationContext(), "banner-ganse");
+            }
+        });
+    }
+
+    private void getBanner() {
+
+        if (!new IsOnline().onlineCheck(this)) {                  //internet check failed start
+            errorBanner();
+            Toast.makeText(this, "Internet Access Failed", Toast.LENGTH_SHORT).show();
+        } else { //internet check success start
+            showpDialog();
+            String url = new TDUrls().getBannerURL + "?id=" + new UserLog().getLog(getApplicationContext());
+            JsonObjectRequest objreq = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject res) {
+                    try {
+                        if (res.getString("result").equals("failed")) {//if result failed
+                            errorBanner();
+                            Toast.makeText(getApplicationContext(),
+                                    "Internet Access Failed", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            idx_images = new ArrayList<>();
+                            JSONArray images = res.getJSONArray("data");
+                            for (int i = 0; i < images.length(); i++) {
+                                HashMap<String, String> banner = new HashMap<String, String>();
+
+                                JSONObject obj = images.getJSONObject(i);
+                                Iterator<String> itr = obj.keys();
+                                while (itr.hasNext()) {
+                                    String key = itr.next();
+                                    String value = obj.getString(key);
+
+                                    switch (key) {
+                                        case "id":
+                                            if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
+                                                value = "0";
+                                            banner.put("id", value);
+                                            break;
+                                        case "idx_image_file_path":
+                                            if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
+                                                value = "0";
+                                            banner.put("idx_image_file_path", value);
+                                            break;
+                                        case "position":
+                                            if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
+                                                value = "0";
+                                            banner.put("position", value);
+
+                                            break;
+                                        case "url_scheme_android":
+                                            if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
+                                                value = "0";
+                                            banner.put("url_scheme_android", value);
+
+                                            break;
+                                        case "sort_no":
+                                            if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
+                                                value = "0";
+                                            banner.put("sort_no", value);
+                                            break;
+                                    }//end switch
+                                }//end while
+                                banners.add(banner);
+                            }//end for
+
+                        }//end else (result)
+                    } catch (JSONException e) {
+                        errorBanner();
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                        hidepDialog();
+                    } //end jsonexception catch
+                    hidepDialog();
+//data setting
+
+                    ArrayList<HashMap<String, String>> imagesForBanner = new ArrayList<HashMap<String, String>>();
+                    int tmp = 0;
+                    for (int j = 0; j < banners.size(); j++) {
+                        final int i = j;
+                        if (banners.get(j).get("position").equals("0")) {
+                            //상단배너
+                            idx_images.add(Integer.parseInt(banners.get(j).get("idx_image_file_path")));
+                            imagesForBanner.add(banners.get(j));
+                        } else if (banners.get(j).get("position").equals("1")) {
+                            //개인배너
+                            if (tmp == 0) {
+                                banner_samjin.setImageUrl(new TDUrls().getImageURL + "?id=" + banners.get(j).get("idx_image_file_path"), mImageLoader);
+                                banner_samjin.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(banners.get(i).get("url_scheme_android"))));
+                                        PreferenceManager.getInstance(getApplicationContext()).setUserfrom("40");
+                                        new LogHome().send(getApplicationContext(), "banner-samjin");
+                                    }
+                                });
+                                tmp++;
+                            } else if (tmp == 1) {
+                                banner_simya.setImageUrl(new TDUrls().getImageURL + "?id=" + banners.get(j).get("idx_image_file_path"), mImageLoader);
+                                banner_simya.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(banners.get(i).get("url_scheme_android"))));
+                                        PreferenceManager.getInstance(getApplicationContext()).setUserfrom("40");
+                                        new LogHome().send(getApplicationContext(), "banner-simya");
+                                    }
+                                });
+                                tmp++;
+                            } else if (tmp == 2) {
+                                main_today.setImageUrl(new TDUrls().getImageURL + "?id=" + banners.get(j).get("idx_image_file_path"), mImageLoader);
+
+                                main_today.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(banners.get(i).get("url_scheme_android"))));
+                                        PreferenceManager.getInstance(getApplicationContext()).setUserfrom("34");
+                                        new LogHome().send(getApplicationContext(), "banner-ganse");
+                                    }
+                                });
+                                tmp++;
+                            }
+
+                        }
+
+                    }
+
+
+                    if (idx_images.size() == 0) {
+                        errorBanner();
+                    } else {
+
+                        mNetworkImagePagerAdapter = new NetworkImagePagerAdapter(getApplicationContext(), idx_images, imagesForBanner, "banner");
+                        main_viewpager.setAdapter(mNetworkImagePagerAdapter);
+                        indicator.setViewPager(main_viewpager);
+                    }
+
+
+                }//end response
+
+            }, new Response.ErrorListener() {   //end request
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    errorBanner();
+                    Toast.makeText(getApplicationContext(),
+                            "Internet Access Failed", Toast.LENGTH_SHORT).show();
+                    //hide the progress dialog
+                    hidepDialog();
+                }
+            });
+
+            // Adding request to request queue
+
+            AppController.getInstance().addToRequestQueue(objreq);
+        }//end internet check success
+    }
+
+
     //    for voice
     private void addData() {
         text.add("女)  谢谢");
@@ -749,5 +961,15 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         backPressCloseHandler.onBackPressed();
+    }
+
+    private void showpDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hidepDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }

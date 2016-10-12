@@ -133,7 +133,11 @@ public class StoreListActivity extends AppCompatActivity {
          */
         locationId = PreferenceManager.getInstance(getApplicationContext()).getLocationId();
         foodId = PreferenceManager.getInstance(getApplicationContext()).getFoodId();
-        localizationId = Integer.parseInt(PreferenceManager.getInstance(getApplicationContext()).getLocalization());
+        if (PreferenceManager.getInstance(getApplicationContext()).getLocalization().equals("")) {
+            localizationId = 1;
+        } else {
+            localizationId = Integer.parseInt(PreferenceManager.getInstance(getApplicationContext()).getLocalization());
+        }
 
         Intent intent = getIntent();
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {

@@ -11,13 +11,13 @@
         android:layout_alignParentTop="true" />
 
     <LinearLayout
+        android:id="@+id/map_rout_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/actionbar"
-        android:id="@+id/map_rout_result"
         android:background="@color/white"
-        android:padding="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/map_rout_result_name"
@@ -26,40 +26,66 @@
             android:layout_height="wrap_content"
             android:text="구좌상회" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/map_rout_result_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="距离 约 " />
+
+                <TextView
+                    android:id="@+id/map_rout_result_dist"
+                    style="@style/map_rout_result_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.2km"
+                    android:textColor="@color/tndn_pink" />
+
+                <TextView
+                    style="@style/map_rout_result_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="时间 约 " />
+
+                <TextView
+                    android:id="@+id/map_rout_result_time"
+                    style="@style/map_rout_result_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.2km"
+                    android:textColor="@color/tndn_pink" />
+
+
+            </LinearLayout>
 
             <TextView
-                style="@style/map_rout_result_etc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="距离 约 " />
+                android:layout_alignParentRight="true"
+                android:background="@color/tndn_pink"
+                android:padding="5dp"
+                android:text="@string/map"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/map_rout_result_dist"
-                style="@style/map_rout_result_etc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1.2km"
-                android:textColor="@color/tndn_pink" />
-
-            <TextView
-                style="@style/map_rout_result_etc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="时间 约 " />
-
-            <TextView
-                android:id="@+id/map_rout_result_time"
-                style="@style/map_rout_result_etc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1.2km"
-                android:textColor="@color/tndn_pink" />
-        </LinearLayout>
+            <ImageView
+                style="@style/imageview"
+                android:layout_alignParentRight="true"
+                android:adjustViewBounds="true"
+                android:background="@drawable/clicked_view_map"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,6 +107,7 @@
                 android:textColor="@color/tndn_yellow" />
         </LinearLayout>
     </LinearLayout>
+
     <ListView
         android:id="@+id/map_rout_result_listview"
         android:layout_width="match_parent"
