@@ -8,8 +8,8 @@ android {
         applicationId "tndn.app.nyam"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 64
-        versionName "1.1.4"
+        versionCode 65
+        versionName "1.1.5"
     }
     buildTypes {
         release {
@@ -39,6 +39,7 @@ dependencies {
 
 //    volley
     compile 'com.mcxiaoke.volley:library:1.0.+'
+
 
 //    INTENT OBJECT USING GSON
     compile 'com.google.code.gson:gson:2.2.+'

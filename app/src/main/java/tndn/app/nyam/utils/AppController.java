@@ -20,7 +20,6 @@ public class AppController extends Application {
 
     private ImageLoader mImageLoader;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -55,7 +54,6 @@ public class AppController extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
-
     public ImageLoader getImageLoader() {
         getRequestQueue();
         mImageLoader = new ImageLoader(this.mRequestQueue, new BitmapLruCache() {
@@ -72,5 +70,8 @@ public class AppController extends Application {
 
         return this.mImageLoader;
     }
+
+
+
 
 }

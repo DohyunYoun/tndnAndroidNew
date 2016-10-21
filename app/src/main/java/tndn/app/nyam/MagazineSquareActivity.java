@@ -171,6 +171,7 @@ public class MagazineSquareActivity extends AppCompatActivity {
         stores = new ArrayList<StoreListData>();
 
         mImageLoader = AppController.getInstance().getImageLoader();
+
         gps = new GpsInfo(this);
     }
 

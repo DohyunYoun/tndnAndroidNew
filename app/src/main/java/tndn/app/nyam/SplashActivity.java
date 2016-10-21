@@ -144,9 +144,6 @@ public class SplashActivity extends AppCompatActivity {
                 }
             });
             AppController.getInstance().addToRequestQueue(req);
-/** when upload to chinese market, must grey************************start************/
-//            }
-            /** when upload to chinese market, must grey************************end************/
 
         } else {
             Handler handler = new Handler() {

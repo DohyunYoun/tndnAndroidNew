@@ -96,12 +96,13 @@ public class TDInstantPayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             Uri uri = intent.getData();
-            if (uri.getQueryParameter("id") == null || uri.getQueryParameter("id").equals("") || uri.getQueryParameter("id").equals("undefined") || uri.getQueryParameter("id").equals("null"))
-                id = 6;
-            else
+            if (uri.getQueryParameter("id") == null || uri.getQueryParameter("id").equals("") || uri.getQueryParameter("id").equals("undefined") || uri.getQueryParameter("id").equals("null")) {
+                showErrorAndFinish();
+            } else {
                 id = Integer.parseInt(uri.getQueryParameter("id"));
+            }
         } else {
-            id = intent.getIntExtra("ID", 6);
+            showErrorAndFinish();
         }
         new SaveExchangeRate().saveExchangeRate(getApplicationContext());
         curr = Double.parseDouble(PreferenceManager.getInstance(this).getCurrency());
@@ -265,6 +266,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
 
         if (!new IsOnline().onlineCheck(this)) {                  //internet check failed start
             Toast.makeText(this, "Internet Access Failed", Toast.LENGTH_SHORT).show();
+            showErrorAndFinish();
         } else { //internet check success start
             showpDialog();
 // GPS 사용유무 가져오기
@@ -295,8 +297,8 @@ public class TDInstantPayActivity extends AppCompatActivity {
                 public void onResponse(JSONObject res) {
                     try {
                         if (res.getString("result").equals("failed")) {//if result failed
-                            Toast.makeText(getApplicationContext(),
-                                    "Internet Access Failed", Toast.LENGTH_SHORT).show();
+
+                            showErrorAndFinish();
                         } else {
 
                             store = new StoreInfoData();
@@ -460,15 +462,15 @@ public class TDInstantPayActivity extends AppCompatActivity {
 
                                 if (price_kor <= 50000) {
                                     //5%
-                                    sale=0.05;
+                                    sale = 0.05;
                                     price_sale_kor = (int) (price_kor * 0.95);
                                 } else if (price_kor <= 100000) {
                                     //4%
-                                    sale=0.04;
+                                    sale = 0.04;
                                     price_sale_kor = (int) (price_kor * 0.96);
                                 } else {
                                     //3%
-                                    sale=0.03;
+                                    sale = 0.03;
                                     price_sale_kor = (int) (price_kor * 0.97);
                                 }
 
@@ -483,7 +485,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                                     straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + priceChnSale);
 
                                 }
-                                straight_pay_chn_web.setText(new MakePaymentPrice().makePaymentPrice(price_kor + "",getApplicationContext(),curr));
+                                straight_pay_chn_web.setText(new MakePaymentPrice().makePaymentPrice(price_kor + "", getApplicationContext(), curr));
 
 //                            straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + new MakePaymentPrice().makePaymentPrice(Integer.parseInt(s.toString()) * 0.9 + "", getApplicationContext(), curr));
 //                            straight_pay_chn_web.setText(getResources().getString(R.string.curr_chn) + " " + new MakePaymentPrice().makePaymentPrice(Integer.parseInt(s.toString()) * 0.95 + "", getApplicationContext(), curr));
@@ -499,6 +501,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getApplicationContext(),
                             "Internet Access Failed", Toast.LENGTH_SHORT).show();
+                    showErrorAndFinish();
                     //hide the progress dialog
                     hidepDialog();
                 }
@@ -521,5 +524,19 @@ public class TDInstantPayActivity extends AppCompatActivity {
     private void hidepDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    private void showErrorAndFinish() {
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(TDInstantPayActivity.this);
+        alert_confirm.setMessage("本美食店跟甜点公司还没携手").setCancelable(false).setPositiveButton(getResources().getString(R.string.btn_ok),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        finish();
+                    }
+                });
+        AlertDialog alert = alert_confirm.create();
+        alert.show();
     }
 }

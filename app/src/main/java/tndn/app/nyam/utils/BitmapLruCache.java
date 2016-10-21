@@ -5,6 +5,12 @@ import android.support.v4.util.LruCache;
 
 import com.android.volley.toolbox.ImageLoader;
 
+
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
+
+import com.android.volley.toolbox.ImageLoader;
+
 /**
  * Created by YounDitt on 2015-09-11.
  */

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -219,6 +218,7 @@ public class MagazineHomeActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
 
         mImageLoader = AppController.getInstance().getImageLoader();
+
         stores = new ArrayList<StoreListData>();
         magazine_home_square_gridview.setExpanded(true);
 

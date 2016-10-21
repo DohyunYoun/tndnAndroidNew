@@ -2,13 +2,10 @@ package tndn.app.nyam;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import tndn.app.nyam.adapter.NetworkImagePagerAdapter;
 import tndn.app.nyam.utils.AppController;
 import tndn.app.nyam.utils.IsOnline;
 import tndn.app.nyam.utils.SaveImagetoStorage;
@@ -80,7 +76,9 @@ public class BannerInnerActivity extends AppCompatActivity {
         banners = new ArrayList<HashMap<String, String>>();
         mImageLoader = AppController.getInstance().getImageLoader();
 
-        pDialog = new ProgressDialog(this);
+
+
+                pDialog = new ProgressDialog(this);
         pDialog.setMessage(getApplicationContext().getResources().getString(R.string.plz_wait));
         pDialog.setCancelable(false);
         i = getIntent();
@@ -103,7 +101,7 @@ public class BannerInnerActivity extends AppCompatActivity {
     private void errorBannerInfo(String id) {
 
         //카테고리에서 아이템 클릭이나 홈에서 아이템 클릭
-        if (id.equals("rentcar")) {
+        if (id.equals("rentcar")||id.equals("4")) {
             banner.setDefaultImageResId(R.mipmap.img_rentcar);
             banner.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -113,7 +111,7 @@ public class BannerInnerActivity extends AppCompatActivity {
                 }
             });
 
-        } else if (id.equals("aidibao")) {
+        } else if (id.equals("aidibao")||id.equals("3")) {
             banner.setDefaultImageResId(R.mipmap.img_aidibao);
             banner.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -123,7 +121,7 @@ public class BannerInnerActivity extends AppCompatActivity {
                 }
             });
 
-        } else if (id.equals("simya")) {
+        } else if (id.equals("simya")||id.equals("5")) {
             banner.setDefaultImageResId(R.mipmap.img_simya);
             banner.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -134,7 +132,7 @@ public class BannerInnerActivity extends AppCompatActivity {
             });
 
         } else {
-            banner.setDefaultImageResId(R.mipmap.img_logo);
+//            banner.setDefaultImageResId(R.mipmap.img_logo);
         }
     }
 
