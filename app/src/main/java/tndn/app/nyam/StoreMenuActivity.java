@@ -151,7 +151,7 @@ public class StoreMenuActivity extends AppCompatActivity {
     /**
      * StoreInfo
      */
-    ArrayList<Integer> idx_images;
+    ArrayList<HashMap<String, Integer>> idx_images;
 
 
     @Override
@@ -439,23 +439,31 @@ public class StoreMenuActivity extends AppCompatActivity {
                             /**
                              * FOR IMAGES
                              */
-                            idx_images = new ArrayList<>();
+                            idx_images = new ArrayList<HashMap<String, Integer>>();
                             JSONArray images = res.getJSONArray("images");
                             for (int i = 0; i < images.length(); i++) {
                                 JSONObject obj = images.getJSONObject(i);
                                 Iterator<String> itr = obj.keys();
+                                HashMap<String, Integer> map = new HashMap<>();
+
+
                                 while (itr.hasNext()) {
                                     String key = itr.next();
                                     String value = obj.getString(key);
-
                                     switch (key) {
                                         case "idx_image_file_path":
                                             if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
                                                 value = "0";
-                                            idx_images.add(Integer.parseInt(value));
+                                            map.put("idx_image_file_apth", Integer.parseInt(value));
                                             break;
-                                    }
-                                }
+                                        case "info_flag":
+                                            if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
+                                                value = "0";
+                                            map.put("info_flag", Integer.parseInt(value));
+                                            break;
+                                    }//end switch
+                                }//end while
+                                idx_images.add(map);
                             }
                             store.setImages(idx_images);
 

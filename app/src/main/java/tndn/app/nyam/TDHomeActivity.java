@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import tndn.app.nyam.adapter.BannerNetworkImagePagerAdapter;
 import tndn.app.nyam.adapter.ImagePagerAdapter;
 import tndn.app.nyam.adapter.LocalSpinnerAdapter;
 import tndn.app.nyam.adapter.NetworkImagePagerAdapter;
@@ -126,7 +127,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     //for image slider
     private HeightWrappingViewPager main_viewpager;
     private ImagePagerAdapter mImagePagerAdapter;
-    private NetworkImagePagerAdapter mNetworkImagePagerAdapter;
+    private BannerNetworkImagePagerAdapter mNetworkImagePagerAdapter;
     private CirclePageIndicator indicator;
     ArrayList<Integer> idx_images;
     ArrayList<HashMap<String, String>> banners;
@@ -908,8 +909,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                     if (idx_images.size() == 0) {
                         errorBanner();
                     } else {
-
-                        mNetworkImagePagerAdapter = new NetworkImagePagerAdapter(getApplicationContext(), idx_images, imagesForBanner, "banner");
+                        mNetworkImagePagerAdapter = new BannerNetworkImagePagerAdapter(getApplicationContext(), idx_images, imagesForBanner, "banner");
                         main_viewpager.setAdapter(mNetworkImagePagerAdapter);
                         indicator.setViewPager(main_viewpager);
                     }

@@ -22,11 +22,12 @@ import tndn.app.nyam.utils.PreferenceManager;
 import tndn.app.nyam.utils.TDUrls;
 import tndn.app.nyam.widget.HeightWrappingViewPager;
 
-public class NetworkImagePagerAdapter extends PagerAdapter {
+public class BannerNetworkImagePagerAdapter extends PagerAdapter {
 
     Context mContext;
     LayoutInflater mLayoutInflater;
-    ArrayList<HashMap<String, Integer>> mImages;
+    ArrayList<Integer> mImages;
+    ArrayList<HashMap<String, String>> banners;
 
     String what;
 
@@ -40,11 +41,12 @@ public class NetworkImagePagerAdapter extends PagerAdapter {
 
     ImageLoader mImageLoader;
 
-    public NetworkImagePagerAdapter(Context context, ArrayList<HashMap<String, Integer>> mImages, String what) {
+    public BannerNetworkImagePagerAdapter(Context context, ArrayList<Integer> mImages, ArrayList<HashMap<String, String>> banners, String what) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mImages = mImages;
         this.what = what;
+        this.banners = banners;
         mImageLoader = AppController.getInstance().getImageLoader();
 
     }
@@ -65,16 +67,32 @@ public class NetworkImagePagerAdapter extends PagerAdapter {
 
         final NetworkImageView imageView = new NetworkImageView(mContext);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        //가게정보에서 가져오는 아이
-        if (mImages.size() == 0 || mImages.get(position).get("idx_image_file_path") == 0 || mImages.get(position).equals("")) {
-            if (what.equals("food")) {
-                imageView.setImageResource(R.mipmap.noimg_big_food);
-            } else {
-                imageView.setImageResource(R.mipmap.noimg_big_site);
-            }
+        if (what.equals("banner")) {
+            //배너에서 가져오는 아이
+            imageView.setImageUrl(url + "&id=" + mImages.get(position), mImageLoader);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(banners.get(position).get("url_scheme_android")));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                    PreferenceManager.getInstance(mContext).setUserfrom("34");
+                    new LogHome().send(mContext, "banner-" + banners.get(position).get("id"));
+                }
+            });
+
         } else {
-            if (mImages.get(position).get("info_flag") == 0)
-                imageView.setImageUrl(url + "&id=" + mImages.get(position).get("idx_image_file_path"), mImageLoader);
+            //가게정보에서 가져오는 아이
+            if (mImages.size() == 0 || mImages.get(position) == 0 || mImages.get(position).equals("")) {
+                if (what.equals("food")) {
+                    imageView.setImageResource(R.mipmap.noimg_big_food);
+                } else {
+                    imageView.setImageResource(R.mipmap.noimg_big_site);
+                }
+            } else {
+                imageView.setImageUrl(url + "&id=" + mImages.get(position), mImageLoader);
+            }
+
         }
 
 

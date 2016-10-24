@@ -11,6 +11,7 @@ import android.os.Debug;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -112,7 +113,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
     double latitude;
     double longitude;
 
-    ArrayList<Integer> idx_images;
+    ArrayList<HashMap<String, Integer>> idx_images;
 
     String from;
 
@@ -227,7 +228,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
         if (Intent.ACTION_VIEW.equals(i.getAction())) {
             //카테고리에서 아이템 클릭이나 홈에서 아이템 클릭
             Uri uri = i.getData();
-            Log.e("tt",uri.getQueryParameter("id"));
+            Log.e("tt", uri.getQueryParameter("id"));
             String tmp = uri.getQueryParameter("id");
             if (uri.getQueryParameter("id") == null || uri.getQueryParameter("id").equals("") || uri.getQueryParameter("id").equals("undefined") || uri.getQueryParameter("id").equals("null"))
                 id = 6;
@@ -417,11 +418,15 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                             /**
                              * FOR IMAGES
                              */
-                            idx_images = new ArrayList<>();
+                            idx_images = new ArrayList<HashMap<String, Integer>>();
                             JSONArray images = res.getJSONArray("images");
                             for (int i = 0; i < images.length(); i++) {
+
                                 JSONObject obj = images.getJSONObject(i);
                                 Iterator<String> itr = obj.keys();
+                                HashMap<String, Integer> map = new HashMap<>();
+
+
                                 while (itr.hasNext()) {
                                     String key = itr.next();
                                     String value = obj.getString(key);
@@ -430,11 +435,17 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                                         case "idx_image_file_path":
                                             if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
                                                 value = "0";
-                                            idx_images.add(Integer.parseInt(value));
+                                            map.put("idx_image_file_path", Integer.parseInt(value));
                                             break;
-                                    }
-                                }
-                            }
+                                        case "info_flag":
+                                            if (value.equals("") || value.equals(null) || value.equals("null") || value.equals("NULL") || value == null)
+                                                value = "0";
+                                            map.put("info_flag", Integer.parseInt(value));
+                                            break;
+                                    }//end switch
+                                }//end while
+                                idx_images.add(map);
+                            }//end for
                             store.setImages(idx_images);
 
                             /**
@@ -689,12 +700,15 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                     //TODO phone & 환율 적용한 budget & QR로 들어왔을때 즉 url로 들어왔을때 데이터 처리 어떻게?
 
                     if (store.getImages().size() == 0) {
-                        idx_images.add(0);
+                        HashMap<String, Integer> map = new HashMap<>();
+                        map.put("idx_image_file_path", 0);
+                        map.put("info_plag", 0);
+                        idx_images.add(map);
                         store.setImages(idx_images);
                     }
 
 
-                    mImagePagerAdapter = new NetworkImagePagerAdapter(getApplicationContext(), store.getImages(),new ArrayList<HashMap<String, String>>(), "food");
+                    mImagePagerAdapter = new NetworkImagePagerAdapter(getApplicationContext(), store.getImages(), "food");
                     store_info_viewpager.setAdapter(mImagePagerAdapter);
                     indicator.setViewPager(store_info_viewpager);
 

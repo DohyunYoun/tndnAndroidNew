@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 2016 08 16
@@ -35,7 +36,8 @@ public class StoreInfoData implements Parcelable {
     int is_pay;
     String menu_input_type;
     String distance = "";
-    ArrayList<Integer> images;
+    //idx_image_file_path, info_flag
+    ArrayList<HashMap<String, Integer>> images;
     ArrayList<StoreMenuData> menus;
 
     protected StoreInfoData(Parcel in) {
@@ -64,7 +66,7 @@ public class StoreInfoData implements Parcelable {
         is_pay = in.readInt();
         menu_input_type = in.readString();
         distance = in.readString();
-        images = (ArrayList<Integer>) in.readSerializable();
+        images = (ArrayList<HashMap<String, Integer>>) in.readSerializable();
         menus = (ArrayList<StoreMenuData>) in.readSerializable();
 
 
@@ -329,11 +331,12 @@ public class StoreInfoData implements Parcelable {
         this.distance = distance;
     }
 
-    public ArrayList<Integer> getImages() {
+
+    public ArrayList<HashMap<String, Integer>> getImages() {
         return images;
     }
 
-    public void setImages(ArrayList<Integer> images) {
+    public void setImages(ArrayList<HashMap<String, Integer>> images) {
         this.images = images;
     }
 
@@ -344,6 +347,7 @@ public class StoreInfoData implements Parcelable {
     public void setMenus(ArrayList<StoreMenuData> menus) {
         this.menus = menus;
     }
+
 
     public static final Creator<StoreInfoData> CREATOR = new Creator<StoreInfoData>() {
         @Override
