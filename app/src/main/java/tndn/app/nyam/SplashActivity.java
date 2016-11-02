@@ -3,16 +3,22 @@ package tndn.app.nyam;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import tndn.app.nyam.utils.AppController;
 import tndn.app.nyam.utils.IsOnline;
@@ -25,6 +31,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private int splash[] = new int[]{R.mipmap.img_splash_1, R.mipmap.img_splash_2, R.mipmap.img_splash_3, R.mipmap.img_splash_4, R.mipmap.img_splash_5};
+    int versionCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,139 +55,73 @@ public class SplashActivity extends AppCompatActivity {
         PreferenceManager.getInstance(getApplicationContext()).setLocationcheck("");
 
         if (new IsOnline().onlineCheck(this)) {                 //internet check true start
-            StringRequest req = new StringRequest(new TDUrls().errorCheckURL, new Response.Listener<String>() {
+
+            try {
+                versionCode = getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).versionCode;
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectRequest req = new JsonObjectRequest(new TDUrls().chkVersion + "?version=" + versionCode + "&thisIs=androidUser", new Response.Listener<JSONObject>() {
                 @Override
-                public void onResponse(String response) {
-                    if (response.equals("fail")) {
-                        AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
-                        alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();     //닫기
-                                finish();
-                            }
-                        });
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response.getString("data").equals("check")) {//if result failed
 
-                        alert_check.setMessage("正在检查中。。。");
-                        alert_check.show();
-                    } else {
-
-                        Handler handler = new Handler() {
-                            @Override
-                            public void handleMessage(Message msg) {
-                                super.handleMessage(msg);
-
-                                if (PreferenceManager.getInstance(SplashActivity.this).getUseris().equals("") || PreferenceManager.getInstance(getApplicationContext()).getUseris() == null) {
-                                    AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SplashActivity.this);
-                                    alert_confirm.setMessage("您的旅行类型是什么").setCancelable(false).setPositiveButton("自由行",
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                    PreferenceManager.getInstance(getApplicationContext()).setUseris("fit");
-                                                    chkUserIntent();
-                                                }
-                                            }).setNegativeButton("团体游",
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-
-                                                    PreferenceManager.getInstance(getApplicationContext()).setUseris("pack");
-                                                    chkUserIntent();
-                                                }
-                                            });
-                                    AlertDialog alert = alert_confirm.create();
-                                    alert.show();
-
-                                } else {
-                                    chkUserIntent();
+                            //점검중
+                            AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
+                            alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();     //닫기
+                                    finish();
                                 }
+                            });
 
-                            }
-                        };
+                            alert_check.setMessage("正在检查中。。。");
+                            alert_check.show();
 
-                        handler.sendEmptyMessageDelayed(0, 3000);
-                    }
+                        } else if (response.getString("data").equals("update")) {
+
+
+                            //업데이트 필요
+                            AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
+                            alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();     //닫기
+//                                    finish();
+                                }
+                            });
+
+                            alert_check.setMessage("更新已经完成。\n" +
+                                    "请在对应的应用商城中下载更新。");
+                            alert_check.show();
+
+
+                        } else {
+                            chkUserIsHandler();
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        chkUserIsHandler();
+                    } //end jsonexception catch
+
+
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Handler handler = new Handler() {
-                        @Override
-                        public void handleMessage(Message msg) {
-                            super.handleMessage(msg);
-                            if (PreferenceManager.getInstance(SplashActivity.this).getUseris().equals("") || PreferenceManager.getInstance(getApplicationContext()).getUseris() == null) {
-                                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SplashActivity.this);
-                                alert_confirm.setMessage("您的旅行类型是什么").setCancelable(false).setPositiveButton("自由行",
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                                PreferenceManager.getInstance(getApplicationContext()).setUseris("fit");
-                                                chkUserIntent();
-                                            }
-                                        }).setNegativeButton("团体游",
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
+                    chkUserIsHandler();
 
-                                                PreferenceManager.getInstance(getApplicationContext()).setUseris("pack");
-                                                chkUserIntent();
-                                            }
-                                        });
-                                AlertDialog alert = alert_confirm.create();
-                                alert.show();
-
-                            } else {
-                                chkUserIntent();
-                            }
-
-                        }
-                    };
-
-                    handler.sendEmptyMessageDelayed(0, 2000);
                 }
             });
             AppController.getInstance().addToRequestQueue(req);
 
+
         } else {
-            Handler handler = new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    super.handleMessage(msg);
-                    if (PreferenceManager.getInstance(SplashActivity.this).getUseris().equals("") || PreferenceManager.getInstance(getApplicationContext()).getUseris() == null) {
-                        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SplashActivity.this);
-                        alert_confirm.setMessage("您的旅行类型是什么").setCancelable(false).setPositiveButton("自由行",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        PreferenceManager.getInstance(getApplicationContext()).setUseris("fit");
-                                        chkUserIntent();
-                                    }
-                                }).setNegativeButton("团体游",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-
-                                        PreferenceManager.getInstance(getApplicationContext()).setUseris("pack");
-                                        chkUserIntent();
-                                    }
-                                });
-                        AlertDialog alert = alert_confirm.create();
-                        alert.show();
-
-                    } else {
-                        chkUserIntent();
-                    }
-
-                }
-            };
-
-            handler.sendEmptyMessageDelayed(0, 2000);
+            chkUserIsHandler();
         }
 
         PreferenceManager.getInstance(this).setOrderby("distance");
@@ -197,5 +138,43 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(new Intent(SplashActivity.this, TDHomeActivity.class));
         finish();
 //        }
+    }
+
+    private void chkUserIsHandler() {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (PreferenceManager.getInstance(SplashActivity.this).getUseris().equals("") || PreferenceManager.getInstance(getApplicationContext()).getUseris() == null) {
+                    AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SplashActivity.this);
+                    alert_confirm.setMessage("您的旅行类型是什么").setCancelable(false).setPositiveButton("自由行",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    PreferenceManager.getInstance(getApplicationContext()).setUseris("fit");
+                                    chkUserIntent();
+                                }
+                            }).setNegativeButton("团体游",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+
+                                    PreferenceManager.getInstance(getApplicationContext()).setUseris("pack");
+                                    chkUserIntent();
+                                }
+                            });
+                    AlertDialog alert = alert_confirm.create();
+                    alert.show();
+
+                } else {
+                    chkUserIntent();
+                }
+
+            }
+        };
+
+        handler.sendEmptyMessageDelayed(0, 2000);
     }
 }

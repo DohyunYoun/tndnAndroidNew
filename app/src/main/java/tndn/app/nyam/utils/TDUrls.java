@@ -21,6 +21,8 @@ public class TDUrls {
     public String getBannerURL = TNDNURL + "/getBanner";
     public String getBannerInfoURL = TNDNURL + "/getBannerInfo";
 
+    public String chkVersion = TNDNURL + "/chkVersion";
+
     /**
      * USER
      */

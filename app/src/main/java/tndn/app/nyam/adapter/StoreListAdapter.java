@@ -95,7 +95,7 @@ public class StoreListAdapter extends BaseAdapter {
         if (list.get(position).getName_chn().equals("") || list.get(position).getName_chn().equals("NULL")) {
             resName = list.get(position).getName_kor();
         } else {
-            resName = list.get(position).getName_kor();
+            resName = list.get(position).getName_chn();
         }
         //        viewHolder.item_res_category_name.setText(list.get(position).getIdx_restaurant()+"_"+list.get(position).getKor_restaurantName());
         viewHolder.item_res_category_name.setText(resName);

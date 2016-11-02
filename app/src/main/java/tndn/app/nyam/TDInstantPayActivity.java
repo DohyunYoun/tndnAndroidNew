@@ -166,8 +166,8 @@ public class TDInstantPayActivity extends AppCompatActivity {
 
                     params.put("priceKor", priceKor);
                     params.put("priceChn", priceChn);
-                    params.put("priceSaleKor", priceKorSale);
-                    params.put("priceSaleChn", priceChnSale);
+                    params.put("priceSaleKor", priceKorSale.replace(",", ""));
+                    params.put("priceSaleChn", priceChnSale.replace(",", ""));
                     params.put("outTradeNo", outTradeNo);
                     params.put("payType", "alipay");
 
@@ -187,7 +187,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                                     //1. alipay
                                     PayDemoActivity pay = new PayDemoActivity();
                                     pay.init(getApplicationContext(), TDInstantPayActivity.this);
-                                    pay.pay(id, store.getName_kor(), store.getName_chn(), "TNDN Inc./+827086709409", priceChnSale, outTradeNo);
+                                    pay.pay(id, store.getName_kor(), store.getName_chn(), "TNDN Inc./+827086709409", priceChnSale.replace(",", ""), outTradeNo);
                                     PreferenceManager.getInstance(TDInstantPayActivity.this).clear("USERFROM");
                                 } else {
 
@@ -270,28 +270,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
         } else { //internet check success start
             showpDialog();
 // GPS 사용유무 가져오기
-            if (gps.isGetLocation()) {
-
-                Thread gpsThread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        latitude = gps.getLatitude();
-                        longitude = gps.getLongitude();
-                    }
-                });
-                gpsThread.start();
-                try {
-                    gpsThread.join();  // 쓰레드 작업 끝날때까지 다른 작업들은 대기
-                } catch (Exception e) {
-                }
-
-            } else {
-                // GPS 를 사용할수 없으므로
-                if (!PreferenceManager.getInstance(getApplicationContext()).getLocationcheck().equals("OK")) {
-                    gps.showSettingsAlert();
-                }
-            }//end else system gps check
-            url = new TDUrls().getStoreInfoURL + "?id=" + id + "&mlat=" + latitude + "&mlon=" + longitude + new UserLog().getLog(getApplicationContext());
+            url = new TDUrls().getStoreInfoURL + "?id=" + id + new UserLog().getLog(getApplicationContext());
             JsonObjectRequest objreq = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject res) {
