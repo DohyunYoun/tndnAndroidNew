@@ -274,8 +274,8 @@ public class TDLoginActivity extends AppCompatActivity {
 
                                                                     if (result.equals("success")) {
                                                                         PreferenceManager.getInstance(getApplicationContext()).setTndnid(data);
-                                                                        PreferenceManager.getInstance(getApplicationContext()).setUseremail(login_id.getText().toString());
                                                                         PreferenceManager.getInstance(getApplicationContext()).setUsercode(data);
+                                                                        PreferenceManager.getInstance(getApplicationContext()).setUseremail(login_id.getText().toString());
 //                                                                        startActivity(new Intent(TDLoginActivity.this, TDHomeActivity.class));
                                                                         if (from.equals("MYPAGE")) {
                                                                             startActivity(new Intent(getApplicationContext(), TDMypageActivity.class));

@@ -153,6 +153,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                     outTradeNo = new OutTradeNo().getOutTradeNo();
 
                     params.put("idxStore", id + "");
+                    params.put("idxAppUser", idx_appuser + "");
                     params.put("nameStoreKor", store.getName_kor());
                     params.put("nameStoreChn", store.getName_chn());
 
@@ -171,7 +172,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                     params.put("outTradeNo", outTradeNo);
                     params.put("payType", "alipay");
 
-                    params.put("sale", sale * 100 + "");
+                    params.put("sale", (sale * 100 + "").replace(".0",""));
                     params.put("userIs", PreferenceManager.getInstance(getApplicationContext()).getUseris());
                     params.put("userFrom", PreferenceManager.getInstance(getApplicationContext()).getUserfrom());
                     params.put("os", "android");

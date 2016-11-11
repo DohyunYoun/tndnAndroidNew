@@ -408,12 +408,12 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                 @Override
                 public void onResponse(JSONObject res) {
                     try {
+                        store = new StoreInfoData();
+
                         if (res.getString("result").equals("failed")) {//if result failed
                             Toast.makeText(getApplicationContext(),
                                     "Internet Access Failed", Toast.LENGTH_SHORT).show();
                         } else {
-
-                            store = new StoreInfoData();
 
                             /**
                              * FOR IMAGES
@@ -686,6 +686,70 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                             }   //end for
                             store.setMenus(menus);
 
+                            //TODO phone & 환율 적용한 budget & QR로 들어왔을때 즉 url로 들어왔을때 데이터 처리 어떻게?
+                            if (store.getImages().size() == 0) {
+                                HashMap<String, Integer> map = new HashMap<>();
+                                map.put("idx_image_file_path", 0);
+                                map.put("info_plag", 0);
+                                idx_images.add(map);
+                                store.setImages(idx_images);
+                            }
+
+
+                            mImagePagerAdapter = new NetworkImagePagerAdapter(getApplicationContext(), store.getImages(), "food");
+                            store_info_viewpager.setAdapter(mImagePagerAdapter);
+                            indicator.setViewPager(store_info_viewpager);
+
+
+                            store_info_name.setText(store.getName_kor() + "  " + store.getName_chn());
+                            store_info_category.setText(store.getCategory_name_chn());
+                            store_info_address.setText(store.getAddress_kor());
+
+                            store_info_budget_chn.setText(new MakePricePretty().makePricePretty(getApplicationContext(), store.getBudget(), false).replace("¥ ", ""));
+                            store_info_budget_kor.setText(store.getBudget());
+                            store_info_detail.setText(store.getDetail_chn());
+
+                            store_info_card_name.setText(store.getName_kor() + "  " + store.getName_chn());
+                            store_info_card_address.setText(store.getAddress_kor());
+
+                            String opentime;
+                            String closetime;
+                            if (store.getBusiness_hour_open().length() == 4) {
+                                opentime = store.getBusiness_hour_open().substring(0, 2) + ":" + store.getBusiness_hour_open().substring(2);
+                            } else {
+                                opentime = store.getBusiness_hour_open();
+                            }
+                            if (store.getBusiness_hour_closed().length() == 4) {
+                                closetime = store.getBusiness_hour_closed().substring(0, 2) + ":" + store.getBusiness_hour_closed().substring(2);
+                            } else {
+                                closetime = store.getBusiness_hour_closed();
+                            }
+                            store_info_time.setText(opentime + " ~ " + closetime);
+
+                            store_info_phone.setText(store.getTel_1() + "-" + store.getTel_2() + "-" + store.getTel_3());
+                            store_info_phone.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + store.getTel_1() + "-" + store.getTel_2() + "-" + store.getTel_3()));
+                                    startActivity(intent);
+                                }
+                            });
+
+
+                            Coord transCoordination = mapView.getProjection().transCoordination(Projection.WGS84,
+                                    Projection.UTMK, new Coord(Float.parseFloat(store.getLongitude()), Float.parseFloat(store.getLatitude())));
+                            mapView.setMapCenter(transCoordination);                                // 입렫된 위치로 MAP의 중앙이 이동
+                            Coord getcoord = mapView.getMapCenter();
+                            Marker marker = new Marker(getcoord, getResources().getDrawable(R.mipmap.ic_mapmarker_small));
+
+                            markerLayer.addItem(marker);
+
+                            mapView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+//                                Toast.makeText(getApplicationContext(), shop.getLatitude() + "_" + shop.getLongitude(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }//end else (result)
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -697,71 +761,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                     hidepDialog();
 //data setting
 
-                    //TODO phone & 환율 적용한 budget & QR로 들어왔을때 즉 url로 들어왔을때 데이터 처리 어떻게?
 
-                    if (store.getImages().size() == 0) {
-                        HashMap<String, Integer> map = new HashMap<>();
-                        map.put("idx_image_file_path", 0);
-                        map.put("info_plag", 0);
-                        idx_images.add(map);
-                        store.setImages(idx_images);
-                    }
-
-
-                    mImagePagerAdapter = new NetworkImagePagerAdapter(getApplicationContext(), store.getImages(), "food");
-                    store_info_viewpager.setAdapter(mImagePagerAdapter);
-                    indicator.setViewPager(store_info_viewpager);
-
-
-                    store_info_name.setText(store.getName_kor() + "  " + store.getName_chn());
-                    store_info_category.setText(store.getCategory_name_chn());
-                    store_info_address.setText(store.getAddress_kor());
-
-                    store_info_budget_chn.setText(new MakePricePretty().makePricePretty(getApplicationContext(), store.getBudget(), false).replace("¥ ", ""));
-                    store_info_budget_kor.setText(store.getBudget());
-                    store_info_detail.setText(store.getDetail_chn());
-
-                    store_info_card_name.setText(store.getName_kor() + "  " + store.getName_chn());
-                    store_info_card_address.setText(store.getAddress_kor());
-
-                    String opentime;
-                    String closetime;
-                    if (store.getBusiness_hour_open().length() == 4) {
-                        opentime = store.getBusiness_hour_open().substring(0, 2) + ":" + store.getBusiness_hour_open().substring(2);
-                    } else {
-                        opentime = store.getBusiness_hour_open();
-                    }
-                    if (store.getBusiness_hour_closed().length() == 4) {
-                        closetime = store.getBusiness_hour_closed().substring(0, 2) + ":" + store.getBusiness_hour_closed().substring(2);
-                    } else {
-                        closetime = store.getBusiness_hour_closed();
-                    }
-                    store_info_time.setText(opentime + " ~ " + closetime);
-
-                    store_info_phone.setText(store.getTel_1() + "-" + store.getTel_2() + "-" + store.getTel_3());
-                    store_info_phone.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + store.getTel_1() + "-" + store.getTel_2() + "-" + store.getTel_3()));
-                            startActivity(intent);
-                        }
-                    });
-
-
-                    Coord transCoordination = mapView.getProjection().transCoordination(Projection.WGS84,
-                            Projection.UTMK, new Coord(Float.parseFloat(store.getLongitude()), Float.parseFloat(store.getLatitude())));
-                    mapView.setMapCenter(transCoordination);                                // 입렫된 위치로 MAP의 중앙이 이동
-                    Coord getcoord = mapView.getMapCenter();
-                    Marker marker = new Marker(getcoord, getResources().getDrawable(R.mipmap.ic_mapmarker_small));
-
-                    markerLayer.addItem(marker);
-
-                    mapView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-//                                Toast.makeText(getApplicationContext(), shop.getLatitude() + "_" + shop.getLongitude(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
                 }//end response
 
             }, new Response.ErrorListener() {   //end request

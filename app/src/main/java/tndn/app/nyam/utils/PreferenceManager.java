@@ -45,19 +45,18 @@ import android.content.SharedPreferences;
 /**
  * SAve ARRAY LIst
  * //Retrieve the values
- Gson gson = new Gson();
- String jsonText = Prefs.getString("key", null);
- String[] text = gson.fromJson(jsonText, new TypeToken<List<JsonLog>>(){}.getType());  //EDIT: gso to gson
-
-
- //Set the values
- Gson gson = new Gson();
- List<String> textList = new ArrayList<String>();
- textList.addAll(data);
- String jsonText = gson.toJson(textList);
- prefsEditor.putString("key", jsonText);
- prefsEditor.commit();
- *
+ * Gson gson = new Gson();
+ * String jsonText = Prefs.getString("key", null);
+ * String[] text = gson.fromJson(jsonText, new TypeToken<List<JsonLog>>(){}.getType());  //EDIT: gso to gson
+ * <p>
+ * <p>
+ * //Set the values
+ * Gson gson = new Gson();
+ * List<String> textList = new ArrayList<String>();
+ * textList.addAll(data);
+ * String jsonText = gson.toJson(textList);
+ * prefsEditor.putString("key", jsonText);
+ * prefsEditor.commit();
  */
 /*
 *getpref
@@ -260,7 +259,7 @@ public class PreferenceManager {
     }
 /**
  * END STORE LIST
-  */
+ */
 
     /**
      * Currency
@@ -359,10 +358,29 @@ public class PreferenceManager {
         return tndnid;
     }
 
+
+    //when user logged in. set idx_app_user and send to request
+    private static final String IDXAPPUSER = "IDXAPPUSER";
+    private String idxAppUser = "";
+
+    public void setIdxAppUser(String key) {
+        this.idxAppUser = key;
+        clear(IDXAPPUSER);
+        mEditor.putString(IDXAPPUSER, key);
+        mEditor.commit();
+    }
+
+    public String getIdxAppUser() {
+        if (idxAppUser.equals("")) {
+            idxAppUser = mPrefs.getString(IDXAPPUSER, "");
+        }
+        return idxAppUser;
+    }
+
+
     /**
      * FOR MAP
      * 맵부부 수정하면 싹 다 수정해야지
-     *
      */
     //route end search intent
     private static final String MAPROUTEINTENT = "MAPROUTEINTENT";
