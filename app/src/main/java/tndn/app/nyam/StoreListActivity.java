@@ -108,9 +108,11 @@ public class StoreListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PreferenceManager.getInstance(getApplicationContext()).setLocationcheck("");
-                stores = new ArrayList<StoreListData>();
-                page = 0;
-                getStoreList(mainId, locationId, foodId, orderBy, localizationId, page, false);
+//                stores = new ArrayList<StoreListData>();
+//                page = 0;
+//                getStoreList(mainId, locationId, foodId, orderBy, localizationId, page, false);
+                startActivity(new Intent(getApplicationContext(), StoreListActivity.class));
+                finish();
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
