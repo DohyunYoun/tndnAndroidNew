@@ -153,7 +153,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                     outTradeNo = new OutTradeNo().getOutTradeNo();
 
                     params.put("idxStore", id + "");
-                    params.put("idxAppUser", idx_appuser + "");
+                    params.put("idxAppUser", PreferenceManager.getInstance(getApplicationContext()).getIdxAppUser());
                     params.put("nameStoreKor", store.getName_kor());
                     params.put("nameStoreChn", store.getName_chn());
 

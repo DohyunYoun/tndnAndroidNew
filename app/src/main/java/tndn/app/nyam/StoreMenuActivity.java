@@ -252,6 +252,24 @@ public class StoreMenuActivity extends AppCompatActivity {
                 } else {
                     //선택된 아이들
                     order = new ArrayList<StoreMenuData>();
+                    //TODO:카페일 경우와 그 외의 경우를 나눌 것
+//
+//                    /**
+//                     * 1. 카페일경우
+//                     */
+//
+//                    if (input_type == 10) {
+//                        for (int j = 0; j < store.getMenus().size(); j++) {
+//                            if (store.getMenus().get(j).getCount() != 0 && store.getMenus().get(j).getCount() > 0)
+//                                order.add(store.getMenus().get(j));
+//                            if (store.getMenus().get(j).getCountForIce() != 0 && store.getMenus().get(j).getCountForIce() > 0)
+//                                order.add(store.getMenus().get(j));
+//                        }
+//
+//                    } else {
+//                        /**
+//                         * 2. 그외일 경우
+//                         */
                     for (int j = 0; j < store.getMenus().size(); j++) {
                         if (store.getMenus().get(j).getCount() != 0 && store.getMenus().get(j).getCount() > 0)
                             order.add(store.getMenus().get(j));
@@ -271,6 +289,7 @@ public class StoreMenuActivity extends AppCompatActivity {
                             params_data = params_data + "@" + order.get(j).getMenu_name_kor() + "#" + order.get(j).getMenu_price() + "#" + order.get(j).getCount();
                         }
                     }
+//                    }//end 카페일반일때 데이터 셋팅 else
 
                     Intent i = new Intent(getApplicationContext(), FoodOrderAcitivty.class);
 
@@ -587,6 +606,9 @@ public class StoreMenuActivity extends AppCompatActivity {
                             if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
                                 tmpValue = "";
                             store.setMenu_input_type(tmpValue);
+                            //TODO: input_type을 가져왔을때 카페형식인지 가져와서 저장해야 하는데 현재는 아이스핫이 등록된 부분이 없기때문에 스킵한다
+//                            if (!tmpValue.equals(""))
+//                                input_type = Integer.parseInt(tmpValue);
 
                             tmpValue = info.getString("distance");
                             if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
