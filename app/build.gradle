@@ -8,8 +8,8 @@ android {
         applicationId "tndn.app.nyam"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 66
-        versionName "1.1.6"
+        versionCode 67
+        versionName "1.1.7"
     }
     buildTypes {
         release {

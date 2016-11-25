@@ -78,19 +78,15 @@ public class PayDemoActivity {
                         CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().setStorePay, params, new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                try {
-                                    if (response.getString("result").equals("success")) {//if result failed
-                                        String url = "tndn://complete";
-                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        mcontext.startActivity(intent);
-                                        activity.finish();
-                                    } else {
-                                        Log.e("paylog", "fail");
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+//                                    if (response.getString("result").equals("success")) {//if result failed
+                                String url = "tndn://complete";
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                mcontext.startActivity(intent);
+                                activity.finish();
+//                                    } else {
+//                                        Log.e("paylog", "fail");
+//                                    }
                             }
                         }, new Response.ErrorListener() {
                             @Override
@@ -339,7 +335,7 @@ public class PayDemoActivity {
 //        orderInfo += "&total_fee=" + "\"" + price_chn + "\"";
 
         // Server asynchronous notification Page path
-        orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
+        orderInfo += "&notify_url=" + "\"" + "http://tndn.net/api/pay/alipayNotify"
                 + "\"";
 
         // Service interface name, the fixed value
@@ -364,7 +360,8 @@ public class PayDemoActivity {
         // orderInfo += "&extern_token=" + "\"" + extern_token + "\"";
 
         // Alipay processed the request, the current page to jump to a specific page of the merchant path, you can empty
-        orderInfo += "&return_url=\"m.alipay.com\"";
+        orderInfo += "&return_url=\" \n" +
+                " http://tndn.net/api/pay/alipayReturn\"";
 
         // Call the bank card payments, you need to configure this parameter, participate signature, fixed value (requires signing the "wireless bank card quick payment" in order to use)
         // orderInfo += "&paymethod=\"expressGateway\"";
