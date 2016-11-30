@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private int splash[] = new int[]{R.mipmap.img_splash_1, R.mipmap.img_splash_2, R.mipmap.img_splash_3, R.mipmap.img_splash_4, R.mipmap.img_splash_5};
     int versionCode;
+    RelativeLayout splash_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class SplashActivity extends AppCompatActivity {
 
         }
 
-        RelativeLayout splash_layout = (RelativeLayout) findViewById(R.id.splash_layout);
+        splash_layout = (RelativeLayout) findViewById(R.id.splash_layout);
         int i = (int) (Math.random() * 4);   // 0~4 까지의 int 랜덤 생성
         splash_layout.setBackgroundResource(splash[i]);
 
@@ -67,7 +69,12 @@ public class SplashActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     try {
                         if (response.getString("data").equals("check")) {//if result failed
-
+                            splash_layout.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    finish();
+                                }
+                            });
                             //점검중
                             AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
                             alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
@@ -82,14 +89,19 @@ public class SplashActivity extends AppCompatActivity {
                             alert_check.show();
 
                         } else if (response.getString("data").equals("update")) {
-
-
+                            splash_layout.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    chkUserIsHandler();
+                                }
+                            });
                             //업데이트 필요
                             AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
                             alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();     //닫기
+                                    chkUserIsHandler();
 //                                    finish();
                                 }
                             });
