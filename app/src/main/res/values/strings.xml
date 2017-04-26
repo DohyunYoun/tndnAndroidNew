@@ -134,6 +134,7 @@
 
     <!--FoodOrderActivity-->
     <string name="alipay">用支付宝支付</string>
+    <string name="pay">支付</string>
 
     <!--ExchangeRateActivity-->
     <string name="exchange_rate_hint">请输入换算金额</string>

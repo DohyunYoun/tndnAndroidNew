@@ -88,7 +88,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_td_instant_pay);
-
+/*
         initView();
         initialize();
 
@@ -128,7 +128,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                     alert.show();
                 } else {
                     Map<String, String> params = new HashMap<>();
-                    /**
+                    *//**
                      *
                      *
                      * idxStore(*)
@@ -148,7 +148,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                      *
                      * userLog
                      * os(*)
-                     */
+                     *//*
 
                     outTradeNo = new OutTradeNo().getOutTradeNo();
 
@@ -239,6 +239,8 @@ public class TDInstantPayActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        */
     }
 
 

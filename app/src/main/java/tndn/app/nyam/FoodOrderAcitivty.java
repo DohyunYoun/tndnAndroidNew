@@ -17,9 +17,11 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 import tndn.app.nyam.adapter.FoodOrderAdapter;
+import tndn.app.nyam.alipay.PayDemoActivity;
 import tndn.app.nyam.data.StoreInfoData;
 import tndn.app.nyam.data.StoreMenuData;
 import tndn.app.nyam.utils.MakePricePretty;
+import tndn.app.nyam.utils.OutTradeNo;
 import tndn.app.nyam.utils.PreferenceManager;
 
 public class FoodOrderAcitivty extends AppCompatActivity {
@@ -107,6 +109,11 @@ public class FoodOrderAcitivty extends AppCompatActivity {
                                                     @Override
                                                     public void onClick(View v) {
 
+                                                        //1. alipay
+//                                                        PayDemoActivity pay = new PayDemoActivity();
+//                                                        pay.init(getApplicationContext(), FoodOrderAcitivty.this);
+//                                                        String outTradeNo = new OutTradeNo().getOutTradeNo();
+//                                                        pay.pay(6, "tndn", "tndn", "TNDN Inc./+827086709409", "15000", outTradeNo);
                                                         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(FoodOrderAcitivty.this);
                                                         alert_confirm.setMessage("这家店还没加如甜点，请使用其他方式支付。sorry~").setCancelable(false).setPositiveButton(getResources().getString(R.string.btn_ok),
                                                                 new DialogInterface.OnClickListener() {
