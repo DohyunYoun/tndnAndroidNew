@@ -317,10 +317,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             //resultHandler.getDisplayContents()
             String[] arrUrl = resultHandler.getDisplayContents().toString().split("\\?");
             Intent intent = null;
-//            if (arrUrl[0].equals("http://tndn.net/qrCodePay")) {
+            if (arrUrl[0].equals("http://tndn.net/qrCodePay")) {
                 //http://tndn.net/qrCodePay?resIdx=6
-//                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://pay?id=" + arrUrl[1].split("\\=")[1].split("\\&")[0]));
-          if (arrUrl[0].equals("http://tndn.net/qrCodeMenuList")) {
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://pay?id=" + arrUrl[1].split("\\=")[1].split("\\&")[0]));
+            } else if (arrUrl[0].equals("http://tndn.net/qrCodeMenuList")) {
                 //http://tndn.net/qrCodeMenuList?resIdx=6
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://getStoreInfo?id=" + arrUrl[1].split("\\=")[1].split("\\&")[0]));
             } else if (arrUrl[0].equals("http://tndn.net/qrCodeVoice")) {

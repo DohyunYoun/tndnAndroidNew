@@ -5,21 +5,20 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:lineSpacingExtra="10dp"
-        android:padding="30dp"
-        android:text="앱내 알리페이서비스가 일시 중지되었습니다. 위챗페이를 이용해주세요\n\n您好，\n目前支付宝服务正在维护中，\n请您使用微信支付。 \n为您带来的不便我们表示诚挚的歉意。"
-        android:textColor="@color/tndn_black"
-        android:textSize="18sp" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:lineSpacingExtra="10dp"-->
+        <!--android:padding="30dp"-->
+        <!--android:text="앱내 알리페이서비스가 일시 중지되었습니다. 위챗페이를 이용해주세요\n\n您好，\n目前支付宝服务正在维护中，\n请您使用微信支付。 \n为您带来的不便我们表示诚挚的歉意。"-->
+        <!--android:textColor="@color/tndn_black"-->
+        <!--android:textSize="18sp" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <ImageView
             style="@style/imageview"
