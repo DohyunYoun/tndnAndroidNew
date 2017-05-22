@@ -436,6 +436,11 @@ public class StoreListActivity extends AppCompatActivity {
                                                 value = "0";
                                             store.setLongitude(value);
                                             break;
+                                        case "quality_flag":
+                                            if (value.equals("") || value.equals("null") || value.equals("NULL"))
+                                                value = "0";
+                                            store.setQuality_flag(value);
+                                            break;
                                         case "is_pay":
                                             if (value.equals("") || value.equals("null") || value.equals("NULL"))
                                                 value = "";

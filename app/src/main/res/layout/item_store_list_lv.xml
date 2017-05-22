@@ -61,13 +61,13 @@
                 android:text="제주특별자치도 제주시 구좌읍 월정리" />
 
             <ImageView
-                android:id="@+id/item_res_category_alipay"
+                android:id="@+id/item_res_category_quality_flag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@mipmap/ic_alipay"
+                android:src="@mipmap/img_quality_flag"
                 android:visibility="invisible" />
         </LinearLayout>
 

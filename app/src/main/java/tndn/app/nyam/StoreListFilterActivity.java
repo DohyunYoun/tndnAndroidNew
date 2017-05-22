@@ -41,15 +41,15 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
     private ImageView store_list_filter_western;
     private ImageView store_list_filter_snack;
     private ImageView store_list_filter_cafe;
-    private ImageView store_list_filter_fish;
+    private ImageView store_list_filter_seafood;
     private ImageView store_list_filter_chicken;
-    private ImageView store_list_filter_lunchbox;
+    private ImageView store_list_filter_pub;
     private ImageView store_list_filter_fastfood;
-    private ImageView store_list_filter_buffet;
+    private ImageView store_list_filter_pizza;
     private ImageView store_list_filter_distribution;
-    private ImageView store_list_filter_cook;
-    private ImageView store_list_filter_family;
-    private ImageView store_list_filter_sidedish;
+    private ImageView store_list_filter_bakery;
+    private ImageView store_list_filter_dessert;
+    private ImageView store_list_filter_asiafusion;
     private ImageView store_list_filter_etc;
 
     private ImageView store_list_filter_apply;
@@ -328,31 +328,31 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
                         store_list_filter_cafe.setSelected(true);
                         break;
                     case 14:
-                        store_list_filter_fish.setSelected(true);
+                        store_list_filter_seafood.setSelected(true);
                         break;
                     case 15:
                         store_list_filter_chicken.setSelected(true);
                         break;
                     case 1:
-                        store_list_filter_lunchbox.setSelected(true);
+                        store_list_filter_pub.setSelected(true);
                         break;
                     case 12:
                         store_list_filter_fastfood.setSelected(true);
                         break;
                     case 4:
-                        store_list_filter_buffet.setSelected(true);
+                        store_list_filter_pizza.setSelected(true);
                         break;
                     case 5:
                         store_list_filter_distribution.setSelected(true);
                         break;
                     case 7:
-                        store_list_filter_cook.setSelected(true);
+                        store_list_filter_bakery.setSelected(true);
                         break;
                     case 11:
-                        store_list_filter_family.setSelected(true);
+                        store_list_filter_dessert.setSelected(true);
                         break;
                     case 2:
-                        store_list_filter_sidedish.setSelected(true);
+                        store_list_filter_asiafusion.setSelected(true);
                         break;
                     case 16:
                         store_list_filter_etc.setSelected(true);
@@ -382,15 +382,15 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
         store_list_filter_western.setOnClickListener(this);
         store_list_filter_snack.setOnClickListener(this);
         store_list_filter_cafe.setOnClickListener(this);
-        store_list_filter_fish.setOnClickListener(this);
+        store_list_filter_seafood.setOnClickListener(this);
         store_list_filter_chicken.setOnClickListener(this);
-        store_list_filter_lunchbox.setOnClickListener(this);
+        store_list_filter_pub.setOnClickListener(this);
         store_list_filter_fastfood.setOnClickListener(this);
-        store_list_filter_buffet.setOnClickListener(this);
+        store_list_filter_pizza.setOnClickListener(this);
         store_list_filter_distribution.setOnClickListener(this);
-        store_list_filter_cook.setOnClickListener(this);
-        store_list_filter_family.setOnClickListener(this);
-        store_list_filter_sidedish.setOnClickListener(this);
+        store_list_filter_bakery.setOnClickListener(this);
+        store_list_filter_dessert.setOnClickListener(this);
+        store_list_filter_asiafusion.setOnClickListener(this);
         store_list_filter_etc.setOnClickListener(this);
         store_list_filter_apply.setOnClickListener(this);
 
@@ -408,7 +408,7 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
 
 
         locationIds = new int[41];
-        foodIds = new int[17];
+        foodIds = new int[47];
 
         locationId = "";
         foodId = "";
@@ -437,15 +437,15 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
         store_list_filter_western = (ImageView) findViewById(R.id.store_list_filter_western);
         store_list_filter_snack = (ImageView) findViewById(R.id.store_list_filter_snack);
         store_list_filter_cafe = (ImageView) findViewById(R.id.store_list_filter_cafe);
-        store_list_filter_fish = (ImageView) findViewById(R.id.store_list_filter_fish);
+        store_list_filter_seafood = (ImageView) findViewById(R.id.store_list_filter_seafood);
         store_list_filter_chicken = (ImageView) findViewById(R.id.store_list_filter_chicken);
-        store_list_filter_lunchbox = (ImageView) findViewById(R.id.store_list_filter_lunchbox);
+        store_list_filter_pub = (ImageView) findViewById(R.id.store_list_filter_pub);
         store_list_filter_fastfood = (ImageView) findViewById(R.id.store_list_filter_fastfood);
-        store_list_filter_buffet = (ImageView) findViewById(R.id.store_list_filter_buffet);
+        store_list_filter_pizza = (ImageView) findViewById(R.id.store_list_filter_pizza);
         store_list_filter_distribution = (ImageView) findViewById(R.id.store_list_filter_distribution);
-        store_list_filter_cook = (ImageView) findViewById(R.id.store_list_filter_cook);
-        store_list_filter_family = (ImageView) findViewById(R.id.store_list_filter_family);
-        store_list_filter_sidedish = (ImageView) findViewById(R.id.store_list_filter_sidedish);
+        store_list_filter_bakery = (ImageView) findViewById(R.id.store_list_filter_bakery);
+        store_list_filter_dessert = (ImageView) findViewById(R.id.store_list_filter_dessert);
+        store_list_filter_asiafusion = (ImageView) findViewById(R.id.store_list_filter_asiafusion);
         store_list_filter_etc = (ImageView) findViewById(R.id.store_list_filter_etc);
 
         store_list_filter_apply = (ImageView) findViewById(R.id.store_list_filter_apply);
@@ -648,100 +648,100 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
             case R.id.store_list_filter_korean:
                 if (store_list_filter_korean.isSelected()) {
                     store_list_filter_korean.setSelected(false);
-                    foodIds[13] = 0;
+                    foodIds[31] = 0;
                 } else {
                     store_list_filter_korean.setSelected(true);
-                    foodIds[13] = 1;
+                    foodIds[31] = 1;
                 }
                 break;
             case R.id.store_list_filter_chinese:
                 if (store_list_filter_chinese.isSelected()) {
                     store_list_filter_chinese.setSelected(false);
-                    foodIds[9] = 0;
+                    foodIds[32] = 0;
                 } else {
                     store_list_filter_chinese.setSelected(true);
-                    foodIds[9] = 1;
+                    foodIds[32] = 1;
                 }
                 break;
             case R.id.store_list_filter_japanese:
                 if (store_list_filter_japanese.isSelected()) {
                     store_list_filter_japanese.setSelected(false);
-                    foodIds[8] = 0;
+                    foodIds[33] = 0;
                 } else {
                     store_list_filter_japanese.setSelected(true);
-                    foodIds[8] = 1;
+                    foodIds[33] = 1;
                 }
                 break;
             case R.id.store_list_filter_western:
                 if (store_list_filter_western.isSelected()) {
                     store_list_filter_western.setSelected(false);
-                    foodIds[6] = 0;
+                    foodIds[34] = 0;
                 } else {
                     store_list_filter_western.setSelected(true);
-                    foodIds[6] = 1;
+                    foodIds[34] = 1;
                 }
                 break;
             case R.id.store_list_filter_snack:
                 if (store_list_filter_snack.isSelected()) {
                     store_list_filter_snack.setSelected(false);
-                    foodIds[3] = 0;
+                    foodIds[40] = 0;
                 } else {
                     store_list_filter_snack.setSelected(true);
-                    foodIds[3] = 1;
+                    foodIds[40] = 1;
                 }
                 break;
             case R.id.store_list_filter_cafe:
                 if (store_list_filter_cafe.isSelected()) {
                     store_list_filter_cafe.setSelected(false);
-                    foodIds[10] = 0;
+                    foodIds[44] = 0;
                 } else {
                     store_list_filter_cafe.setSelected(true);
-                    foodIds[10] = 1;
+                    foodIds[44] = 1;
                 }
                 break;
-            case R.id.store_list_filter_fish:
-                if (store_list_filter_fish.isSelected()) {
-                    store_list_filter_fish.setSelected(false);
-                    foodIds[14] = 0;
+            case R.id.store_list_filter_seafood:
+                if (store_list_filter_seafood.isSelected()) {
+                    store_list_filter_seafood.setSelected(false);
+                    foodIds[39] = 0;
                 } else {
-                    store_list_filter_fish.setSelected(true);
-                    foodIds[14] = 1;
+                    store_list_filter_seafood.setSelected(true);
+                    foodIds[39] = 1;
                 }
                 break;
             case R.id.store_list_filter_chicken:
                 if (store_list_filter_chicken.isSelected()) {
                     store_list_filter_chicken.setSelected(false);
-                    foodIds[15] = 0;
+                    foodIds[37] = 0;
                 } else {
                     store_list_filter_chicken.setSelected(true);
-                    foodIds[15] = 1;
+                    foodIds[37] = 1;
                 }
                 break;
-            case R.id.store_list_filter_lunchbox:
-                if (store_list_filter_lunchbox.isSelected()) {
-                    store_list_filter_lunchbox.setSelected(false);
-                    foodIds[1] = 0;
+            case R.id.store_list_filter_pub:
+                if (store_list_filter_pub.isSelected()) {
+                    store_list_filter_pub.setSelected(false);
+                    foodIds[35] = 0;
                 } else {
-                    store_list_filter_lunchbox.setSelected(true);
-                    foodIds[1] = 1;
+                    store_list_filter_pub.setSelected(true);
+                    foodIds[35] = 1;
                 }
                 break;
             case R.id.store_list_filter_fastfood:
                 if (store_list_filter_fastfood.isSelected()) {
                     store_list_filter_fastfood.setSelected(false);
-                    foodIds[12] = 0;
+                    foodIds[36] = 0;
                 } else {
                     store_list_filter_fastfood.setSelected(true);
-                    foodIds[12] = 1;
+                    foodIds[36] = 1;
                 }
                 break;
-            case R.id.store_list_filter_buffet:
-                if (store_list_filter_buffet.isSelected()) {
-                    store_list_filter_buffet.setSelected(false);
-                    foodIds[4] = 0;
+            case R.id.store_list_filter_pizza:
+                if (store_list_filter_pizza.isSelected()) {
+                    store_list_filter_pizza.setSelected(false);
+                    foodIds[38] = 0;
                 } else {
-                    store_list_filter_buffet.setSelected(true);
-                    foodIds[4] = 1;
+                    store_list_filter_pizza.setSelected(true);
+                    foodIds[38] = 1;
                 }
                 break;
             case R.id.store_list_filter_distribution:
@@ -753,40 +753,40 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
                     foodIds[5] = 1;
                 }
                 break;
-            case R.id.store_list_filter_cook:
-                if (store_list_filter_cook.isSelected()) {
-                    store_list_filter_cook.setSelected(false);
-                    foodIds[7] = 0;
+            case R.id.store_list_filter_bakery:
+                if (store_list_filter_bakery.isSelected()) {
+                    store_list_filter_bakery.setSelected(false);
+                    foodIds[45] = 0;
                 } else {
-                    store_list_filter_cook.setSelected(true);
-                    foodIds[7] = 1;
+                    store_list_filter_bakery.setSelected(true);
+                    foodIds[45] = 1;
                 }
                 break;
-            case R.id.store_list_filter_family:
-                if (store_list_filter_family.isSelected()) {
-                    store_list_filter_family.setSelected(false);
-                    foodIds[11] = 0;
+            case R.id.store_list_filter_dessert:
+                if (store_list_filter_dessert.isSelected()) {
+                    store_list_filter_dessert.setSelected(false);
+                    foodIds[46] = 0;
                 } else {
-                    store_list_filter_family.setSelected(true);
-                    foodIds[11] = 1;
+                    store_list_filter_dessert.setSelected(true);
+                    foodIds[46] = 1;
                 }
                 break;
-            case R.id.store_list_filter_sidedish:
-                if (store_list_filter_sidedish.isSelected()) {
-                    store_list_filter_sidedish.setSelected(false);
-                    foodIds[2] = 0;
+            case R.id.store_list_filter_asiafusion:
+                if (store_list_filter_asiafusion.isSelected()) {
+                    store_list_filter_asiafusion.setSelected(false);
+                    foodIds[42] = 0;
                 } else {
-                    store_list_filter_sidedish.setSelected(true);
-                    foodIds[2] = 1;
+                    store_list_filter_asiafusion.setSelected(true);
+                    foodIds[42] = 1;
                 }
                 break;
             case R.id.store_list_filter_etc:
                 if (store_list_filter_etc.isSelected()) {
                     store_list_filter_etc.setSelected(false);
-                    foodIds[16] = 0;
+                    foodIds[43] = 0;
                 } else {
                     store_list_filter_etc.setSelected(true);
-                    foodIds[16] = 1;
+                    foodIds[43] = 1;
                 }
                 break;
 
@@ -841,8 +841,8 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
 
     private void initSelected() {
 
-        locationIds = new int[40];
-        foodIds = new int[17];
+        locationIds = new int[41];
+        foodIds = new int[47];
 
         store_list_filter_cityhall.setSelected(false);
         store_list_filter_baozen.setSelected(false);
@@ -868,15 +868,15 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
         store_list_filter_western.setSelected(false);
         store_list_filter_snack.setSelected(false);
         store_list_filter_cafe.setSelected(false);
-        store_list_filter_fish.setSelected(false);
+        store_list_filter_seafood.setSelected(false);
         store_list_filter_chicken.setSelected(false);
-        store_list_filter_lunchbox.setSelected(false);
+        store_list_filter_pub.setSelected(false);
         store_list_filter_fastfood.setSelected(false);
-        store_list_filter_buffet.setSelected(false);
+        store_list_filter_pizza.setSelected(false);
         store_list_filter_distribution.setSelected(false);
-        store_list_filter_cook.setSelected(false);
-        store_list_filter_family.setSelected(false);
-        store_list_filter_sidedish.setSelected(false);
+        store_list_filter_bakery.setSelected(false);
+        store_list_filter_dessert.setSelected(false);
+        store_list_filter_asiafusion.setSelected(false);
         store_list_filter_etc.setSelected(false);
     }
 

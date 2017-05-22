@@ -74,7 +74,7 @@ public class StoreListAdapter extends BaseAdapter {
         viewHolder.item_res_category_mainmenu = (TextView) convertView.findViewById(R.id.item_res_category_mainmenu);
         viewHolder.item_res_category_distance = (TextView) convertView.findViewById(R.id.item_res_category_distance);
         viewHolder.item_res_category_category = (TextView) convertView.findViewById(R.id.item_res_category_category);
-        viewHolder.item_res_category_alipay = (ImageView) convertView.findViewById(R.id.item_res_category_alipay);
+        viewHolder.item_res_category_quality_flag = (ImageView) convertView.findViewById(R.id.item_res_category_quality_flag);
 
 //            convertView.setTag(viewHolder);
 //        }
@@ -112,8 +112,8 @@ public class StoreListAdapter extends BaseAdapter {
             viewHolder.item_res_category_distance.setText(list.get(position).getDistance() + " km");
         }
 
-        if (list.get(position).getIs_pay().equals("1")) {
-            viewHolder.item_res_category_alipay.setVisibility(View.VISIBLE);
+        if (list.get(position).getQuality_flag().equals("1")) {
+            viewHolder.item_res_category_quality_flag.setVisibility(View.VISIBLE);
         }
 
         return convertView;
@@ -128,7 +128,7 @@ public class StoreListAdapter extends BaseAdapter {
         public TextView item_res_category_mainmenu;
         public TextView item_res_category_distance;
         public TextView item_res_category_category;
-        public ImageView item_res_category_alipay;
+        public ImageView item_res_category_quality_flag;
     }
 
 }

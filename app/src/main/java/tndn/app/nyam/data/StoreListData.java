@@ -64,10 +64,19 @@ public class StoreListData implements Serializable {
     String budget;
     String latitude;
     String longitude;
+    String quality_flag;
     String is_pay;
     String menu_input_type;
     int idx_image_file_path;
     String distance;
+
+    public String getQuality_flag() {
+        return quality_flag;
+    }
+
+    public void setQuality_flag(String quality_flag) {
+        this.quality_flag = quality_flag;
+    }
 
     public int getIdx_store() {
         return idx_store;

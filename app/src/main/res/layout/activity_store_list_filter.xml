@@ -294,11 +294,11 @@
                 android:id="@+id/store_list_filter_food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginTop="5dp"
-
                 android:background="@color/white"
-                android:orientation="horizontal">
+
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/main_title_textview"
@@ -309,13 +309,13 @@
 
             <!--start food filter-->
             <LinearLayout
+                android:id="@+id/sotre_list_filter_food_ll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:visibility="gone"
                 android:orientation="vertical"
-                android:id="@+id/sotre_list_filter_food_ll"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
                 <!--1 rows start-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -362,9 +362,9 @@
                         android:src="@drawable/selector_store_list_filter_cafe" />
 
                     <ImageView
-                        android:id="@+id/store_list_filter_fish"
+                        android:id="@+id/store_list_filter_seafood"
                         style="@style/store_filter_food_item_imageview"
-                        android:src="@drawable/selector_store_list_filter_fish" />
+                        android:src="@drawable/selector_store_list_filter_seafood" />
 
                     <ImageView
                         android:id="@+id/store_list_filter_chicken"
@@ -380,9 +380,9 @@
                     android:weightSum="4">
 
                     <ImageView
-                        android:id="@+id/store_list_filter_lunchbox"
+                        android:id="@+id/store_list_filter_pub"
                         style="@style/store_filter_food_item_imageview"
-                        android:src="@drawable/selector_store_list_filter_lunchbox" />
+                        android:src="@drawable/selector_store_list_filter_pub" />
 
                     <ImageView
                         android:id="@+id/store_list_filter_fastfood"
@@ -390,14 +390,14 @@
                         android:src="@drawable/selector_store_list_filter_fastfood" />
 
                     <ImageView
-                        android:id="@+id/store_list_filter_buffet"
+                        android:id="@+id/store_list_filter_pizza"
                         style="@style/store_filter_food_item_imageview"
-                        android:src="@drawable/selector_store_list_filter_buffet" />
+                        android:src="@drawable/selector_store_list_filter_pizza" />
 
                     <ImageView
-                        android:id="@+id/store_list_filter_sidedish"
+                        android:id="@+id/store_list_filter_asiafusion"
                         style="@style/store_filter_food_item_imageview"
-                        android:src="@drawable/selector_store_list_filter_sidedish" />
+                        android:src="@drawable/selector_store_list_filter_asia_fusion" />
 
                 </LinearLayout>
                 <!--3 rows end-->
@@ -409,9 +409,9 @@
                     android:weightSum="4">
 
                     <ImageView
-                        android:id="@+id/store_list_filter_cook"
+                        android:id="@+id/store_list_filter_bakery"
                         style="@style/store_filter_food_item_imageview"
-                        android:src="@drawable/selector_store_list_filter_cook" />
+                        android:src="@drawable/selector_store_list_filter_bakery" />
 
 
                     <ImageView
@@ -420,10 +420,9 @@
                         android:src="@drawable/selector_store_list_filter_etc" />
 
                     <ImageView
-                        android:id="@+id/store_list_filter_family"
+                        android:id="@+id/store_list_filter_dessert"
                         style="@style/store_filter_food_item_imageview"
-                        android:src="@drawable/selector_store_list_filter_family"
-                        android:visibility="gone" />
+                        android:src="@drawable/selector_store_list_filter_dessert" />
 
                     <ImageView
                         android:id="@+id/store_list_filter_distribution"
