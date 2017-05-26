@@ -33,6 +33,8 @@ public class StoreInfoData implements Parcelable {
     String budget;
     String latitude;
     String longitude;
+    String quality_flag;
+
     int is_pay;
     String menu_input_type;
     String distance = "";
@@ -63,6 +65,7 @@ public class StoreInfoData implements Parcelable {
         budget = in.readString();
         latitude = in.readString();
         longitude = in.readString();
+        quality_flag = in.readString();
         is_pay = in.readInt();
         menu_input_type = in.readString();
         distance = in.readString();
@@ -100,6 +103,7 @@ public class StoreInfoData implements Parcelable {
         parcel.writeString(budget);
         parcel.writeString(latitude);
         parcel.writeString(longitude);
+        parcel.writeString(quality_flag);
         parcel.writeInt(is_pay);
         parcel.writeString(menu_input_type);
         parcel.writeString(distance);
@@ -305,6 +309,14 @@ public class StoreInfoData implements Parcelable {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getQuality_flag() {
+        return quality_flag;
+    }
+
+    public void setQuality_flag(String quality_flag) {
+        this.quality_flag = quality_flag;
     }
 
     public int getIs_pay() {

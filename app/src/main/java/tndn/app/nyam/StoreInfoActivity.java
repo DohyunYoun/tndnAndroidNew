@@ -75,6 +75,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
     private ImageView food_menu_menu;
 
     private NetworkImageView store_info_imageview;
+    private ImageView store_info_quality_flag;
     private TextView store_info_name;
     private TextView store_info_category;
     private TextView store_info_address;
@@ -347,6 +348,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
     private void initView() {
 
 //        store_info_imageview = (NetworkImageView) findViewById(R.id.store_info_imageview);
+        store_info_quality_flag = (ImageView) findViewById(R.id.store_info_quality_flag);
         store_info_name = (TextView) findViewById(R.id.store_info_name);
         store_info_category = (TextView) findViewById(R.id.store_info_category);
         store_info_address = (TextView) findViewById(R.id.store_info_address);
@@ -558,6 +560,10 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                             if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
                                 tmpValue = "0";
                             store.setLongitude(tmpValue);
+                            tmpValue = info.getString("quality_flag");
+                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
+                                tmpValue = "0";
+                            store.setQuality_flag(tmpValue);
 
                             tmpValue = info.getString("is_pay");
                             if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
@@ -701,6 +707,10 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                             indicator.setViewPager(store_info_viewpager);
 
 
+
+                            if (store.getQuality_flag().equals("1")) {
+                                store_info_quality_flag.setVisibility(View.VISIBLE);
+                            }
                             store_info_name.setText(store.getName_kor() + "  " + store.getName_chn());
                             store_info_category.setText(store.getCategory_name_chn());
                             store_info_address.setText(store.getAddress_kor());

@@ -18,7 +18,6 @@ android {
         }
     }
 }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 //    support library
@@ -43,5 +42,13 @@ dependencies {
 
 //    INTENT OBJECT USING GSON
     compile 'com.google.code.gson:gson:2.2.+'
+
+
+    //beacon library
+    compile 'org.altbeacon:android-beacon-library:2+'
+
+    //circle progress bar for nearby beacon
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.2.0'
+
 
 }

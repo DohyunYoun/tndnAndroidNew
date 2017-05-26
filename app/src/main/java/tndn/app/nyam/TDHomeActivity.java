@@ -5,6 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,14 +27,28 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.BeaconConsumer;
+import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.RangeNotifier;
+import org.altbeacon.beacon.Region;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+import fr.castorflex.android.circularprogressbar.CircularProgressDrawable;
 import tndn.app.nyam.adapter.BannerNetworkImagePagerAdapter;
 import tndn.app.nyam.adapter.ImagePagerAdapter;
 import tndn.app.nyam.adapter.LocalSpinnerAdapter;
@@ -48,7 +65,7 @@ import tndn.app.nyam.utils.TDUrls;
 import tndn.app.nyam.utils.UserLog;
 import tndn.app.nyam.widget.HeightWrappingViewPager;
 
-public class TDHomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class TDHomeActivity extends AppCompatActivity implements View.OnClickListener, BeaconConsumer {
 
     /**
      * service
@@ -141,6 +158,18 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     ImageLoader mImageLoader;
 
 
+    /**
+     * for beacon
+     * usin altbeacon library
+     */
+    private BeaconManager beaconManager;
+    // 감지된 비콘들을 임시로 담을 리스트
+    private ArrayList<Beacon> beaconList;
+
+    //nearby beacon
+    boolean check = false;
+    CircularProgressBar mCircularProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,13 +181,57 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         TextView actionbar_text = (TextView) findViewById(R.id.actionbar_text);
         Button back = (Button) findViewById(R.id.actionbar_back_button);
         Button actionbar_qr_button = (Button) findViewById(R.id.actionbar_qr_button);
+        ImageView actionbar_nearby = (ImageView) findViewById(R.id.actionbar_nearby);
+         mCircularProgressBar = (CircularProgressBar) findViewById(R.id.actionbar_circular_progressbar);
+
+
         actionbar_local_spinner = (Spinner) findViewById(R.id.actionbar_local_spinner);
 
         actionbar_local_spinner.setVisibility(View.VISIBLE);
         back.setVisibility(View.INVISIBLE);
         actionbar_qr_button.setVisibility(View.VISIBLE);
 
-        actionbar_text.setText(getResources().getString(R.string.app_name));
+        actionbar_nearby.setVisibility(View.VISIBLE);
+        actionbar_text.setText("周边");
+        actionbar_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCircularProgressBar.setVisibility(View.VISIBLE);
+                if (check) {
+                    //stop
+                    ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).progressiveStop();
+                    check = false;
+                    beaconUnbind();
+                    handler.removeMessages(0);
+                } else {
+                    //start
+                    ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).start();
+                    check = true;
+                   beaconBind();
+                    handler.sendEmptyMessage(0);
+
+                }
+            }
+        });
+        actionbar_nearby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCircularProgressBar.setVisibility(View.VISIBLE);
+                if (check) {
+                    //stop
+                    ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).progressiveStop();
+                    check = false;
+                    beaconUnbind();
+                    handler.removeMessages(0);
+                } else {
+                    //start
+                    ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).start();
+                    check = true;
+                    beaconBind();
+                    handler.sendEmptyMessage(0);
+                }
+            }
+        });
         actionbar_qr_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -418,6 +491,17 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
         mImageLoader = AppController.getInstance().getImageLoader();
 
+        // 실제로 비콘을 탐지하기 위한 비콘매니저 객체를 초기화
+        beaconList = new ArrayList<>();
+
+        beaconManager = BeaconManager.getInstanceForApplication(this);
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+
+        // 비콘 탐지를 시작한다. 실제로는 서비스를 시작하는것.
+        beaconManager.bind(this);
+        // 아래에 있는 handleMessage를 부르는 함수. 맨 처음에는 0초간격이지만 한번 호출되고 나면
+        // 1초마다 불러온다.
+        handler.sendEmptyMessage(0);
 
     }
 
@@ -971,5 +1055,112 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     private void hidepDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        beaconManager.unbind(this);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        beaconManager.unbind(this);
+    }
+
+    @Override
+    public void onBeaconServiceConnect() {
+        beaconManager.setRangeNotifier(new RangeNotifier() {
+            @Override
+            // 비콘이 감지되면 해당 함수가 호출된다. Collection<Beacon> beacons에는 감지된 비콘의 리스트가,
+            // region에는 비콘들에 대응하는 Region 객체가 들어온다.
+            public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+                if (beacons.size() > 0) {
+                    beaconList.clear();
+                    for (Beacon beacon : beacons) {
+                        beaconList.add(beacon);
+                    }
+
+                    Collections.sort(beaconList, new Comparator<Beacon>() {
+                        @Override
+                        public int compare(Beacon beacon0, Beacon beacon1) {
+                            NumberFormat f = NumberFormat.getInstance();
+                            f.setGroupingUsed(false);
+                            return Double.compare(Double.parseDouble(f.format(beacon0.getDistance())), Double.parseDouble(f.format(beacon1.getDistance())));
+                        }
+
+                    });
+
+
+                }
+            }
+
+        });
+
+        try {
+            beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
+        } catch (RemoteException e) {
+        }
+    }
+
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            //비콘 핸들러 실행시 핸들러를 다시 부를지 꺼버릴지 체크
+            boolean check = true;
+
+
+//            for (Beacon beacon : beaconList) {
+//                Log.e("beacon search", beaconList.size() + "     " +
+//                        "getBluetoothAddress" + beacon.getBluetoothAddress()
+//                        + "        getDistance        " + beacon.getDistance());
+//            }
+            if (beaconList.size() > 0) {
+                switch (beaconList.get(0).getId3().toString()) {
+                    case "10722":
+                        intentURL = "tndn://getStoreInfo?mainId=1&id=6605&name=Nilmori Dong Dong";
+                        new LogHome().send(getApplicationContext(), "beacon-nilmori");
+                        break;
+                    case "10560":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸")));
+                        intentURL = "tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸";
+                        new LogHome().send(getApplicationContext(), "beacon-samjin");
+                        break;
+                    case "10727":
+                        intentURL = "tndn://getStoreInfo?mainId=1&id=6860&name=Ganse客厅";
+                        new LogHome().send(getApplicationContext(), "beacon-ganse");
+                        break;
+                    case "12643":
+                        intentURL = "tndn://getStoreInfo?mainId=1&id=6666&name=Donpas";
+                        new LogHome().send(getApplicationContext(), "beacon-donpas");
+                        break;
+                    case "12544":
+                        intentURL = "tndn://getStoreInfo?mainId=1&id=3513&name=Beoltae";
+                        new LogHome().send(getApplicationContext(), "beacon-beoltae");
+                        break;
+                    case "12556":
+                        intentURL = "tndn://getStoreInfo?mainId=1&id=6&name=tndn";
+                        new LogHome().send(getApplicationContext(), "beacon-tndn");
+                        break;
+
+                }
+                PreferenceManager.getInstance(getApplicationContext()).setUserfrom("ff");
+                beaconUnbind();
+                handler.removeMessages(0);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL)));
+                check = false;
+            }
+            if (check)
+                // 자기 자신을 1초마다 호출
+                handler.sendEmptyMessageDelayed(0, 1000);
+        }
+    };
+
+    private void beaconUnbind() {
+        beaconManager.unbind(this);
+    }
+    private void beaconBind() {
+        beaconManager.bind(this);
     }
 }

@@ -29,4 +29,14 @@
     <color name="alipay">#00aaef</color>
     <color name="blue_walk">#383a5e</color>
     <!--<color name="grey_f6">#F6F6F6</color>-->
+
+    <integer-array name="colors">
+        <item>@color/tndn_pink</item>
+        <item>@color/tndn_deep_pink</item>
+        <item>@color/tndn_orange</item>
+        <item>@color/tndn_yellow</item>
+    </integer-array>
+
+
+
 </resources>
