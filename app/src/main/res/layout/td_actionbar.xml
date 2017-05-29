@@ -59,14 +59,14 @@
 
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
         android:id="@+id/actionbar_circular_progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/actionbar_text"
         android:indeterminate="true"
-        android:padding="10dp"
-        app:cpb_color="@color/gray_9b"
+        android:padding="15dp"
         android:visibility="gone"
+        app:cpb_color="@color/gray_9b"
         app:cpb_colors="@array/colors"
         app:cpb_stroke_width="2dp" />
 

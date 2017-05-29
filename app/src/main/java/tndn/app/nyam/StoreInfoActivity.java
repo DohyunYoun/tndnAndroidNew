@@ -76,6 +76,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
 
     private NetworkImageView store_info_imageview;
     private ImageView store_info_quality_flag;
+    private ImageView store_info_quality_flag_detail;
     private TextView store_info_name;
     private TextView store_info_category;
     private TextView store_info_address;
@@ -139,10 +140,13 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
     private int extra_position;
     private int drink_position;
 
+
     /**
      * value
      */
     private String mainId = "1";
+    boolean qulity_check = false;
+
 
     private Handler mHandler = new Handler() {
 
@@ -349,6 +353,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
 
 //        store_info_imageview = (NetworkImageView) findViewById(R.id.store_info_imageview);
         store_info_quality_flag = (ImageView) findViewById(R.id.store_info_quality_flag);
+        store_info_quality_flag_detail = (ImageView) findViewById(R.id.store_info_quality_flag_detail);
         store_info_name = (TextView) findViewById(R.id.store_info_name);
         store_info_category = (TextView) findViewById(R.id.store_info_category);
         store_info_address = (TextView) findViewById(R.id.store_info_address);
@@ -707,9 +712,31 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
                             indicator.setViewPager(store_info_viewpager);
 
 
-
                             if (store.getQuality_flag().equals("1")) {
+
                                 store_info_quality_flag.setVisibility(View.VISIBLE);
+                                store_info_quality_flag.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (qulity_check) {
+                                            store_info_quality_flag_detail.setVisibility(View.GONE);
+                                            qulity_check = false;
+
+                                        } else {
+                                            store_info_quality_flag_detail.setVisibility(View.VISIBLE);
+                                            qulity_check = true;
+                                        }
+                                    }
+                                });
+                                store_info_quality_flag_detail.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        store_info_quality_flag_detail.setVisibility(View.GONE);
+                                        qulity_check = false;
+
+                                    }
+                                });
+
                             }
                             store_info_name.setText(store.getName_kor() + "  " + store.getName_chn());
                             store_info_category.setText(store.getCategory_name_chn());

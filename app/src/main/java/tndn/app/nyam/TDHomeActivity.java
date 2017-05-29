@@ -2,6 +2,7 @@ package tndn.app.nyam;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -169,6 +170,8 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     //nearby beacon
     boolean check = false;
     CircularProgressBar mCircularProgressBar;
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +185,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         Button back = (Button) findViewById(R.id.actionbar_back_button);
         Button actionbar_qr_button = (Button) findViewById(R.id.actionbar_qr_button);
         ImageView actionbar_nearby = (ImageView) findViewById(R.id.actionbar_nearby);
-         mCircularProgressBar = (CircularProgressBar) findViewById(R.id.actionbar_circular_progressbar);
+        mCircularProgressBar = (CircularProgressBar) findViewById(R.id.actionbar_circular_progressbar);
 
 
         actionbar_local_spinner = (Spinner) findViewById(R.id.actionbar_local_spinner);
@@ -205,11 +208,24 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                     handler.removeMessages(0);
                 } else {
                     //start
-                    ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).start();
-                    check = true;
-                   beaconBind();
-                    handler.sendEmptyMessage(0);
-
+                    if (mBluetoothAdapter == null) {
+                        // Device does not support Bluetooth
+                        Log.i("DEBUG_TAG", "============블루투스지원안해요");
+                        Toast.makeText(getApplicationContext(), "invalid bluetooth device", Toast.LENGTH_SHORT).show();
+                    } else {//지원한다면..
+                        if (!mBluetoothAdapter.isEnabled()) {//환경설정에서  enable여부, 켜져있는 상태이면 true
+                            mBluetoothAdapter.enable();
+//                            Log.i("DEBUG_TAG", "============블루투스활성화");
+                        }
+//                        else{
+//                            mBluetoothAdapter.disable();
+////                            Log.i("DEBUG_TAG", "============블루투스비활성화");
+//                        }
+                        ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).start();
+                        check = true;
+                        beaconBind();
+                        handler.sendEmptyMessage(0);
+                    }
                 }
             }
         });
@@ -499,9 +515,6 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
         // 비콘 탐지를 시작한다. 실제로는 서비스를 시작하는것.
         beaconManager.bind(this);
-        // 아래에 있는 handleMessage를 부르는 함수. 맨 처음에는 0초간격이지만 한번 호출되고 나면
-        // 1초마다 불러온다.
-        handler.sendEmptyMessage(0);
 
     }
 
@@ -1067,7 +1080,22 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onPause() {
         super.onPause();
-        beaconManager.unbind(this);
+        ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).progressiveStop();
+        check = false;
+        beaconUnbind();
+        handler.removeMessages(0);
+        beaconList.clear();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        beaconList.clear();
+        mCircularProgressBar.setVisibility(View.GONE);
+        ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).progressiveStop();
+        check = false;
+        beaconUnbind();
+        handler.removeMessages(0);
     }
 
     @Override
@@ -1150,16 +1178,18 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 handler.removeMessages(0);
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL)));
                 check = false;
+
             }
             if (check)
                 // 자기 자신을 1초마다 호출
-                handler.sendEmptyMessageDelayed(0, 1000);
+                handler.sendEmptyMessageDelayed(0, 2000);
         }
     };
 
     private void beaconUnbind() {
         beaconManager.unbind(this);
     }
+
     private void beaconBind() {
         beaconManager.bind(this);
     }

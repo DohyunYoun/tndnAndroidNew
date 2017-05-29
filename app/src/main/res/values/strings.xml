@@ -49,8 +49,6 @@
     <string name="login_password_hint">输入密码    </string>
     <string name="join_password_hint">输入密码 (最少6位数)    </string>
     <string name="login_login">登录</string>
-    <string name="login_start">开始</string>
-    <string name="login_complete">完成</string>
     <string name="login_nickname">账号</string>
     <string name="login_gender">性别</string>
     <string name="login_age">年龄</string>
@@ -65,11 +63,8 @@
    -->
     <string name="weibosdk_demo_token_to_string_format_1">Token：%1$s \n有效期：%2$s</string>
     <string name="weibosdk_demo_toast_auth_canceled">取消授权</string>
-    <string name="weibosdk_demo_logout_success">已注销</string>
-    <string name="weibosdk_demo_logout_failed">注销失败</string>
     <string name="com_sina_weibo_sdk_logout">注销</string>
     <string name="com_sina_weibo_sdk_login_with_weibo_account">用微博登录</string>
-    <string name="title_activity_buy_coupon">BuyCouponActivity</string>
 
 
     <!--TDMypageActivity-->
@@ -83,19 +78,14 @@
     <string name="no_distance">无法搜索</string>
     <!--filter-->
     <!--초기화-->
-    <string name="reset">初始化</string>
     <!--세부지역(중복선텍불가능)-->
     <string name="filter_location">具体地区（可多项选择）</string>
     <!--3. 음식분류 (중복선택 가능) -->
     <string name="filter_food">美食分类（可多项选择）</string>
     <!--4. 적용하기 -->
-    <string name="filter_ok">适用</string>
     <!--5. 거리순 -->
-    <string name="order_distance">按距离排序</string>
     <!--6. 인기순 -->
-    <string name="order_popular">按人气排序</string>
     <!--7. 세부지역/음식분류 -->
-    <string name="filter">具体地区/美食分类</string>
 
     <!--?? 해당 경로로 길찾기 하시겠습니까?-->
     <string name="getMapFrom">连接到搜索路线。</string>
@@ -133,7 +123,6 @@
     <string name="menu_error">请选择菜</string>
 
     <!--FoodOrderActivity-->
-    <string name="alipay">用支付宝支付</string>
     <string name="pay">支付</string>
 
     <!--ExchangeRateActivity-->
@@ -141,7 +130,6 @@
 
     <!--Magazine-->
     <!--<string name="title_activity_theme">主题 </string>-->
-    <string name="magazine_theme">主题</string>
     <string name="square_attraction">照片景点查询</string>
 
     <!--pay-->
