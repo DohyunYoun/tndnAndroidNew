@@ -310,54 +310,71 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
                 foodIds[Integer.parseInt(str_foodId[i])] = 1;
                 switch (Integer.parseInt(str_foodId[i])) {
                     case 13:
+                    case 31:
                         store_list_filter_korean.setSelected(true);
                         break;
                     case 9:
+                    case 32:
                         store_list_filter_chinese.setSelected(true);
                         break;
                     case 8:
+                    case 33:
                         store_list_filter_japanese.setSelected(true);
                         break;
                     case 6:
+                    case 34:
                         store_list_filter_western.setSelected(true);
                         break;
                     case 3:
+                    case 40:
                         store_list_filter_snack.setSelected(true);
                         break;
                     case 10:
+                    case 44:
                         store_list_filter_cafe.setSelected(true);
                         break;
                     case 14:
+                    case 39:
                         store_list_filter_seafood.setSelected(true);
                         break;
                     case 15:
+                    case 37:
                         store_list_filter_chicken.setSelected(true);
                         break;
                     case 1:
+                    case 35:
                         store_list_filter_pub.setSelected(true);
                         break;
                     case 12:
+                    case 36:
                         store_list_filter_fastfood.setSelected(true);
                         break;
                     case 4:
+                    case 38:
                         store_list_filter_pizza.setSelected(true);
                         break;
                     case 5:
                         store_list_filter_distribution.setSelected(true);
                         break;
                     case 7:
+                    case 45:
                         store_list_filter_bakery.setSelected(true);
                         break;
                     case 11:
+                    case 46:
                         store_list_filter_dessert.setSelected(true);
                         break;
                     case 2:
+                    case 42:
                         store_list_filter_asiafusion.setSelected(true);
                         break;
                     case 16:
+                    case 43:
                         store_list_filter_etc.setSelected(true);
                         break;
                 }
+
+
             }
         }
 
