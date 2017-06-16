@@ -143,5 +143,7 @@ public class TDAssistantActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (flag)
             backPressCloseHandler.onBackPressed();
+        else
+            finish();
     }
 }
