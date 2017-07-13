@@ -1151,7 +1151,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                         new LogHome().send(getApplicationContext(), "beacon-nilmori");
                         break;
                     case "10560":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸")));
+//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸")));
                         intentURL = "tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸";
                         new LogHome().send(getApplicationContext(), "beacon-samjin");
                         break;
