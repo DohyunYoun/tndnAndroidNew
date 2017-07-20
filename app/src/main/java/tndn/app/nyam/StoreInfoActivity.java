@@ -914,12 +914,14 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
 //dialog
 
     private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
+        if (!StoreInfoActivity.this.isFinishing()) {
+            if (!pDialog.isShowing())
+                pDialog.show();
+        }
     }
 
     private void hidepDialog() {
-        if (pDialog.isShowing())
+        if (pDialog != null && pDialog.isShowing())
             pDialog.dismiss();
     }
 }

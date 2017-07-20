@@ -34,6 +34,9 @@ public class StoreInfoData implements Parcelable {
     String latitude;
     String longitude;
     String quality_flag;
+    String store_commission_rate = "";
+    String customer_commission_rate = "";
+
 
     int is_pay;
     String menu_input_type;
@@ -71,7 +74,8 @@ public class StoreInfoData implements Parcelable {
         distance = in.readString();
         images = (ArrayList<HashMap<String, Integer>>) in.readSerializable();
         menus = (ArrayList<StoreMenuData>) in.readSerializable();
-
+        store_commission_rate = in.readString();
+        customer_commission_rate = in.readString();
 
     }
 
@@ -109,6 +113,9 @@ public class StoreInfoData implements Parcelable {
         parcel.writeString(distance);
         parcel.writeSerializable(images);
         parcel.writeSerializable(menus);
+
+        parcel.writeString(store_commission_rate);
+        parcel.writeString(customer_commission_rate);
     }
 
     @Override
@@ -360,6 +367,21 @@ public class StoreInfoData implements Parcelable {
         this.menus = menus;
     }
 
+    public String getStore_commission_rate() {
+        return store_commission_rate;
+    }
+
+    public void setStore_commission_rate(String store_commission_rate) {
+        this.store_commission_rate = store_commission_rate;
+    }
+
+    public String getCustomer_commission_rate() {
+        return customer_commission_rate;
+    }
+
+    public void setCustomer_commission_rate(String customer_commission_rate) {
+        this.customer_commission_rate = customer_commission_rate;
+    }
 
     public static final Creator<StoreInfoData> CREATOR = new Creator<StoreInfoData>() {
         @Override

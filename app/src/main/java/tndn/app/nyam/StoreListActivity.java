@@ -537,12 +537,14 @@ public class StoreListActivity extends AppCompatActivity {
     //dialog
 
     private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
+        if (!StoreListActivity.this.isFinishing()) {
+            if (!pDialog.isShowing())
+                pDialog.show();
+        }
     }
 
     private void hidepDialog() {
-        if (pDialog.isShowing())
+        if (pDialog != null && pDialog.isShowing())
             pDialog.dismiss();
     }
 }

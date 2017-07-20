@@ -1061,12 +1061,14 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
+        if (!TDHomeActivity.this.isFinishing()) {
+            if (!pDialog.isShowing())
+                pDialog.show();
+        }
     }
 
     private void hidepDialog() {
-        if (pDialog.isShowing())
+        if (pDialog!=null && pDialog.isShowing())
             pDialog.dismiss();
     }
 

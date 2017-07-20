@@ -4,17 +4,21 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,11 +29,14 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import tndn.app.nyam.alipay.PayDemoActivity;
 import tndn.app.nyam.data.StoreInfoData;
 import tndn.app.nyam.utils.AppController;
+import tndn.app.nyam.utils.ControlKeyboard;
 import tndn.app.nyam.utils.CustomRequest;
+import tndn.app.nyam.utils.GenerateQrCode;
 import tndn.app.nyam.utils.GpsInfo;
 import tndn.app.nyam.utils.IsOnline;
 import tndn.app.nyam.utils.MakePaymentPrice;
@@ -37,6 +44,7 @@ import tndn.app.nyam.utils.MakePricePretty;
 import tndn.app.nyam.utils.OutTradeNo;
 import tndn.app.nyam.utils.PreferenceManager;
 import tndn.app.nyam.utils.SaveExchangeRate;
+import tndn.app.nyam.utils.SaveImagetoStorage;
 import tndn.app.nyam.utils.TDUrls;
 import tndn.app.nyam.utils.UserLog;
 import tndn.app.nyam.widget.ClearEditText;
@@ -54,6 +62,9 @@ public class TDInstantPayActivity extends AppCompatActivity {
     private ImageView straight_pay_button;
     private ImageView img_logo;
 
+    private RelativeLayout straight_pay_qrcode_ll;
+    private ImageView pay_qrcode;
+
 
     private StoreInfoData store;
 
@@ -62,16 +73,16 @@ public class TDInstantPayActivity extends AppCompatActivity {
      */
     double curr = 0;
     double sale = 0;
-    String priceKor;
-    String priceChn;
-    String priceKorSale;
-    String priceChnSale;
+    //    String priceKor;
+//    String priceChn;
+//    String priceKorSale;
+//    String priceChnSale;
     String data = "";
     String outTradeNo = "";
 
     int price_kor;
-    int price_sale_kor;
-    private int id;
+    //    int price_sale_kor;
+    private String id;
     String url;
 
     double latitude;
@@ -98,16 +109,13 @@ public class TDInstantPayActivity extends AppCompatActivity {
             if (uri.getQueryParameter("id") == null || uri.getQueryParameter("id").equals("") || uri.getQueryParameter("id").equals("undefined") || uri.getQueryParameter("id").equals("null")) {
                 showErrorAndFinish();
             } else {
-                id = Integer.parseInt(uri.getQueryParameter("id"));
+                id = uri.getQueryParameter("id");
             }
         } else {
             showErrorAndFinish();
         }
         new SaveExchangeRate().saveExchangeRate(getApplicationContext());
         curr = Double.parseDouble(PreferenceManager.getInstance(this).getCurrency());
-
-
-        getStoreInfo(id);
 
 
         straight_pay_button.setOnClickListener(new View.OnClickListener() {
@@ -126,111 +134,67 @@ public class TDInstantPayActivity extends AppCompatActivity {
                     AlertDialog alert = alert_confirm.create();
                     alert.show();
                 } else {
-                    Map<String, String> params = new HashMap<>();
-                    /**
-                     *
-                     *
-                     * idxStore(*)
-                     * nameStoreKor(*)
-                     * nameStoreChn(*)
-                     * data(*)
-                     * currency(*)
-                     * priceKor(*)
-                     * priceChn(*)
-                     * ouitTradeNo(*)
-                     * payType(*)
-                     *
-                     * idxAppUser
-                     * priceSaleKor
-                     * priceSaleChn
-                     * sale
-                     *
-                     * userLog
-                     * os(*)
-                     */
 
-                    outTradeNo = new OutTradeNo().getOutTradeNo();
-
-                    params.put("idxStore", id + "");
-                    params.put("idxAppUser", PreferenceManager.getInstance(getApplicationContext()).getIdxAppUser());
-                    params.put("nameStoreKor", store.getName_kor());
-                    params.put("nameStoreChn", store.getName_chn());
-
-                    data = "즉시결제#" + straight_pay_kor.getText().toString() + "#1";
-                    params.put("data", data);
-                    params.put("currency", curr + "");
-
-                    priceKor = straight_pay_kor.getText().toString().replace(".0", "").replace(",", "");
-                    priceChn = straight_pay_chn_web.getText().toString().replace("¥ ", "").replace(",", "");
-                    // priceChnSale = straight_pay_chn.getText().toString().replace("¥ ", "").replace(",", "");
-
-                    params.put("priceKor", priceKor);
-                    params.put("priceChn", priceChn);
-                    params.put("priceSaleKor", priceKorSale.replace(",", ""));
-                    params.put("priceSaleChn", priceChnSale.replace(",", ""));
-                    params.put("outTradeNo", outTradeNo);
-                    params.put("payType", "alipay");
-
-                    params.put("sale", (sale * 100 + "").replace(".0",""));
-                    params.put("userIs", PreferenceManager.getInstance(getApplicationContext()).getUseris());
-                    params.put("userFrom", PreferenceManager.getInstance(getApplicationContext()).getUserfrom());
-                    params.put("os", "android");
-                    params.put("userCode", PreferenceManager.getInstance(getApplicationContext()).getUsercode());
-
-                    CustomRequest objreq = new CustomRequest(Request.Method.POST, new TDUrls().setStoreInstantOrder, params, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-
-                            try {
-                                if (response.getString("result").equals("success")) {//if result failed
-
-                                    //1. alipay
-                                    PayDemoActivity pay = new PayDemoActivity();
-                                    pay.init(getApplicationContext(), TDInstantPayActivity.this);
-                                    pay.pay(id, store.getName_kor(), store.getName_chn(), "TNDN Inc./+827086709409", priceChnSale.replace(",", ""), outTradeNo);
-                                    PreferenceManager.getInstance(TDInstantPayActivity.this).clear("USERFROM");
-                                } else {
-
-                                    AlertDialog.Builder alert_confirm = new AlertDialog.Builder(TDInstantPayActivity.this);
-                                    alert_confirm.setMessage("本美食店跟甜点公司还没携手").setCancelable(false).setPositiveButton(getResources().getString(R.string.btn_ok),
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-
-                                                    finish();
-                                                }
-                                            }).setNegativeButton(getResources().getString(R.string.btn_cancel),
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    // 'No'
-                                                    return;
-                                                }
-                                            });
-                                    AlertDialog alert = alert_confirm.create();
-                                    alert.show();
-
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                            hidepDialog();
-                        }
-                    });
-                    AppController.getInstance().addToRequestQueue(objreq);
-
+                    payCscanB(id, "0", straight_pay_kor.getText().toString().replace(".0", "").replace(",", ""), straight_pay_chn.getText().toString().replace("¥ ", "").replace(",", ""));
+                    ControlKeyboard.hide(TDInstantPayActivity.this);
                 }
             }
         });
 
+
+        straight_pay_kor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() < 1) {
+                    straight_pay_chn.setText("");
+                    straight_pay_chn_web.setText("");
+                } else {
+                    price_kor = Integer.parseInt(s.toString());
+
+//                            price_sale_kor = (int) (price_kor * (1 - sale));
+
+//                    if (price_kor <= 50000) {
+//                        //5%
+//                        sale = 0.05;
+//                        price_sale_kor = (int) (price_kor * 0.95);
+//                    } else if (price_kor <= 100000) {
+//                        //4%
+//                        sale = 0.04;
+//                        price_sale_kor = (int) (price_kor * 0.96);
+//                    } else {
+//                        //3%
+//                        sale = 0.03;
+//                        price_sale_kor = (int) (price_kor * 0.97);
+//                    }
+
+//                    if (price_kor - price_sale_kor >= 10000) {
+//                        //최대 10,000원 할인
+//                        priceKorSale = (price_kor - 10000) + "";
+//                        priceChnSale = new MakePaymentPrice().makePaymentPrice(price_kor - 10000 + "", getApplicationContext(), curr);
+//                        straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + priceChnSale);
+//                    } else {
+//                        priceKorSale = price_sale_kor + "";
+//                        priceChnSale = new MakePaymentPrice().makePaymentPrice(price_sale_kor + "", getApplicationContext(), curr);
+//                        straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + priceChnSale);
+//
+//                    }
+                    straight_pay_chn.setText(new MakePaymentPrice().makePaymentPrice(price_kor + "", getApplicationContext(), curr));
+
+//                            straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + new MakePaymentPrice().makePaymentPrice(Integer.parseInt(s.toString()) * 0.9 + "", getApplicationContext(), curr));
+//                            straight_pay_chn_web.setText(getResources().getString(R.string.curr_chn) + " " + new MakePaymentPrice().makePaymentPrice(Integer.parseInt(s.toString()) * 0.95 + "", getApplicationContext(), curr));
+                }
+            }
+        });
 
         img_logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,6 +212,8 @@ public class TDInstantPayActivity extends AppCompatActivity {
         straight_pay_chn = (TextView) findViewById(R.id.straight_pay_chn);
         straight_pay_chn_web = (TextView) findViewById(R.id.straight_pay_chn_web);
         img_logo = (ImageView) findViewById(R.id.img_logo);
+        straight_pay_qrcode_ll = (RelativeLayout) findViewById(R.id.straight_pay_qrcode_ll);
+        pay_qrcode = (ImageView) findViewById(R.id.pay_qrcode);
     }
 
     private void initialize() {
@@ -257,32 +223,59 @@ public class TDInstantPayActivity extends AppCompatActivity {
         gps = new GpsInfo(this);
 
         sale = 0.05;
-        price_kor = 0;
-        price_sale_kor = 0;
-        priceChnSale = "";
+//        price_kor = 0;
+//        price_sale_kor = 0;
+//        priceChnSale = "";
     }
 
 
-    private void getStoreInfo(final int id) {
+//dialog
+
+    private void showpDialog() {
+        if (!TDInstantPayActivity.this.isFinishing()) {
+            if (!pDialog.isShowing())
+                pDialog.show();
+        }
+    }
+
+    private void hidepDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+
+    private void showErrorAndFinish() {
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(TDInstantPayActivity.this);
+        alert_confirm.setMessage("本美食店跟甜点公司还没携手").setCancelable(false).setPositiveButton(getResources().getString(R.string.btn_ok),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        finish();
+                    }
+                });
+        AlertDialog alert = alert_confirm.create();
+        alert.show();
+    }
+
+
+    private void payCscanB(String id, final String idxAppUser, final String priceKor, final String priceChn) {
 
         if (!new IsOnline().onlineCheck(this)) {                  //internet check failed start
-            Toast.makeText(this, "Internet Access Failed", Toast.LENGTH_SHORT).show();
-            showErrorAndFinish();
+            Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
         } else { //internet check success start
             showpDialog();
-// GPS 사용유무 가져오기
-            url = new TDUrls().getStoreInfoURL + "?id=" + id + new UserLog().getLog(getApplicationContext());
-            JsonObjectRequest objreq = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            final JsonObjectRequest objreq = new JsonObjectRequest(new TDUrls().getStoreInfoURL + "?id=" + id + new UserLog().getLog(getApplicationContext()), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject res) {
                     try {
+                        store = new StoreInfoData();
+
                         if (res.getString("result").equals("failed")) {//if result failed
-
-                            showErrorAndFinish();
+                            hidepDialog();
+                            Toast.makeText(getApplicationContext(),
+                                    getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
                         } else {
-
-                            store = new StoreInfoData();
-
                             /**
                              * FOR INFO
                              */
@@ -404,74 +397,123 @@ public class TDInstantPayActivity extends AppCompatActivity {
                                 tmpValue = "";
                             store.setMenu_input_type(tmpValue);
 
+                            tmpValue = info.getString("store_commission_rate");
+                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
+                                tmpValue = "";
+                            store.setStore_commission_rate(tmpValue);
+
+                            tmpValue = info.getString("customer_commission_rate");
+                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
+                                tmpValue = "";
+                            store.setCustomer_commission_rate(tmpValue);
+
                             tmpValue = info.getString("distance");
                             if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
                                 tmpValue = "";
                             store.setDistance(tmpValue);
 
+                            /**
+                             * data setting
+                             */
+
+                            //isPay 체크
+                            new SaveExchangeRate().saveExchangeRate(getApplicationContext());
+                            curr = Double.parseDouble(PreferenceManager.getInstance(getApplicationContext()).getCurrency());
+
+                            Map<String, String> params = new HashMap<>();
+                            params.put("idxAppUser", idxAppUser);
+                            params.put("idxStore", store.getId() + "");
+                            params.put("nameStoreKor", store.getName_kor() + "");
+                            params.put("nameStoreChn", store.getName_chn());
+                            params.put("currency", curr + "");
+                            params.put("userCode", new UserLog().getUsercode(getApplicationContext()));
+                            params.put("os", new UserLog().getOs());
+                            params.put("payType", "222");
+                            params.put("feeType", "CNY");
+                            params.put("data", "즉시결제#" + priceKor + "#1");
+
+
+                            params.put("priceKor", priceKor);
+                            params.put("priceChn", priceChn);
+                            params.put("priceSaleKor ", priceKor);
+                            params.put("priceSaleChn", priceChn);
+                            params.put("storeCommissionRate", store.getStore_commission_rate());
+                            params.put("customerCommissionRate", store.getCustomer_commission_rate());
+
+                            CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().cscanbHwaxherURL, params, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+//                                        Log.e("okokkkkkkkk", response.toString());
+                                    try {
+                                        if (response.getJSONObject("data").getString("resultcode").equals("00")) {
+                                            //성공
+                                            final Bitmap qrcode = new GenerateQrCode().bitmap(response.getJSONObject("data").getString("codeurl"));
+                                            pay_qrcode.setImageBitmap(qrcode);
+                                            straight_pay_qrcode_ll.setVisibility(View.VISIBLE);
+                                            hidepDialog();
+                                            straight_pay_qrcode_ll.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    straight_pay_qrcode_ll.setVisibility(View.GONE);
+
+                                                }
+                                            });
+                                            pay_qrcode.setOnLongClickListener(new View.OnLongClickListener() {
+                                                @Override
+                                                public boolean onLongClick(View view) {
+                                                    new SaveImagetoStorage().saveImagetoStorage(getApplicationContext(), qrcode, "tndn-qr-wxpay");
+                                                    straight_pay_qrcode_ll.setVisibility(View.GONE);
+                                                    return false;
+                                                }
+                                            });
+                                        } else {
+                                            //결제실패
+                                            hidepDialog();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(TDInstantPayActivity.this);
+                                            builder.setTitle("[ 티엔디엔 결제 ]")        // 제목 설정
+                                                    .setMessage("결제에 실패하였습니다. 다시 시도해주세요\n문의전화 : 1544-3980")        // 메세지 설정
+                                                    .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                        // 확인 버튼 클릭시 설정
+                                                        public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                            finish();
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            AlertDialog dialog = builder.show();    // 알림창 객체 생성
+                                        }//end result is failed
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(),
+                                                getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
+                                        hidepDialog();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.e("paylog", error.toString());
+                                    Toast.makeText(getApplicationContext(),
+                                            getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
+                                    hidepDialog();
+                                }
+                            });
+
+                            AppController.getInstance().addToRequestQueue(req);
+                            req.setRetryPolicy(new DefaultRetryPolicy(
+                                    180000,
+                                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
                         }//end else (result)
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(),
-                                "Error: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show();
+                                getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
                         hidepDialog();
                     } //end jsonexception catch
-                    hidepDialog();
-//data setting
-                    straight_pay_kor.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            if (s.length() < 1) {
-                                straight_pay_chn.setText("");
-                                straight_pay_chn_web.setText("");
-                            } else {
-                                price_kor = Integer.parseInt(s.toString());
-
-//                            price_sale_kor = (int) (price_kor * (1 - sale));
-
-                                if (price_kor <= 50000) {
-                                    //5%
-                                    sale = 0.05;
-                                    price_sale_kor = (int) (price_kor * 0.95);
-                                } else if (price_kor <= 100000) {
-                                    //4%
-                                    sale = 0.04;
-                                    price_sale_kor = (int) (price_kor * 0.96);
-                                } else {
-                                    //3%
-                                    sale = 0.03;
-                                    price_sale_kor = (int) (price_kor * 0.97);
-                                }
-
-                                if (price_kor - price_sale_kor >= 10000) {
-                                    //최대 10,000원 할인
-                                    priceKorSale = (price_kor - 10000) + "";
-                                    priceChnSale = new MakePaymentPrice().makePaymentPrice(price_kor - 10000 + "", getApplicationContext(), curr);
-                                    straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + priceChnSale);
-                                } else {
-                                    priceKorSale = price_sale_kor + "";
-                                    priceChnSale = new MakePaymentPrice().makePaymentPrice(price_sale_kor + "", getApplicationContext(), curr);
-                                    straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + priceChnSale);
-
-                                }
-                                straight_pay_chn_web.setText(new MakePaymentPrice().makePaymentPrice(price_kor + "", getApplicationContext(), curr));
-
-//                            straight_pay_chn.setText(getResources().getString(R.string.curr_chn) + " " + new MakePaymentPrice().makePaymentPrice(Integer.parseInt(s.toString()) * 0.9 + "", getApplicationContext(), curr));
-//                            straight_pay_chn_web.setText(getResources().getString(R.string.curr_chn) + " " + new MakePaymentPrice().makePaymentPrice(Integer.parseInt(s.toString()) * 0.95 + "", getApplicationContext(), curr));
-                            }
-                        }
-                    });
 
                 }//end response
 
@@ -480,8 +522,7 @@ public class TDInstantPayActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getApplicationContext(),
-                            "Internet Access Failed", Toast.LENGTH_SHORT).show();
-                    showErrorAndFinish();
+                            getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
                     //hide the progress dialog
                     hidepDialog();
                 }
@@ -491,32 +532,11 @@ public class TDInstantPayActivity extends AppCompatActivity {
 
             AppController.getInstance().addToRequestQueue(objreq);
         }//end internet check success
-
-    }   //end getStoreInfo
-
-//dialog
-
-    private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hidepDialog() {
+    }   //end payCscanB
+    @Override
+    protected void onDestroy() {
         if (pDialog.isShowing())
             pDialog.dismiss();
-    }
-
-    private void showErrorAndFinish() {
-        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(TDInstantPayActivity.this);
-        alert_confirm.setMessage("本美食店跟甜点公司还没携手").setCancelable(false).setPositiveButton(getResources().getString(R.string.btn_ok),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        finish();
-                    }
-                });
-        AlertDialog alert = alert_confirm.create();
-        alert.show();
+        super.onDestroy();
     }
 }

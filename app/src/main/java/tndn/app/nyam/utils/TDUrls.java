@@ -52,5 +52,6 @@ public class TDUrls {
      */
     public String setStoreInstantOrder = TNDNURL + "/setStoreInstantOrder";
     public String setStorePay = TNDNURL + "/setStorePay";
+    public String cscanbHwaxherURL = "http://tndn.net/api/pay/hwaxher/cscanbwechatSign";
 
 }

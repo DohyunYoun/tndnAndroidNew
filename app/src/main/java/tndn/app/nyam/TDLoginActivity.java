@@ -306,7 +306,7 @@ public class TDLoginActivity extends AppCompatActivity {
                                                         }, new Response.ErrorListener() {
                                                             @Override
                                                             public void onErrorResponse(VolleyError error) {
-                                                                Log.e("loginActivity", error.getMessage());
+//                                                                Log.e("loginActivity", error.getMessage());
                                                                 Toast.makeText(getApplicationContext(), "Internet Access Failed", Toast.LENGTH_SHORT).show();
                                                             }
                                                         });

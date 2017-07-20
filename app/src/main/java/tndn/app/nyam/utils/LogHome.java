@@ -19,7 +19,7 @@ public class LogHome {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("logHome", error.getMessage());
+//                Log.e("logHome", error.getMessage());
             }
         });
         AppController.getInstance().addToRequestQueue(req);

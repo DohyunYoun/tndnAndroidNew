@@ -134,4 +134,5 @@
 
     <!--pay-->
     <string name="limit_10000">最多优惠10,000韩币</string>
+    <string name="txt_dialog">Internet Access Failed</string>
 </resources>

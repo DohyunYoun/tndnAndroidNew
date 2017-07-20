@@ -6,14 +6,14 @@
     android:orientation="vertical">
 
     <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:lineSpacingExtra="10dp"-->
-        <!--android:padding="30dp"-->
-        <!--android:text="앱내 알리페이서비스가 일시 중지되었습니다. 위챗페이를 이용해주세요\n\n您好，\n目前支付宝服务正在维护中，\n请您使用微信支付。 \n为您带来的不便我们表示诚挚的歉意。"-->
-        <!--android:textColor="@color/tndn_black"-->
-        <!--android:textSize="18sp" />-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:lineSpacingExtra="10dp"-->
+    <!--android:padding="30dp"-->
+    <!--android:text="앱내 알리페이서비스가 일시 중지되었습니다. 위챗페이를 이용해주세요\n\n您好，\n目前支付宝服务正在维护中，\n请您使用微信支付。 \n为您带来的不便我们表示诚挚的歉意。"-->
+    <!--android:textColor="@color/tndn_black"-->
+    <!--android:textSize="18sp" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,20 +21,20 @@
         android:orientation="vertical">
 
         <!--<ImageView-->
-            <!--style="@style/imageview"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@mipmap/bar_alipay" />-->
+        <!--style="@style/imageview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@mipmap/bar_alipay" />-->
 
         <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-            <!--android:gravity="center"-->
-            <!--android:padding="10dp"-->
-            <!--android:text="“微信支付”系统正在准备中！请用支付宝付款"-->
-            <!--android:textColor="@color/gray_9b"-->
-            <!--android:textSize="12sp" />-->
+        <!--android:gravity="center"-->
+        <!--android:padding="10dp"-->
+        <!--android:text="“微信支付”系统正在准备中！请用支付宝付款"-->
+        <!--android:textColor="@color/gray_9b"-->
+        <!--android:textSize="12sp" />-->
 
         <ImageView
             android:id="@+id/img_logo"
@@ -179,4 +179,28 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/straight_pay_qrcode_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tndn_black_transparent">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/pay_qrcode"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="将二维码下载或截图
+用微信扫一扫"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/pay_qrcode"
+            style="@style/imageview"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 </RelativeLayout>

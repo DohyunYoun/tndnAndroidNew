@@ -9,6 +9,7 @@
     <color name="tndn_orange">#ff8a40</color>
     <!--<color name="tndn_beige">#fcebe2</color>-->
     <color name="tndn_black">#282932</color>
+    <color name="tndn_black_transparent">#ef282932</color>
     <!--line-->
     <color name="tndn_line">#e2e2e2</color>
     <!--비활성화-->
