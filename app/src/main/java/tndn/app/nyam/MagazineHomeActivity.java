@@ -167,28 +167,25 @@ public class MagazineHomeActivity extends AppCompatActivity {
         magazine_home_four_site_more.setOnClickListener(new View.OnClickListener() {
                                                             @Override
                                                             public void onClick(View v) {
+                                                                PreferenceManager.getInstance(getApplicationContext()).setFoodId("");
+
                                                                 if (PreferenceManager.getInstance(getApplicationContext()).getLocalization().equals("2")) {
                                                                     //수원
-                                                                    intentURL = "tndn://getStoreList";
                                                                     PreferenceManager.getInstance(getApplicationContext()).setLocationId("32");
 
                                                                 } else if (PreferenceManager.getInstance(getApplicationContext()).getLocalization().equals("3")) {
                                                                     //서울
-                                                                    intentURL = "tndn://getStoreList";
                                                                     PreferenceManager.getInstance(getApplicationContext()).setLocationId("36");
-
 
                                                                 } else if (PreferenceManager.getInstance(getApplicationContext()).getLocalization().equals("5")) {
                                                                     //부산
-                                                                    intentURL = "tndn://getStoreList";
                                                                     PreferenceManager.getInstance(getApplicationContext()).setLocationId("40");
                                                                 } else {
                                                                     //제주
-                                                                    intentURL = "tndn://getStoreList";
                                                                     PreferenceManager.getInstance(getApplicationContext()).setLocalization("1");
                                                                     PreferenceManager.getInstance(getApplicationContext()).setLocationId("26");
-
                                                                 }
+                                                                intentURL = "tndn://getStoreList?mainId=3";
                                                                 PreferenceManager.getInstance(getApplicationContext()).setUserfrom("31");
                                                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL));
                                                                 startActivity(intent);

@@ -54,4 +54,9 @@ public class TDUrls {
     public String setStorePay = TNDNURL + "/setStorePay";
     public String cscanbHwaxherURL = "http://tndn.net/api/pay/hwaxher/cscanbwechatSign";
 
+
+    /**
+     * ADD
+     */
+    public String qualityRequest = "http://www.tndn.co.kr/quality/request";
 }

@@ -100,7 +100,7 @@ public class StoreListFilterActivity extends AppCompatActivity implements View.O
         Button close = (Button) findViewById(R.id.actionbar_close_button);
         ImageView init = (ImageView) findViewById(R.id.actionbar_filter_initialization);
 
-        actionbar_text.setText(getResources().getString(R.string.category));
+        actionbar_text.setText(getResources().getString(R.string.app_name));
         back.setVisibility(View.GONE);
         close.setVisibility(View.VISIBLE);
         init.setVisibility(View.VISIBLE);

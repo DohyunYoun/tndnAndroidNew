@@ -193,7 +193,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
         Button actionbar_qr_button = (Button) findViewById(R.id.actionbar_qr_button);
 
         actionbar_qr_button.setVisibility(View.VISIBLE);
-        actionbar_text.setText(getResources().getString(R.string.category));
+        actionbar_text.setText(getResources().getString(R.string.app_name));
         actionbar_qr_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

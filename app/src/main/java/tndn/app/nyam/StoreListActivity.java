@@ -101,7 +101,7 @@ public class StoreListActivity extends AppCompatActivity {
         Button back = (Button) findViewById(R.id.actionbar_back_button);
         Button refresh = (Button) findViewById(R.id.actionbar_refresh_button);
 
-        actionbar_text.setText(getResources().getString(R.string.category));
+        actionbar_text.setText(getResources().getString(R.string.app_name));
         refresh.setVisibility(View.VISIBLE);
 
         refresh.setOnClickListener(new View.OnClickListener() {

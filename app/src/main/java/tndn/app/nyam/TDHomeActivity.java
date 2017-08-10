@@ -104,6 +104,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private LinearLayout main_exchagerate_ll;
+    private LinearLayout main_quality_request;
 
 
     private ImageView main_category_cityhall;
@@ -464,6 +465,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
 
 
         main_exchagerate_ll.setOnClickListener(this);
+        main_quality_request.setOnClickListener(this);
 
         mVoiceAdapter = new VoiceAdapter(this, text, sounds, "home");
         main_voice_listview.setAdapter(mVoiceAdapter);
@@ -568,6 +570,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         main_jejuweekly_02 = (LinearLayout) findViewById(R.id.main_jejuweekly_02);
 
         main_exchagerate_ll = (LinearLayout) findViewById(R.id.main_exchagerate_ll);
+        main_quality_request = (LinearLayout) findViewById(R.id.main_quality_request);
 
         main_voice_listview = (ListView) findViewById(R.id.main_voice_listview);
 
@@ -632,6 +635,8 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "icon-food");
                 break;
             case R.id.main_sight_imageview:
+                PreferenceManager.getInstance(getApplicationContext()).setLocationId("");
+                PreferenceManager.getInstance(getApplicationContext()).setFoodId("");
                 if (PreferenceManager.getInstance(this).getLocalization().equals("2")) {
                     //수원
                     intentURL = "tndn://getStoreList?mainId=3&id=32";
@@ -668,6 +673,8 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "icon-voice");
                 break;
             case R.id.main_store_imageview:
+                PreferenceManager.getInstance(getApplicationContext()).setLocationId("");
+                PreferenceManager.getInstance(getApplicationContext()).setFoodId("");
                 intentURL = "tndn://getStoreList?mainId=2";
                 new LogHome().send(getApplicationContext(), "icon-store");
                 break;
@@ -825,6 +832,10 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 new LogHome().send(getApplicationContext(), "banner-exchagerate");
                 break;
 
+            case R.id.main_quality_request:
+                intentURL = new TDUrls().qualityRequest;
+                new LogHome().send(getApplicationContext(), "banner-qualityRequest");
+break;
             case R.id.main_voice_more:
                 intentURL = "tndn://voice";
                 new LogHome().send(getApplicationContext(), "banner-voice");
@@ -1068,7 +1079,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void hidepDialog() {
-        if (pDialog!=null && pDialog.isShowing())
+        if (pDialog != null && pDialog.isShowing())
             pDialog.dismiss();
     }
 

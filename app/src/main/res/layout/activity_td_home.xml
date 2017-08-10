@@ -470,8 +470,42 @@
                 android:id="@+id/main_voice_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+
                 android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/main_quality_request"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center"
+                android:padding="20dp"
+                android:background="@color/tndn_pink">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:text="관광인증을 원하시면 티엔디엔으로 문의주세요."
+                    android:textAlignment="center" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text=">>관광인증 신청하기>>"
+                    android:textAlignment="center" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+
+                    android:layout_height="wrap_content"
+                    android:text="문의전화 : 1544-3980"
+                    android:textAlignment="center" />
+            </LinearLayout>
 
 
         </LinearLayout>
