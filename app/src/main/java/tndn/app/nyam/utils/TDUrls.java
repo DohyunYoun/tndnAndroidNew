@@ -6,9 +6,9 @@ public class TDUrls {
      * TNDN URL
      */
 //    실제 서버
-    private String TNDNURL = "http://52.69.30.53:505";
+//    private String TNDNURL = "http://52.69.30.53:505";
 //    테스트 서버
-//    private String TNDNURL = "http://52.69.34.17:505";
+    private String TNDNURL = "http://52.69.34.17:505";
 
 
     /**

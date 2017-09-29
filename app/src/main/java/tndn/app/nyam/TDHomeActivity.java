@@ -1121,7 +1121,14 @@ break;
                 if (beacons.size() > 0) {
                     beaconList.clear();
                     for (Beacon beacon : beacons) {
-                        beaconList.add(beacon);
+                        if (beacon.getId3().toString().equals("10722")||
+                                beacon.getId3().toString().equals("10560")||
+                                beacon.getId3().toString().equals("10727")||
+                                beacon.getId3().toString().equals("12643")||
+                                beacon.getId3().toString().equals("12544")||
+                                beacon.getId3().toString().equals("12556")) {
+                            beaconList.add(beacon);
+                        }
                     }
 
                     Collections.sort(beaconList, new Comparator<Beacon>() {
@@ -1157,7 +1164,7 @@ break;
 //                        "getBluetoothAddress" + beacon.getBluetoothAddress()
 //                        + "        getDistance        " + beacon.getDistance());
 //            }
-            if (beaconList.size() > 0) {
+            if (beaconList.size()>0) {
                 switch (beaconList.get(0).getId3().toString()) {
                     case "10722":
                         intentURL = "tndn://getStoreInfo?mainId=1&id=6605&name=Nilmori Dong Dong";
@@ -1181,6 +1188,10 @@ break;
                         new LogHome().send(getApplicationContext(), "beacon-beoltae");
                         break;
                     case "12556":
+                        intentURL = "tndn://getStoreInfo?mainId=1&id=6&name=tndn";
+                        new LogHome().send(getApplicationContext(), "beacon-tndn");
+                        break;
+                    default :
                         intentURL = "tndn://getStoreInfo?mainId=1&id=6&name=tndn";
                         new LogHome().send(getApplicationContext(), "beacon-tndn");
                         break;

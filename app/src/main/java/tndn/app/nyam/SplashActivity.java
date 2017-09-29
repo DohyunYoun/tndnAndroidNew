@@ -63,73 +63,74 @@ public class SplashActivity extends AppCompatActivity {
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
+            chkUserIsHandler();
 
-            JsonObjectRequest req = new JsonObjectRequest(new TDUrls().chkVersion + "?version=" + versionCode + "&thisIs=androidUser", new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        if (response.getString("data").equals("check")) {//if result failed
-                            splash_layout.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    finish();
-                                }
-                            });
-                            //점검중
-                            AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
-                            alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();     //닫기
-                                    finish();
-                                }
-                            });
-
-                            alert_check.setMessage("正在检查中。。。");
-                            alert_check.show();
-
-                        } else if (response.getString("data").equals("update")) {
-                            splash_layout.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    chkUserIsHandler();
-                                }
-                            });
-                            //업데이트 필요
-                            AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
-                            alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();     //닫기
-                                    chkUserIsHandler();
+//            JsonObjectRequest req = new JsonObjectRequest(new TDUrls().chkVersion + "?version=" + versionCode + "&thisIs=androidUser", new Response.Listener<JSONObject>() {
+//                @Override
+//                public void onResponse(JSONObject response) {
+//                    try {
+//                        if (response.getString("data").equals("check")) {//if result failed
+//                            splash_layout.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
 //                                    finish();
-                                }
-                            });
-
-                            alert_check.setMessage("更新已经完成。\n" +
-                                    "请在对应的应用商城中下载更新。");
-                            alert_check.show();
-
-
-                        } else {
-                            chkUserIsHandler();
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        chkUserIsHandler();
-                    } //end jsonexception catch
-
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    chkUserIsHandler();
-
-                }
-            });
-            AppController.getInstance().addToRequestQueue(req);
+//                                }
+//                            });
+//                            //점검중
+//                            AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
+//                            alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();     //닫기
+//                                    finish();
+//                                }
+//                            });
+//
+//                            alert_check.setMessage("正在检查中。。。");
+//                            alert_check.show();
+//
+//                        } else if (response.getString("data").equals("update")) {
+//                            splash_layout.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                    chkUserIsHandler();
+//                                }
+//                            });
+//                            //업데이트 필요
+//                            AlertDialog.Builder alert_check = new AlertDialog.Builder(SplashActivity.this);
+//                            alert_check.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();     //닫기
+//                                    chkUserIsHandler();
+////                                    finish();
+//                                }
+//                            });
+//
+//                            alert_check.setMessage("更新已经完成。\n" +
+//                                    "请在对应的应用商城中下载更新。");
+//                            alert_check.show();
+//
+//
+//                        } else {
+//                            chkUserIsHandler();
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                        chkUserIsHandler();
+//                    } //end jsonexception catch
+//
+//
+//                }
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    chkUserIsHandler();
+//
+//                }
+//            });
+//            AppController.getInstance().addToRequestQueue(req);
 
 
         } else {
