@@ -125,10 +125,8 @@ public class FoodOrderAcitivty extends AppCompatActivity {
                                                         AlertDialog alert = alert_confirm.create();
                                                         alert.show();
 
-
                                                     }
                                                 }
-
         );
 
     }       //end oncreate
@@ -155,6 +153,5 @@ public class FoodOrderAcitivty extends AppCompatActivity {
 
         back = (Button) findViewById(R.id.actionbar_back_button);
     }
-
 
 }

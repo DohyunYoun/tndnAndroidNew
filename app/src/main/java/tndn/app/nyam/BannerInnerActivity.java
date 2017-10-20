@@ -85,12 +85,13 @@ public class BannerInnerActivity extends AppCompatActivity {
         if (Intent.ACTION_VIEW.equals(i.getAction())) {
             //카테고리에서 아이템 클릭이나 홈에서 아이템 클릭
             String id = i.getData().getQueryParameter("id");
-            if (id.equals("")) {
-                banner.setDefaultImageResId(R.mipmap.img_logo);
-
-            } else {
-                getBannerInfo(id);
-            }
+            errorBannerInfo(id);
+//            if (id.equals("")) {
+//                banner.setDefaultImageResId(R.mipmap.img_logo);
+//
+//            } else {
+//                getBannerInfo(id);
+//            }
         } else {
             banner.setDefaultImageResId(R.mipmap.img_logo);
         }

@@ -8,7 +8,7 @@ public class TDUrls {
 //    실제 서버
 //    private String TNDNURL = "http://52.69.30.53:505";
 //    테스트 서버
-    private String TNDNURL = "http://52.69.34.17:505";
+    private String TNDNURL = "http://52.69.58.115:505";
 
 
     /**
@@ -52,7 +52,7 @@ public class TDUrls {
      */
     public String setStoreInstantOrder = TNDNURL + "/setStoreInstantOrder";
     public String setStorePay = TNDNURL + "/setStorePay";
-    public String cscanbHwaxherURL = "http://tndn.net/api/pay/hwaxher/cscanbwechatSign";
+    public String cscanbHwaxherURL = "http://www.tndntravel.com/api/pay/hwaxher/cscanbwechatSign";
 
 
     /**

@@ -66,7 +66,6 @@ public class TDInstantPayActivity extends AppCompatActivity {
     private ImageView pay_qrcode;
 
 
-    private StoreInfoData store;
 
     /**
      * value
@@ -265,272 +264,78 @@ public class TDInstantPayActivity extends AppCompatActivity {
                     getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
         } else { //internet check success start
             showpDialog();
-            final JsonObjectRequest objreq = new JsonObjectRequest(new TDUrls().getStoreInfoURL + "?id=" + id + new UserLog().getLog(getApplicationContext()), new Response.Listener<JSONObject>() {
+            Map<String, String> params = new HashMap<>();
+            params.put("idxAppUser", idxAppUser);
+            params.put("idxStore", id);
+            params.put("userCode", new UserLog().getUsercode(getApplicationContext()));
+            params.put("os", new UserLog().getOs());
+            params.put("priceKor", priceKor);
+
+            CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().cscanbHwaxherURL, params, new Response.Listener<JSONObject>() {
                 @Override
-                public void onResponse(JSONObject res) {
+                public void onResponse(JSONObject response) {
                     try {
-                        store = new StoreInfoData();
-
-                        if (res.getString("result").equals("failed")) {//if result failed
+                        if (response.getJSONObject("data").getString("resultcode").equals("00")) {
+                            //성공
+                            final Bitmap qrcode = new GenerateQrCode().bitmap(response.getJSONObject("data").getString("codeurl"));
+                            pay_qrcode.setImageBitmap(qrcode);
+                            straight_pay_qrcode_ll.setVisibility(View.VISIBLE);
                             hidepDialog();
-                            Toast.makeText(getApplicationContext(),
-                                    getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
-                        } else {
-                            /**
-                             * FOR INFO
-                             */
-                            JSONObject info = res.getJSONArray("info").getJSONObject(0);
-                            String tmpValue = "";
-
-                            tmpValue = info.getString("id");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setId(Integer.parseInt(tmpValue));
-
-                            tmpValue = info.getString("classify_kor");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setClassify_kor(tmpValue);
-
-                            tmpValue = info.getString("classify_chn");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setClassify_chn(tmpValue);
-
-                            tmpValue = info.getString("category_name_kor");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setCategory_name_kor(tmpValue);
-
-                            tmpValue = info.getString("category_name_chn");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setCategory_name_chn(tmpValue);
-
-                            tmpValue = info.getString("name_kor");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setName_kor(tmpValue);
-
-                            tmpValue = info.getString("name_chn");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setName_chn(tmpValue);
-
-                            tmpValue = info.getString("address_kor");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setAddress_kor(tmpValue);
-
-                            tmpValue = info.getString("address_chn");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setAddress_chn(tmpValue);
-
-                            tmpValue = info.getString("main_menu_kor");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setMain_menu_kor(tmpValue);
-
-                            tmpValue = info.getString("main_menu_chn");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setMain_menu_chn(tmpValue);
-
-                            tmpValue = info.getString("tel_1");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setTel_1(tmpValue);
-
-                            tmpValue = info.getString("tel_2");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setTel_2(tmpValue);
-
-                            tmpValue = info.getString("tel_3");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setTel_3(tmpValue);
-
-                            tmpValue = info.getString("business_hour_open");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setBusiness_hour_open(tmpValue);
-
-                            tmpValue = info.getString("business_hour_closed");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setBusiness_hour_closed(tmpValue);
-
-                            tmpValue = info.getString("detail_kor");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setDetail_kor(tmpValue);
-
-                            tmpValue = info.getString("detail_chn");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setDetail_chn(tmpValue);
-
-                            tmpValue = info.getString("budget");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setBudget(tmpValue);
-
-                            tmpValue = info.getString("latitude");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "0";
-                            store.setLatitude(tmpValue);
-
-                            tmpValue = info.getString("longitude");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "0";
-                            store.setLongitude(tmpValue);
-
-                            tmpValue = info.getString("is_pay");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setIs_pay(Integer.parseInt(tmpValue));
-
-                            tmpValue = info.getString("menu_input_type");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setMenu_input_type(tmpValue);
-
-                            tmpValue = info.getString("store_commission_rate");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setStore_commission_rate(tmpValue);
-
-                            tmpValue = info.getString("customer_commission_rate");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setCustomer_commission_rate(tmpValue);
-
-                            tmpValue = info.getString("distance");
-                            if (tmpValue.equals("") || tmpValue.equals("null") || tmpValue.equals("NULL"))
-                                tmpValue = "";
-                            store.setDistance(tmpValue);
-
-                            /**
-                             * data setting
-                             */
-
-                            //isPay 체크
-                            new SaveExchangeRate().saveExchangeRate(getApplicationContext());
-                            curr = Double.parseDouble(PreferenceManager.getInstance(getApplicationContext()).getCurrency());
-
-                            Map<String, String> params = new HashMap<>();
-                            params.put("idxAppUser", idxAppUser);
-                            params.put("idxStore", store.getId() + "");
-                            params.put("nameStoreKor", store.getName_kor() + "");
-                            params.put("nameStoreChn", store.getName_chn());
-                            params.put("currency", curr + "");
-                            params.put("userCode", new UserLog().getUsercode(getApplicationContext()));
-                            params.put("os", new UserLog().getOs());
-                            params.put("payType", "222");
-                            params.put("feeType", "CNY");
-                            params.put("data", "즉시결제#" + priceKor + "#1");
-
-
-                            params.put("priceKor", priceKor);
-                            params.put("priceChn", priceChn);
-                            params.put("priceSaleKor ", priceKor);
-                            params.put("priceSaleChn", priceChn);
-                            params.put("storeCommissionRate", store.getStore_commission_rate());
-                            params.put("customerCommissionRate", store.getCustomer_commission_rate());
-
-                            CustomRequest req = new CustomRequest(Request.Method.POST, new TDUrls().cscanbHwaxherURL, params, new Response.Listener<JSONObject>() {
+                            straight_pay_qrcode_ll.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onResponse(JSONObject response) {
-//                                        Log.e("okokkkkkkkk", response.toString());
-                                    try {
-                                        if (response.getJSONObject("data").getString("resultcode").equals("00")) {
-                                            //성공
-                                            final Bitmap qrcode = new GenerateQrCode().bitmap(response.getJSONObject("data").getString("codeurl"));
-                                            pay_qrcode.setImageBitmap(qrcode);
-                                            straight_pay_qrcode_ll.setVisibility(View.VISIBLE);
-                                            hidepDialog();
-                                            straight_pay_qrcode_ll.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    straight_pay_qrcode_ll.setVisibility(View.GONE);
+                                public void onClick(View view) {
+                                    straight_pay_qrcode_ll.setVisibility(View.GONE);
 
-                                                }
-                                            });
-                                            pay_qrcode.setOnLongClickListener(new View.OnLongClickListener() {
-                                                @Override
-                                                public boolean onLongClick(View view) {
-                                                    new SaveImagetoStorage().saveImagetoStorage(getApplicationContext(), qrcode, "tndn-qr-wxpay");
-                                                    straight_pay_qrcode_ll.setVisibility(View.GONE);
-                                                    return false;
-                                                }
-                                            });
-                                        } else {
-                                            //결제실패
-                                            hidepDialog();
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(TDInstantPayActivity.this);
-                                            builder.setTitle("[ 티엔디엔 결제 ]")        // 제목 설정
-                                                    .setMessage("결제에 실패하였습니다. 다시 시도해주세요\n문의전화 : 1544-3980")        // 메세지 설정
-                                                    .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                        // 확인 버튼 클릭시 설정
-                                                        public void onClick(DialogInterface dialog, int whichButton) {
-
-                                                            finish();
-                                                            dialog.dismiss();
-                                                        }
-                                                    });
-                                            AlertDialog dialog = builder.show();    // 알림창 객체 생성
-                                        }//end result is failed
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(getApplicationContext(),
-                                                getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
-                                        hidepDialog();
-                                    }
-                                }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.e("paylog", error.toString());
-                                    Toast.makeText(getApplicationContext(),
-                                            getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
-                                    hidepDialog();
                                 }
                             });
+                            pay_qrcode.setOnLongClickListener(new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View view) {
+                                    new SaveImagetoStorage().saveImagetoStorage(getApplicationContext(), qrcode, "tndn-qr-wxpay");
+                                    straight_pay_qrcode_ll.setVisibility(View.GONE);
+                                    return false;
+                                }
+                            });
+                        } else {
+                            //결제실패
+                            hidepDialog();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(TDInstantPayActivity.this);
+                            builder.setTitle("[ 티엔디엔 결제 ]")        // 제목 설정
+                                    .setMessage("결제에 실패하였습니다. 다시 시도해주세요\n문의전화 : 1544-3980")        // 메세지 설정
+                                    .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                        // 확인 버튼 클릭시 설정
+                                        public void onClick(DialogInterface dialog, int whichButton) {
 
-                            AppController.getInstance().addToRequestQueue(req);
-                            req.setRetryPolicy(new DefaultRetryPolicy(
-                                    180000,
-                                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-
-                        }//end else (result)
+                                            finish();
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            AlertDialog dialog = builder.show();    // 알림창 객체 생성
+                        }//end result is failed
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(),
                                 getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
                         hidepDialog();
-                    } //end jsonexception catch
-
-                }//end response
-
-            }, new Response.ErrorListener() {   //end request
-
+                    }
+                }
+            }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    Log.e("paylog", error.toString());
                     Toast.makeText(getApplicationContext(),
                             getResources().getString(R.string.txt_dialog), Toast.LENGTH_SHORT).show();
-                    //hide the progress dialog
                     hidepDialog();
                 }
             });
 
-            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(req);
+            req.setRetryPolicy(new DefaultRetryPolicy(
+                    180000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-            AppController.getInstance().addToRequestQueue(objreq);
         }//end internet check success
     }   //end payCscanB
     @Override

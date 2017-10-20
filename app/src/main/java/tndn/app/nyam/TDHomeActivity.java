@@ -216,16 +216,17 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                     } else {//지원한다면..
                         if (!mBluetoothAdapter.isEnabled()) {//환경설정에서  enable여부, 켜져있는 상태이면 true
                             mBluetoothAdapter.enable();
-//                            Log.i("DEBUG_TAG", "============블루투스활성화");
+                            ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).start();
+                            check = true;
+                            beaconBind();
+                            handler.sendEmptyMessage(0);
+                        } else {
+                            ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).start();
+                            check = true;
+                            beaconBind();
+                            handler.sendEmptyMessage(0);
                         }
-//                        else{
-//                            mBluetoothAdapter.disable();
-////                            Log.i("DEBUG_TAG", "============블루투스비활성화");
-//                        }
-                        ((CircularProgressDrawable) mCircularProgressBar.getIndeterminateDrawable()).start();
-                        check = true;
-                        beaconBind();
-                        handler.sendEmptyMessage(0);
+
                     }
                 }
             }
@@ -299,7 +300,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         initView();
         initialize();
         addData();
-        getBanner();
+//        getBanner();
 
         /**
          * spinner
@@ -477,6 +478,9 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
                 mVoiceAdapter.notifyDataSetChanged();
             }
         });
+
+
+        errorBanner();
 
 
         new SetListViewHeight().init(main_voice_listview);
@@ -835,7 +839,7 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.main_quality_request:
                 intentURL = new TDUrls().qualityRequest;
                 new LogHome().send(getApplicationContext(), "banner-qualityRequest");
-break;
+                break;
             case R.id.main_voice_more:
                 intentURL = "tndn://voice";
                 new LogHome().send(getApplicationContext(), "banner-voice");
@@ -866,7 +870,7 @@ break;
         banner_simya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://banner?id=simya")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://banner?id=5")));
                 PreferenceManager.getInstance(getApplicationContext()).setUserfrom("40");
                 new LogHome().send(getApplicationContext(), "banner-simya");
             }
@@ -986,6 +990,15 @@ break;
                                 tmp++;
                             } else if (tmp == 1) {
                                 banner_simya.setImageUrl(new TDUrls().getImageURL + "?id=" + banners.get(j).get("idx_image_file_path"), mImageLoader);
+
+                                banner_samjin.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(banners.get(i).get("url_scheme_android"))));
+                                        PreferenceManager.getInstance(getApplicationContext()).setUserfrom("40");
+                                        new LogHome().send(getApplicationContext(), "banner-samjin");
+                                    }
+                                });
                                 banner_simya.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -997,7 +1010,22 @@ break;
                                 tmp++;
                             } else if (tmp == 2) {
                                 main_today.setImageUrl(new TDUrls().getImageURL + "?id=" + banners.get(j).get("idx_image_file_path"), mImageLoader);
-
+                                banner_samjin.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(banners.get(i).get("url_scheme_android"))));
+                                        PreferenceManager.getInstance(getApplicationContext()).setUserfrom("40");
+                                        new LogHome().send(getApplicationContext(), "banner-samjin");
+                                    }
+                                });
+                                banner_simya.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(banners.get(i).get("url_scheme_android"))));
+                                        PreferenceManager.getInstance(getApplicationContext()).setUserfrom("40");
+                                        new LogHome().send(getApplicationContext(), "banner-simya");
+                                    }
+                                });
                                 main_today.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -1113,19 +1141,17 @@ break;
 
     @Override
     public void onBeaconServiceConnect() {
+
         beaconManager.setRangeNotifier(new RangeNotifier() {
             @Override
             // 비콘이 감지되면 해당 함수가 호출된다. Collection<Beacon> beacons에는 감지된 비콘의 리스트가,
             // region에는 비콘들에 대응하는 Region 객체가 들어온다.
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-                if (beacons.size() > 0) {
-                    beaconList.clear();
+                beaconList.clear();
+
+//                if (beacons.size() > 0) {
                     for (Beacon beacon : beacons) {
-                        if (beacon.getId3().toString().equals("10722")||
-                                beacon.getId3().toString().equals("10560")||
-                                beacon.getId3().toString().equals("10727")||
-                                beacon.getId3().toString().equals("12643")||
-                                beacon.getId3().toString().equals("12544")||
+                        if (beacon.getId3().toString().equals("10722") ||
                                 beacon.getId3().toString().equals("12556")) {
                             beaconList.add(beacon);
                         }
@@ -1142,7 +1168,7 @@ break;
                     });
 
 
-                }
+//                }
             }
 
         });
@@ -1164,44 +1190,68 @@ break;
 //                        "getBluetoothAddress" + beacon.getBluetoothAddress()
 //                        + "        getDistance        " + beacon.getDistance());
 //            }
-            if (beaconList.size()>0) {
+            if (beaconList.size() > 0) {
+                intentURL = "";
                 switch (beaconList.get(0).getId3().toString()) {
                     case "10722":
+                        handler.removeMessages(0);
+                        beaconUnbind();
+                        check = false;
                         intentURL = "tndn://getStoreInfo?mainId=1&id=6605&name=Nilmori Dong Dong";
                         new LogHome().send(getApplicationContext(), "beacon-nilmori");
                         break;
-                    case "10560":
-//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸")));
-                        intentURL = "tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸";
-                        new LogHome().send(getApplicationContext(), "beacon-samjin");
-                        break;
-                    case "10727":
-                        intentURL = "tndn://getStoreInfo?mainId=1&id=6860&name=Ganse客厅";
-                        new LogHome().send(getApplicationContext(), "beacon-ganse");
-                        break;
-                    case "12643":
-                        intentURL = "tndn://getStoreInfo?mainId=1&id=6666&name=Donpas";
-                        new LogHome().send(getApplicationContext(), "beacon-donpas");
-                        break;
-                    case "12544":
-                        intentURL = "tndn://getStoreInfo?mainId=1&id=3513&name=Beoltae";
-                        new LogHome().send(getApplicationContext(), "beacon-beoltae");
-                        break;
+//                    case "10560":
+//                        handler.removeMessages(0);
+//                        beaconUnbind();
+//                        check = false;
+////                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸")));
+//                        intentURL = "tndn://getStoreInfo?mainId=1&id=7086&name=Samjin鱼丸";
+//                        new LogHome().send(getApplicationContext(), "beacon-samjin");
+//                        break;
+//                    case "10727":
+//                        handler.removeMessages(0);
+//                        beaconUnbind();
+//                        check = false;
+//
+//                        intentURL = "tndn://getStoreInfo?mainId=1&id=6860&name=Ganse客厅";
+//                        new LogHome().send(getApplicationContext(), "beacon-ganse");
+//                        break;
+//                    case "12643":
+//                        handler.removeMessages(0);
+//                        beaconUnbind();
+//                        check = false;
+//
+//                        intentURL = "tndn://getStoreInfo?mainId=1&id=6666&name=Donpas";
+//                        new LogHome().send(getApplicationContext(), "beacon-donpas");
+//                        break;
+//                    case "12544":
+//                        handler.removeMessages(0);
+//                        beaconUnbind();
+//                        check = false;
+//
+//                        intentURL = "tndn://getStoreInfo?mainId=1&id=3513&name=Beoltae";
+//                        new LogHome().send(getApplicationContext(), "beacon-beoltae");
+//                        break;
                     case "12556":
+                        handler.removeMessages(0);
+                        beaconUnbind();
+                        check = false;
+
                         intentURL = "tndn://getStoreInfo?mainId=1&id=6&name=tndn";
                         new LogHome().send(getApplicationContext(), "beacon-tndn");
                         break;
-                    default :
+                    default:
+                        handler.removeMessages(0);
+                        beaconUnbind();
+                        check = false;
+
                         intentURL = "tndn://getStoreInfo?mainId=1&id=6&name=tndn";
                         new LogHome().send(getApplicationContext(), "beacon-tndn");
                         break;
 
                 }
                 PreferenceManager.getInstance(getApplicationContext()).setUserfrom("ff");
-                beaconUnbind();
-                handler.removeMessages(0);
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentURL)));
-                check = false;
 
             }
             if (check)

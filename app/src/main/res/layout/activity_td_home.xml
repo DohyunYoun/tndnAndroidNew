@@ -110,6 +110,14 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/banner_samjin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/banner_samjin" />
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/banner_simya"
@@ -120,14 +128,7 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/banner_simya" />
 
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/banner_samjin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@mipmap/banner_samjin" />
+
 
             <RelativeLayout
                 android:id="@+id/main_title_today_res"
