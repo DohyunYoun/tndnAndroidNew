@@ -1193,13 +1193,13 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
             if (beaconList.size() > 0) {
                 intentURL = "";
                 switch (beaconList.get(0).getId3().toString()) {
-                    case "10722":
-                        handler.removeMessages(0);
-                        beaconUnbind();
-                        check = false;
-                        intentURL = "tndn://getStoreInfo?mainId=1&id=6605&name=Nilmori Dong Dong";
-                        new LogHome().send(getApplicationContext(), "beacon-nilmori");
-                        break;
+//                    case "10722":
+//                        handler.removeMessages(0);
+//                        beaconUnbind();
+//                        check = false;
+//                        intentURL = "tndn://getStoreInfo?mainId=1&id=6605&name=Nilmori Dong Dong";
+//                        new LogHome().send(getApplicationContext(), "beacon-nilmori");
+//                        break;
 //                    case "10560":
 //                        handler.removeMessages(0);
 //                        beaconUnbind();
