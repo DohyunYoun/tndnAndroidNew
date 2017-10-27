@@ -45,7 +45,7 @@ public class VoiceActivity extends AppCompatActivity {
         actionbar_qr_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                Intent intent = new Intent("com.google.zxing.client.tndn.SCAN");
                 intent.putExtra("SCAN_MODE", "ALL");
                 startActivityForResult(intent, 0);
             }
