@@ -13,4 +13,13 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:src="@mipmap/img_logo" />
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="v.1.1.9
+TNDN corp
+217, JoongAng-ro Jeju-si Jeju-do, no.607(+82 1544-3980)"/>
 </RelativeLayout>

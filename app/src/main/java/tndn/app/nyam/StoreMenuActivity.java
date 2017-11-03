@@ -154,6 +154,9 @@ public class StoreMenuActivity extends AppCompatActivity {
     ArrayList<HashMap<String, Integer>> idx_images;
 
 
+    //처음 로딩인지 스크롤 후인지 온스크롤 리스너에서 체크하기 위해
+    boolean isFirstScroll=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -888,7 +891,8 @@ public class StoreMenuActivity extends AppCompatActivity {
                             index = lv_menu.getFirstVisiblePosition();
                             int last = lv_menu.getLastVisiblePosition();
                             menuScroll(index, last);
-//                            isScrollCompleted();
+                            isScrollCompleted();
+
                         }
 
                         @Override

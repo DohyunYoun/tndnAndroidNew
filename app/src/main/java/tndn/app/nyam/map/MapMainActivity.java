@@ -109,13 +109,14 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
     };
 
 
-    @Override
-    protected void onPause() {
-        // TODO Auto-generated method stub
-        super.onPause();
-        mapView.stopUserLocation();                            // 현재 위치 표시 기능을 OFF합니다.
-        mapView.stopView();
-    }
+
+//    @Override
+//    protected void onPause() {
+//        // TODO Auto-generated method stub
+//        super.onPause();
+//        mapView.stopUserLocation();                            // 현재 위치 표시 기능을 OFF합니다.
+//        mapView.stopView();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

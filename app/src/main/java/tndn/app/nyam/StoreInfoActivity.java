@@ -66,7 +66,7 @@ import tpmap.android.utils.Projection;
  * ResDetail->StoreInfo
  */
 
-public class StoreInfoActivity extends AppCompatActivity implements MapEventListener {
+public class StoreInfoActivity extends AppCompatActivity  {
 
     String url;
     private ProgressDialog pDialog;
@@ -222,7 +222,7 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
 
 
         mapView = (TPMap) findViewById(R.id.store_info_map);
-        mapView.dispatchMapEvent(this);
+//        mapView.dispatchMapEvent(this);
 
 
         initialize();
@@ -781,12 +781,12 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
 
                             markerLayer.addItem(marker);
 
-                            mapView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-//                                Toast.makeText(getApplicationContext(), shop.getLatitude() + "_" + shop.getLongitude(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+//                            mapView.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+////                                Toast.makeText(getApplicationContext(), shop.getLatitude() + "_" + shop.getLongitude(), Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
                         }//end else (result)
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -832,84 +832,6 @@ public class StoreInfoActivity extends AppCompatActivity implements MapEventList
     }
 
 
-    @Override
-    public boolean onMapInitializing(boolean isSuccess) {
-        // TODO Auto-generated method stub
-
-        return false;
-    }
-
-
-    // 화면의 범위가 바뀌면 알려쥡니다.
-    @Override
-    public boolean onBoundsChange(Bounds mapBounds) {
-        // TODO Auto-generated method stub
-        // Log.d("hts", "mapBounds : " + mapBounds.toString());
-        hidepDialog();
-        return false;
-    }
-
-    @Override
-    public boolean onDoubleTouch(Pixel position) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean onMultiTouch(Pixel[] positionArray) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    // Map 화면에서 Long Touch시 Call됩니다.
-    @Override
-    public boolean onLongTouch(Pixel position) {
-        // TODO Auto-generated method stub
-//        ImageView image = new ImageView(this);
-//
-//        image.setImageResource(R.drawable.blue_circle);
-//        Coord coord = mapView.getProjection().toCoord(position);
-//
-//        TPMap.LayoutParams lp = new TPMap.LayoutParams(LayoutParams.WRAP_CONTENT, // 차지할 폭
-//                LayoutParams.WRAP_CONTENT, // 차지할 높이
-//                coord, // 이미지를 나타낼 위치
-//                TPMap.LayoutParams.CENTER, 0, 0); // 중앙에 정렬
-//
-//        // 맵뷰에 이미지 출력하기
-//        Animation slide_in = AnimationUtils.loadAnimation(mapView.getContext(), R.anim.bounce);
-//
-//        image.setAnimation(slide_in);
-//
-//        mapView.addView(image, lp);
-//        mapView.invalidate();
-//        addPositionViews.add(coord);
-
-
-        return false;
-    }
-
-    @Override
-    public boolean onTouch(Pixel position) {
-        // TODO Auto-generated method stub
-        Log.d("TNDN_LOG", "onTouch : " + position.toString());
-//        Toast.makeText(getApplicationContext(), shop.getLatitude() + "_" + shop.getLongitude(), Toast.LENGTH_SHORT).show();
-
-        return false;
-    }
-
-    // Map Level이 바뀌면 알려줍니다.
-    @Override
-    public boolean onChangeZoomLevel(boolean isZoomIn, int zoomlevel) {
-        // TODO Auto-generated method stub
-
-        //Log.d("yun","onChangeZoomLevel() isZoomIn:"+isZoomIn+" zoomlevel:"+zoomlevel);
-
-//        Toast.makeText(MainActivity.this, "onChangeZoomLevel() isZoomIn:" + isZoomIn + " zoomlevel:" + zoomlevel,
-//                Toast.LENGTH_LONG).show();
-
-
-        return false;
-    }
 
 //dialog
 

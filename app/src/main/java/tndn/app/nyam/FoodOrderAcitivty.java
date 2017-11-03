@@ -115,7 +115,7 @@ public class FoodOrderAcitivty extends AppCompatActivity {
 //                                                        String outTradeNo = new OutTradeNo().getOutTradeNo();
 //                                                        pay.pay(6, "tndn", "tndn", "TNDN Inc./+827086709409", "15000", outTradeNo);
                                                         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(FoodOrderAcitivty.this);
-                                                        alert_confirm.setMessage("这家店还没加如甜点，请使用其他方式支付。sorry~").setCancelable(false).setPositiveButton(getResources().getString(R.string.btn_ok),
+                                                        alert_confirm.setMessage("因为安全原因，不能再作为付款。\n请到前台扫码付款。\n(+82 1544 3980)").setCancelable(false).setPositiveButton(getResources().getString(R.string.btn_ok),
                                                                 new DialogInterface.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(DialogInterface dialog, int which) {

@@ -23,6 +23,7 @@
         android:layout_height="40dp"
         android:layout_below="@+id/actionbar"
         android:layout_margin="5dp"
+        android:visibility="gone"
         android:background="@mipmap/box_search_box"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -97,6 +98,7 @@
     <ImageView
         android:id="@+id/map_route"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

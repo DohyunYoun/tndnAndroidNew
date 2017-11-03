@@ -40,16 +40,8 @@ public class VoiceActivity extends AppCompatActivity {
         Button back = (Button) findViewById(R.id.actionbar_back_button);
         Button actionbar_qr_button = (Button) findViewById(R.id.actionbar_qr_button);
 
-        actionbar_qr_button.setVisibility(View.VISIBLE);
+        actionbar_qr_button.setVisibility(View.GONE);
         actionbar_text.setText(getResources().getString(R.string.voice));
-        actionbar_qr_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent("com.google.zxing.client.tndn.SCAN");
-                intent.putExtra("SCAN_MODE", "ALL");
-                startActivityForResult(intent, 0);
-            }
-        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

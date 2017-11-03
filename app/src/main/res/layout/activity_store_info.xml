@@ -8,9 +8,9 @@
         android:layout_height="match_parent">
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -285,17 +285,17 @@
                     clientId="KTO"
                     token="xflc3FB1NGlxaE2DAn47"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="60dp" />
+                    android:layout_height="150dp"/>
 
 
             </LinearLayout>
-        </ScrollView>
+        <!--</ScrollView>-->
 
         <ImageView
             android:id="@+id/store_info_gotomap"
             style="@style/imageview"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_above="@+id/store_info_road_card"
             android:src="@mipmap/btn_go_to_map" />

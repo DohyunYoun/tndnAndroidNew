@@ -1,14 +1,18 @@
 package tndn.app.nyam;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -65,6 +69,8 @@ import tndn.app.nyam.utils.SetListViewHeight;
 import tndn.app.nyam.utils.TDUrls;
 import tndn.app.nyam.utils.UserLog;
 import tndn.app.nyam.widget.HeightWrappingViewPager;
+
+import static android.R.attr.targetSdkVersion;
 
 public class TDHomeActivity extends AppCompatActivity implements View.OnClickListener, BeaconConsumer {
 
@@ -253,6 +259,9 @@ public class TDHomeActivity extends AppCompatActivity implements View.OnClickLis
         actionbar_qr_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
                 Intent intent = new Intent("com.google.zxing.client.tndn.SCAN");
                 intent.putExtra("SCAN_MODE", "ALL");
                 startActivityForResult(intent, 0);
