@@ -891,7 +891,7 @@ public class StoreMenuActivity extends AppCompatActivity {
                             index = lv_menu.getFirstVisiblePosition();
                             int last = lv_menu.getLastVisiblePosition();
                             menuScroll(index, last);
-                            isScrollCompleted();
+//                            isScrollCompleted();
 
                         }
 
@@ -905,30 +905,30 @@ public class StoreMenuActivity extends AppCompatActivity {
 //                            Log.e("TNDN_LOG","fourposition   "+fourposition+"index    "+index+"   mainposition   "+main_position+"   sub_position   "+sub_position+"   extra_position   "+extra_position+"   drink_position   "+drink_position);
                         }
 
-                        private void isScrollCompleted() {
-                            if (currentVisibleItemCount > 0 && currentScrollState == SCROLL_STATE_IDLE) {
-/*** In this way I detect if there's been a scroll which has completed ***/
-
-
-                                menu_main.setSelected(false);
-                                menu_sub.setSelected(false);
-                                menu_extra.setSelected(false);
-                                menu_drink.setSelected(false);
-                                if (drink_position != -1) {
-                                    menu_drink.setSelected(true);
-                                } else {
-                                    if (extra_position != -1) {
-                                        menu_extra.setSelected(true);
-                                    } else {
-                                        if (sub_position != -1) {
-                                            menu_sub.setSelected(true);
-                                        } else {
-                                            menu_main.setSelected(true);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+//                        private void isScrollCompleted() {
+//                            if (currentVisibleItemCount > 0 && currentScrollState == SCROLL_STATE_IDLE) {
+///*** In this way I detect if there's been a scroll which has completed ***/
+//
+//
+//                                menu_main.setSelected(false);
+//                                menu_sub.setSelected(false);
+//                                menu_extra.setSelected(false);
+//                                menu_drink.setSelected(false);
+//                                if (drink_position != -1) {
+//                                    menu_drink.setSelected(true);
+//                                } else {
+//                                    if (extra_position != -1) {
+//                                        menu_extra.setSelected(true);
+//                                    } else {
+//                                        if (sub_position != -1) {
+//                                            menu_sub.setSelected(true);
+//                                        } else {
+//                                            menu_main.setSelected(true);
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
 
                     });
                 }   //end response

@@ -31,6 +31,8 @@ public class VoiceAdapter extends BaseAdapter {
 
     private String where;
 
+    boolean playingCheck = false;
+
     public VoiceAdapter(Context context, ArrayList<String> list, ArrayList<Integer> sounds, String where) {
         this.mcontext = context;
         this.list = list;
@@ -68,40 +70,53 @@ public class VoiceAdapter extends BaseAdapter {
         // Set the result into ImageView
 
         voice_text.setText(list.get(position));
-        voice_image.setSelected(false);
+        if (!playingCheck) {
 
-        if (where.equals("home")) {
-            if (position == TDHomeActivity.mSelectedItem) {
-                // set your color
-                voice_image.setSelected(true);
-                mp = MediaPlayer.create(mcontext, sounds.get(position));
-                mp.start();
+            if (where.equals("home")) {
+                if (position == TDHomeActivity.mSelectedItem) {
+//                    if (!playingCheck) {
 
-                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        TDHomeActivity.mSelectedItem = -1;
-                        notifyDataSetChanged();
-                    }
-                });
-            }
-        } else {
-            if (position == VoiceActivity.mSelectedItem) {
-                // set your color
-                voice_image.setSelected(true);
-                mp = MediaPlayer.create(mcontext, sounds.get(position));
-                mp.start();
+                    // set your color
+                    voice_image.setSelected(true);
+                    mp = MediaPlayer.create(mcontext, sounds.get(position));
+                    mp.start();
+                    playingCheck = true;
 
-                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        VoiceActivity.mSelectedItem = -1;
-                        notifyDataSetChanged();
-                    }
-                });
+
+                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            TDHomeActivity.mSelectedItem = -1;
+                            voice_image.setSelected(false);
+                            notifyDataSetChanged();
+                            playingCheck = false;
+                        }
+                    });
+//                }
+                }
+            } else {
+                if (position == VoiceActivity.mSelectedItem) {
+//                    if (!playingCheck) {
+                    // set your color
+                    voice_image.setSelected(true);
+                    mp = MediaPlayer.create(mcontext, sounds.get(position));
+                    mp.start();
+                    playingCheck = true;
+
+                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            VoiceActivity.mSelectedItem = -1;
+                            voice_image.setSelected(false);
+                            notifyDataSetChanged();
+                            playingCheck = false;
+                        }
+                    });
+//                    }
+
+                }
             }
         }
-
         return convertView;
 
 

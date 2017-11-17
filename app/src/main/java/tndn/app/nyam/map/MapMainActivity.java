@@ -109,7 +109,6 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
     };
 
 
-
 //    @Override
 //    protected void onPause() {
 //        // TODO Auto-generated method stub
@@ -363,27 +362,31 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
                     }
 
                 } else {
+                    if (isMySpot != -1) {
+                        startActivity(new Intent(getApplicationContext(), MapMainActivity.class));
+                        finish();
+                    }
                     // GPS 를 사용할수 없으므로
-                    AlertDialog.Builder gsDialog = new AlertDialog.Builder(MapMainActivity.this);
-                    gsDialog.setTitle("GPS");
-                    gsDialog.setMessage(getApplicationContext().getResources().getString(R.string.plz_gps));
-                    gsDialog.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-
-                            // GPS설정 화면으로 이동
-                            Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
-                            finish();
-                        }
-                    })
-                            .setNegativeButton(getResources().getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    return;
-                                }
-                            }).create().show();
+//                    AlertDialog.Builder gsDialog = new AlertDialog.Builder(MapMainActivity.this);
+//                    gsDialog.setTitle("GPS");
+//                    gsDialog.setMessage(getApplicationContext().getResources().getString(R.string.plz_gps));
+//                    gsDialog.setPositiveButton(getResources().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//
+//                            // GPS설정 화면으로 이동
+//                            Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    })
+//                            .setNegativeButton(getResources().getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                    return;
+//                                }
+//                            }).create().show();
                 }
 
              /*      if (mapView.isUserLocationEnabled()) {                    // 현재 위치 표시 기능이 동작하는지 확인합니다.
@@ -398,98 +401,98 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
                     // 지도는 북쪽을 가르키고  움직였을때 지도가 움직이지 않습니다.
                     mapView.setUserLocation(TPMap.UserLocationType.TYPE_BASE);
                 }*/
-                break;
-            case R.id.map_zoom_in:
-                mapView.zoomIn();
-                break;
-            case R.id.map_zoom_out:
-                mapView.zoomOut();
-                break;
+                    break;
+                    case R.id.map_zoom_in:
+                        mapView.zoomIn();
+                        break;
+                    case R.id.map_zoom_out:
+                        mapView.zoomOut();
+                        break;
 
-            case R.id.map_search:
-                String query = map_edittext.getText().toString().replace(" ", "");
-                if (query.equals("")) {
-                    Toast.makeText(getApplicationContext(),
-                            getResources().getString(R.string.map_noresult), Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent i = new Intent(this, MapSearchResultActivity.class);
-                    i.putExtra("QUERY", map_edittext.getText().toString().replace(" ", ""));
-                    startActivity(i);
-                }
-                break;
-            case R.id.map_route:
-
-                gps = new GpsInfo(MapMainActivity.this);
-                if (gps.isGetLocation()) {
-
-                    Thread gpsThread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            currentY = (float) gps.getLatitude();
-                            currentX = (float) gps.getLongitude();
-
+                    case R.id.map_search:
+                        String query = map_edittext.getText().toString().replace(" ", "");
+                        if (query.equals("")) {
+                            Toast.makeText(getApplicationContext(),
+                                    getResources().getString(R.string.map_noresult), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent i = new Intent(this, MapSearchResultActivity.class);
+                            i.putExtra("QUERY", map_edittext.getText().toString().replace(" ", ""));
+                            startActivity(i);
                         }
-                    });
-                    gpsThread.start();
+                        break;
+                    case R.id.map_route:
+
+                        gps = new GpsInfo(MapMainActivity.this);
+                        if (gps.isGetLocation()) {
+
+                            Thread gpsThread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    currentY = (float) gps.getLatitude();
+                                    currentX = (float) gps.getLongitude();
+
+                                }
+                            });
+                            gpsThread.start();
 
 
-                    try {
-                        gpsThread.join();  // 쓰레드 작업 끝날때까지 다른 작업들은 대기
-                    } catch (Exception e) {
-                    }
-                    Intent intent = new Intent(MapMainActivity.this, MapRoutActivity.class);
-                    intent.putExtra("CURRENTX", currentX);
-                    intent.putExtra("CURRENTY", currentY);
-                    startActivity(intent);
+                            try {
+                                gpsThread.join();  // 쓰레드 작업 끝날때까지 다른 작업들은 대기
+                            } catch (Exception e) {
+                            }
+                            Intent intent = new Intent(MapMainActivity.this, MapRoutActivity.class);
+                            intent.putExtra("CURRENTX", currentX);
+                            intent.putExtra("CURRENTY", currentY);
+                            startActivity(intent);
 
-                    hidepDialog();
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.map_route_noregion), Toast.LENGTH_SHORT).show();
+                            hidepDialog();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.map_route_noregion), Toast.LENGTH_SHORT).show();
 
-                } else {
-                    // GPS 를 사용할수 없으므로
-                    Intent intent = new Intent(this, MapRoutActivity.class);
-                    startActivity(intent);
+                        } else {
+                            // GPS 를 사용할수 없으므로
+                            Intent intent = new Intent(this, MapRoutActivity.class);
+                            startActivity(intent);
 
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.map_route_noregion), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.map_route_noregion), Toast.LENGTH_SHORT).show();
+                        }
+
+
+                        break;
                 }
-
-
-                break;
         }
-    }
 
 
-    // For MapEventListener
-    ArrayList<Coord> addPositionViews = new ArrayList<Coord>();
-    private Balloon balloon;
+        // For MapEventListener
+        ArrayList<Coord> addPositionViews = new ArrayList<Coord>();
+        private Balloon balloon;
 
-    @Override
-    public boolean onTouch(Pixel position) {
-        // TODO Auto-generated method stub
-        Log.d("TNDN_LOG", "onTouch : " + position.toString());
+        @Override
+        public boolean onTouch (Pixel position){
+            // TODO Auto-generated method stub
+            Log.d("TNDN_LOG", "onTouch : " + position.toString());
 
 
-        return false;
-    }
+            return false;
+        }
 
-    // Map 화면에서 더블 Touch시 Call되는 함수입니다.
-    // 현재는 SDK에서 자체  Zoom In 처리를 하고 Call하지 안습니다.
-    @Override
-    public boolean onDoubleTouch(Pixel position) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+        // Map 화면에서 더블 Touch시 Call되는 함수입니다.
+        // 현재는 SDK에서 자체  Zoom In 처리를 하고 Call하지 안습니다.
+        @Override
+        public boolean onDoubleTouch (Pixel position){
+            // TODO Auto-generated method stub
+            return false;
+        }
 
-    @Override
-    public boolean onMultiTouch(Pixel[] positionArray) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+        @Override
+        public boolean onMultiTouch (Pixel[]positionArray){
+            // TODO Auto-generated method stub
+            return false;
+        }
 
-    // Map 화면에서 Long Touch시 Call됩니다.
-    @Override
-    public boolean onLongTouch(Pixel position) {
-        // TODO Auto-generated method stub
+        // Map 화면에서 Long Touch시 Call됩니다.
+        @Override
+        public boolean onLongTouch (Pixel position){
+            // TODO Auto-generated method stub
         /*
         ImageView image = new ImageView(this);
 
@@ -510,46 +513,46 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
 		mapView.invalidate();
 		addPositionViews.add(coord);
 		*/
-        return false;
-    }
+            return false;
+        }
 
-    // Map Level이 바뀌면 알려줍니다.
-    @Override
-    public boolean onChangeZoomLevel(boolean isZoomIn, int zoomlevel) {
-        // TODO Auto-generated method stub
+        // Map Level이 바뀌면 알려줍니다.
+        @Override
+        public boolean onChangeZoomLevel ( boolean isZoomIn, int zoomlevel){
+            // TODO Auto-generated method stub
 
-        //Log.d("yun","onChangeZoomLevel() isZoomIn:"+isZoomIn+" zoomlevel:"+zoomlevel);
+            //Log.d("yun","onChangeZoomLevel() isZoomIn:"+isZoomIn+" zoomlevel:"+zoomlevel);
 
 		/*
         Toast.makeText(MainActivity.this, "onChangeZoomLevel() isZoomIn:"+isZoomIn+" zoomlevel:"+zoomlevel,
 				Toast.LENGTH_LONG).show();
 		*/
-        return false;
-    }
+            return false;
+        }
 
-    // Map Initial 후 결과를 알려쥡니다.
-    // Network이 이상이 생기는 경우 false Map Level이 바뀌면 알려줍니다.
-    @Override
-    public boolean onMapInitializing(boolean isSuccess) {
-        // TODO Auto-generated method stub
+        // Map Initial 후 결과를 알려쥡니다.
+        // Network이 이상이 생기는 경우 false Map Level이 바뀌면 알려줍니다.
+        @Override
+        public boolean onMapInitializing ( boolean isSuccess){
+            // TODO Auto-generated method stub
 
-        return false;
-    }
+            return false;
+        }
 
-    // 화면의 범위가 바뀌면 알려쥡니다.
-    @Override
-    public boolean onBoundsChange(Bounds mapBounds) {
-        // TODO Auto-generated method stub
-        // Log.d("hts", "mapBounds : " + mapBounds.toString());
-        hidepDialog();
-        return false;
-    }
+        // 화면의 범위가 바뀌면 알려쥡니다.
+        @Override
+        public boolean onBoundsChange (Bounds mapBounds){
+            // TODO Auto-generated method stub
+            // Log.d("hts", "mapBounds : " + mapBounds.toString());
+            hidepDialog();
+            return false;
+        }
 
 
-    // For Overlay Event
-    @Override
-    public boolean onTouch(Overlay overlay, float x, float y) {
-        // TODO Auto-generated method stub
+        // For Overlay Event
+        @Override
+        public boolean onTouch (Overlay overlay,float x, float y){
+            // TODO Auto-generated method stub
       /*  int[] focusArray = markerLayer.getFocusIndexArray();
         if (focusArray != null) {
             for (int i = 0; i < focusArray.length; i++) {
@@ -605,52 +608,53 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
 */
-        return false;
-    }
-
-    @Override
-    public boolean onDoubleTouch(Overlay overlay, float x, float y) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean onLongTouch(Overlay overlay, float x, float y) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    class MarkerLayerWidget extends MarkersLayer {
-
-
-        ArrayList<Marker> list = new ArrayList<Marker>();
-
-        @Override
-        protected Marker getMarker(int index) {
-            // TODO Auto-generated method stub
-            if (index >= list.size())
-                return null;
-            return list.get(index);
+            return false;
         }
 
         @Override
-        protected int size() {
+        public boolean onDoubleTouch (Overlay overlay,float x, float y){
             // TODO Auto-generated method stub
-            return list.size();
+            return false;
         }
 
-        public void addItem(Marker mark) {
-            list.add(mark);
+        @Override
+        public boolean onLongTouch (Overlay overlay,float x, float y){
+            // TODO Auto-generated method stub
+            return false;
         }
 
-        public void removeAll() {
-            list.clear();
-            list = new ArrayList<Marker>();
+        class MarkerLayerWidget extends MarkersLayer {
+
+
+            ArrayList<Marker> list = new ArrayList<Marker>();
+
+            @Override
+            protected Marker getMarker(int index) {
+                // TODO Auto-generated method stub
+                if (index >= list.size())
+                    return null;
+                return list.get(index);
+            }
+
+            @Override
+            protected int size() {
+                // TODO Auto-generated method stub
+                return list.size();
+            }
+
+            public void addItem(Marker mark) {
+                list.add(mark);
+            }
+
+            public void removeAll() {
+                list.clear();
+                list = new ArrayList<Marker>();
+            }
+
         }
 
-    }
+        //dialog
 
-    //dialog
     private void showpDialog() {
         if (!pDialog.isShowing())
             pDialog.show();

@@ -16,10 +16,21 @@
     <TextView
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/version_info"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:text="v.1.1.9
 TNDN corp
 217, JoongAng-ro Jeju-si Jeju-do, no.607(+82 1544-3980)"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/version_info"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="minSDk 15(JellyBean)
+targetSDK 22(LolliPop)"/>
 </RelativeLayout>

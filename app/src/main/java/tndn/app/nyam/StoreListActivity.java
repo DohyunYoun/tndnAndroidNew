@@ -118,6 +118,7 @@ public class StoreListActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), TDHomeActivity.class));
                 finish();
             }
         });
@@ -535,7 +536,6 @@ public class StoreListActivity extends AppCompatActivity {
     }//end getStoreLIst
 
     //dialog
-
     private void showpDialog() {
         if (!StoreListActivity.this.isFinishing()) {
             if (!pDialog.isShowing())
@@ -546,5 +546,12 @@ public class StoreListActivity extends AppCompatActivity {
     private void hidepDialog() {
         if (pDialog != null && pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), TDHomeActivity.class));
+        finish();
+        super.onBackPressed();
     }
 }
