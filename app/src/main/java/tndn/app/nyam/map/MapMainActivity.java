@@ -356,9 +356,11 @@ public class MapMainActivity extends AppCompatActivity implements View.OnClickLi
                         isMySpot = 1;
                         map_myspot.setImageResource(R.mipmap.btn_myspot_compass);
                     } else {
-                        mapView.stopUserLocation();
-                        isMySpot = -1;
-                        map_myspot.setImageResource(R.mipmap.btn_myspot);
+                        startActivity(new Intent(getApplicationContext(), MapMainActivity.class));
+                        finish();
+//                        mapView.stopUserLocation();
+//                        isMySpot = -1;
+//                        map_myspot.setImageResource(R.mipmap.btn_myspot);
                     }
 
                 } else {
